@@ -12,46 +12,50 @@ import main.FonctionUtiles;
 
 public class Vipere extends Entite {
 
-    public Vipere(int x, int y, int numero, String sexe, Ecran ecran) {
-        super(4800, 500, 100, 60, 15, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
-        dureeVie = 15;
+	public Vipere(int x, int y, int numero, String sexe, Ecran ecran) {
+		super(5, 500, 100, 60, 15, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
+		dureeVie = 15;
 
 		carteX = x;
 		carteY = y;
 
-        aireCollision = new Rectangle(20, 20, 28, 28);
-		
+		aireCollision = new Rectangle(20, 20, 28, 28);
+
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
-        
-        ecran.nbrEntite++;
-        this.initialiser();
-		this.getImage();
-    }
 
-    public void initialiser() {
-		
+		ecran.nbrEntite++;
+		this.initialiser();
+		this.getImage();
+
+		this.carteX = x * ecran.tailleFinale;
+		this.carteY = y * ecran.tailleFinale;
+
+	}
+
+	public void initialiser() {
+
 		vitesse = 3;
 		direction = "bas";
 	}
-	
+
 	public void getImage() {
 
-			avant = initialiser("Avant");
-			
-			arriere = initialiser("Arriere");
+		avant = initialiser("Avant");
 
-			gauche = initialiser("Gauche");
+		arriere = initialiser("Arriere");
 
-			droite = initialiser("Droite");
-			
-			avant1 = initialiser("Avant1");
-			
-			arriere1 = initialiser("Arriere1");
+		gauche = initialiser("Gauche");
 
-			gauche1 = initialiser("Gauche1");
+		droite = initialiser("Droite");
 
-			droite1 = initialiser("Droite1");
+		avant1 = initialiser("Avant1");
+
+		arriere1 = initialiser("Arriere1");
+
+		gauche1 = initialiser("Gauche1");
+
+		droite1 = initialiser("Droite1");
 	}
 
 	public BufferedImage initialiser(String image) {
@@ -66,5 +70,5 @@ public class Vipere extends Entite {
 		}
 		return imageEchelle;
 	}
-    
+
 }

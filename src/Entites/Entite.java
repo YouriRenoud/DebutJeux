@@ -11,36 +11,37 @@ import javax.imageio.ImageIO;
 import main.Ecran;
 
 public class Entite {
-	
-	public int carteX, carteY;
-	public int vitesse;
-	
-	public BufferedImage avant, arriere, gauche, droite, avant1, arriere1, gauche1, droite1;
-	public String direction;
-	
-	int marcher = 1;
-	int compteur = 0;
-	int attente = 0;
 
-	public Rectangle aireCollision;
-	public int aireSolideDefautX, aireSolideDefautY;
-	public boolean collision = false;
+    public int carteX, carteY;
+    public int vitesse;
 
-	public int dureeVie;
+    public BufferedImage avant, arriere, gauche, droite, avant1, arriere1, gauche1, droite1;
+    public String direction;
+
+    int marcher = 1;
+    int compteur = 0;
+    int attente = 0;
+
+    public Rectangle aireCollision;
+    public int aireSolideDefautX, aireSolideDefautY;
+    public boolean collision = false;
+
+    public int dureeVie;
     private int pv;
     private int food;
     private int age;
     private int degats;
     private String nom;
     private int fertilite;
-    private Boolean actionHaut ,actionBas, actionGauche, actionDroite;
-	private boolean estDeplace;
+    private Boolean actionHaut, actionBas, actionGauche, actionDroite;
+    private boolean estDeplace;
     private String sexe;
     private boolean alive = true;
-	
-	public Ecran ecran;
 
-    public Entite(int pv, int degats, int food, int fertilite, int age, int vitesse, String nom, String sexe, Ecran ecran) {
+    public Ecran ecran;
+
+    public Entite(int pv, int degats, int food, int fertilite, int age, int vitesse, String nom, String sexe,
+            Ecran ecran) {
         this.pv = pv;
         this.age = age;
         this.degats = degats;
@@ -48,8 +49,8 @@ public class Entite {
         this.food = food;
         this.fertilite = fertilite;
         this.sexe = sexe;
-		this.ecran = ecran;
-		this.vitesse = vitesse;
+        this.ecran = ecran;
+        this.vitesse = vitesse;
     }
 
     public int getPv() {
@@ -88,13 +89,13 @@ public class Entite {
     public void setAge(int age) {
         String[] nvNom = this.nom.split(" ");
         if (this.age - age == 0) {
-			setPv(0);
-		}
+            setPv(0);
+        }
         this.age = this.age - age;
-        if (this.age <= dureeVie - dureeVie/4 && nvNom.length > 1) {
+        if (this.age <= dureeVie - dureeVie / 4 && nvNom.length > 1) {
             this.nom = "jeune " + nvNom[1];
         }
-        if (this.age <= dureeVie/2 && nvNom.length > 1) {
+        if (this.age <= dureeVie / 2 && nvNom.length > 1) {
             this.nom = nvNom[1];
         }
     }
@@ -120,7 +121,7 @@ public class Entite {
         }
     }
 
-	public boolean isAlive() {
+    public boolean isAlive() {
         return alive;
     }
 
@@ -132,93 +133,92 @@ public class Entite {
         estDeplace = false;
     }
 
-	public void hasard() {
-		actionBas = false;
-		actionDroite = false;
-		actionGauche = false;
-		actionHaut = false;
-		Random alea = new Random();
-		int choix = alea.nextInt(4);
-		switch(choix) {
-		case 0:
-			actionHaut = true;
-			break;
-		case 1:
-			actionBas = true;
-			break;
-		case 2:
-			actionGauche = true;
-			break;
-		case 3:
-			actionDroite = true;
-			break;
-		}
-	}
+    public void hasard() {
+        actionBas = false;
+        actionDroite = false;
+        actionGauche = false;
+        actionHaut = false;
+        Random alea = new Random();
+        int choix = alea.nextInt(4);
+        switch (choix) {
+            case 0:
+                actionHaut = true;
+                break;
+            case 1:
+                actionBas = true;
+                break;
+            case 2:
+                actionGauche = true;
+                break;
+            case 3:
+                actionDroite = true;
+                break;
+        }
+    }
 
-	public void Deplacer(Entite entite) {
+    public void Deplacer(Entite entite) {
 
-		attente++;
-		if (attente > 60) {		
-			hasard();
-			if (actionHaut == true) {
-				direction = "haut";
-			}
-			if (actionBas == true) {
-				direction = "bas";
-			}
-			if (actionGauche == true) {
-				direction = "gauche";
-			}
-			if (actionDroite == true) {
-				direction = "droite";
-			}
-			attente = 0;
-		}
-			collision = false;
-			ecran.collisions.AnalyserTerrain(this);
-			
-			int index = ecran.collisions.analyserObjet(this, true);
-			Entite e = ecran.collisions.analyserEntite(this);
-			interactionObject(index);
-			interactionEntite(e);
-			
-			if (collision == false) {
-				switch(direction) {
-				case "haut":
-					carteY -= entite.vitesse;
-					break;
-				case "bas":
-					carteY += entite.vitesse;
-					break;
-				case "gauche":
-					carteX -= entite.vitesse;
-					break;
-				case "droite":
-					carteX += entite.vitesse;
-					break;
-				}
-				
-			}
+        attente++;
+        if (attente > 60) {
+            hasard();
+            if (actionHaut == true) {
+                direction = "haut";
+            }
+            if (actionBas == true) {
+                direction = "bas";
+            }
+            if (actionGauche == true) {
+                direction = "gauche";
+            }
+            if (actionDroite == true) {
+                direction = "droite";
+            }
+            attente = 0;
+        }
+        collision = false;
+        ecran.collisions.AnalyserTerrain(this);
 
-			if (compteur > 15) {
-				if (marcher == 1) {
-					marcher = 2;
-				}
-				else if (marcher == 2) {
-					marcher = 1;
-				}
-				compteur = 0;
-	
-			}
-			compteur++;
+        int index = ecran.collisions.analyserObjet(this, true);
+        Entite e = ecran.collisions.analyserEntite(this);
+        interactionObject(index);
+        interactionEntite(e);
 
-	}
-	
-	public void interactionObject(int index) {
-		
-	}
+        if (collision == false) {
+            switch (direction) {
+                case "haut":
+                    carteY -= entite.vitesse;
+                    break;
+                case "bas":
+                    carteY += entite.vitesse;
+                    break;
+                case "gauche":
+                    carteX -= entite.vitesse;
+                    break;
+                case "droite":
+                    carteX += entite.vitesse;
+                    break;
+            }
 
-	public void interactionEntite(Entite e) {
+        }
+
+        if (compteur > 15) {
+            if (marcher == 1) {
+                marcher = 2;
+            } else if (marcher == 2) {
+                marcher = 1;
+            }
+            compteur = 0;
+
+        }
+        compteur++;
+
+    }
+
+    public void interactionObject(int index) {
+
+    }
+
+    public void interactionEntite(Entite e) {
         if (e != null) {
             if (this instanceof Poule) {
                 interactionPoule(e);
@@ -248,7 +248,6 @@ public class Entite {
         }
     }
 
-	
     private void interactionVipere(Entite e) {
         Vipere vipere = (Vipere) this;
         if (e instanceof Renard renard) {
@@ -264,7 +263,7 @@ public class Entite {
                 && !e.getSexe().equals(this.getSexe());
     }
 
-    private void reproduce(Entite e, EntityFactory factory) {	
+    private void reproduce(Entite e, EntityFactory factory) {
         Random random = new Random();
         String sexe = random.nextInt(2) == 0 ? "M" : "F";
         Entite newAnimal = factory.create(this.carteX, this.carteY, ecran.nbrEntite, sexe, ecran);
@@ -273,7 +272,7 @@ public class Entite {
         this.setFertilite(-100);
     }
 
-	public void interactionPouleRenard(Poule poule, Renard renard) {
+    public void interactionPouleRenard(Poule poule, Renard renard) {
         poule.setPv(renard.getDegats());
         if (!poule.isAlive()) {
             renard.setFood(20);
@@ -294,58 +293,57 @@ public class Entite {
         }
     }
 
-	interface EntityFactory {
-		Entite create(int carteX, int carteY, int nbrEntite, String sexe, Ecran ecran);
-	}
+    interface EntityFactory {
+        Entite create(int carteX, int carteY, int nbrEntite, String sexe, Ecran ecran);
+    }
 
-	public void afficher(Graphics2D graph2) {
-		//graph2.setColor(Color.black);
-		//graph2.fillRect(x, y, ecran.tailleFinale, ecran.tailleFinale);
-		
-		BufferedImage image = null;
+    public void afficher(Graphics2D graph2) {
+        // graph2.setColor(Color.black);
+        // graph2.fillRect(x, y, ecran.tailleFinale, ecran.tailleFinale);
 
-		int actuelX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
-		int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
-		
-		switch(direction) {
-		case "haut":
-			if (marcher == 1) {
-				image = arriere;
-			}
-			if (marcher == 2) {
-				image = arriere1;
-			}
-			break;
-		case "bas":
-			if (marcher == 1) {
-				image = avant;
-			}
-			if (marcher == 2) {
-				image = avant1;
-			}
-			break;
-		case "gauche":
-			if (marcher == 1) {
-				image = gauche;
-			}
-			if (marcher == 2) {
-				image = gauche1;
-			}
-			break;
-		case "droite":
-			if (marcher == 1) {
-				image = droite;
-			}
-			if (marcher == 2) {
-				image = droite1;
-			}
-			break;
-		}
-		// System.out.println(carteX);
-		// System.out.println(carteY);
+        BufferedImage image = null;
 
-		graph2.drawImage(image, actuelX, actuelY, null);
-	}
+        int actuelX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
+        int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 
+        switch (direction) {
+            case "haut":
+                if (marcher == 1) {
+                    image = arriere;
+                }
+                if (marcher == 2) {
+                    image = arriere1;
+                }
+                break;
+            case "bas":
+                if (marcher == 1) {
+                    image = avant;
+                }
+                if (marcher == 2) {
+                    image = avant1;
+                }
+                break;
+            case "gauche":
+                if (marcher == 1) {
+                    image = gauche;
+                }
+                if (marcher == 2) {
+                    image = gauche1;
+                }
+                break;
+            case "droite":
+                if (marcher == 1) {
+                    image = droite;
+                }
+                if (marcher == 2) {
+                    image = droite1;
+                }
+                break;
+        }
+        // System.out.println(carteX);
+        // System.out.println(carteY);
+
+        graph2.drawImage(image, actuelX, actuelY, null);
+    }
 
 }

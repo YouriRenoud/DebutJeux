@@ -13,21 +13,21 @@ import main.Ecran;
 import main.FonctionUtiles;
 
 public class GestionTerrain {
-	
+
 	Ecran ecran;
 	public Terrain[] terrain;
 	public int parcoursCarte[][];
-	
+
 	public GestionTerrain(Ecran ecran) {
 		this.ecran = ecran;
-		
+
 		terrain = new Terrain[10];
 		parcoursCarte = new int[ecran.mondeColMax][ecran.mondeLignMax];
-		
+
 		getImage();
 		chargerCarte("/cartes/monde.txt");
 	}
-	
+
 	public void getImage() {
 
 		initialiser(0, "Herbe", false);
@@ -51,22 +51,22 @@ public class GestionTerrain {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public void chargerCarte(String plan) {
 		try {
 			InputStream carte = getClass().getResourceAsStream(plan);
 			BufferedReader parcours = new BufferedReader(new InputStreamReader(carte));
-			
+
 			int colonnes = 0;
 			int lignes = 0;
-			
+
 			while (colonnes < ecran.mondeColMax && lignes < ecran.mondeLignMax) {
 				String ligne = parcours.readLine();
 				String terrains[] = ligne.split(" ");
-				
+
 				while (colonnes < ecran.mondeColMax) {
 					int num = Integer.parseInt(terrains[colonnes]);
-					
+
 					parcoursCarte[colonnes][lignes] = num;
 					colonnes++;
 				}
@@ -76,41 +76,41 @@ public class GestionTerrain {
 				}
 			}
 			parcours.close();
-			
-		} catch(Exception e) {
-			
+
+		} catch (Exception e) {
+
 		}
 	}
-	
+
 	public void afficher(Graphics2D graph) {
-		
+
 		int colonne = 0, ligne = 0;
-		
+
 		while (colonne < ecran.mondeColMax && ligne < ecran.mondeLignMax) {
-			
+
 			int mondeX = colonne * ecran.tailleFinale;
 			int mondeY = ligne * ecran.tailleFinale;
-			
+
 			int actuelX = mondeX - ecran.joueur.carteX + ecran.joueur.ecranX;
 			int actuelY = mondeY - ecran.joueur.carteY + ecran.joueur.ecranY;
 
-			if (mondeX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX 
+			if (mondeX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX
 					&& mondeX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
-					&& mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY 
-					&& mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) { 
+					&& mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY
+					&& mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {
 
-						// System.out.println(actuelX);
-						// System.out.println(actuelY);
+				// System.out.println(actuelX);
+				// System.out.println(actuelY);
 
 				graph.drawImage(terrain[parcoursCarte[colonne][ligne]].image, actuelX, actuelY, null);
 			}
 			colonne++;
-			
+
 			if (colonne == ecran.mondeColMax) {
 				colonne = 0;
 				ligne++;
 			}
 		}
 	}
-	
+
 }
