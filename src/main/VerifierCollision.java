@@ -11,53 +11,114 @@ public class VerifierCollision {
 	}
 	
 	public void AnalyserTerrain(Entite entite) {
-		
+
 		int gaucheX = entite.carteX + entite.aireCollision.x;
 		int droiteX = entite.carteX + entite.aireCollision.x + entite.aireCollision.width;
 		int hautY = entite.carteY + entite.aireCollision.y;
 		int basY = entite.carteY + entite.aireCollision.y + entite.aireCollision.height;
-		
-		int colGauche = gaucheX/ecran.tailleFinale;
-		int colDroite = droiteX/ecran.tailleFinale;
-		int lignHaut = hautY/ecran.tailleFinale;
-		int lignBas = basY/ecran.tailleFinale;
-		
+	
+		int colGauche = gaucheX / ecran.tailleFinale;
+		int colDroite = droiteX / ecran.tailleFinale;
+		int lignHaut = hautY / ecran.tailleFinale;
+		int lignBas = basY / ecran.tailleFinale;
+	
 		int numTerrain1, numTerrain2;
-		
-		switch(entite.direction) {
-		case "haut":
-			lignHaut = (hautY+entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision = true;
-			}
-			break;
-		case "bas":
-			lignBas = (basY-entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignBas];
-			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision = true;
-			}
-			break;
-		case "gauche":
-			colGauche = (gaucheX-entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[colGauche][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision = true;
-			}
-			break;
-		case "droite":
-			colDroite = (droiteX-entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision = true;
-			}
-			break;
+	
+		switch (entite.direction) {
+			case "haut":
+				lignHaut = (hautY + entite.vitesse) / ecran.tailleFinale;
+				if (lignHaut < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length) {
+					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
+					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
+						entite.collision = true;
+					}
+				}
+				break;
+			case "bas":
+				lignBas = (basY - entite.vitesse) / ecran.tailleFinale;
+				if (lignBas < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length) {
+					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignBas];
+					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
+						entite.collision = true;
+					}
+				}
+				break;
+			case "gauche":
+				colGauche = (gaucheX - entite.vitesse) / ecran.tailleFinale;
+				if (colGauche < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length) {
+					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[colGauche][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
+						entite.collision = true;
+					}
+				}
+				break;
+			case "droite":
+				colDroite = (droiteX - entite.vitesse) / ecran.tailleFinale;
+				if (colDroite < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length) {
+					numTerrain1 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
+						entite.collision = true;
+					}
+				}
+				break;
 		}
+	}
+	
+
+	public Entite analyserEntite(Entite entite) {		
+		for (Entite e: ecran.ent) {
+			if (e != entite) {
+				entite.aireCollision.x = entite.aireCollision.x + entite.carteX;
+				entite.aireCollision.y = entite.aireCollision.y + entite.carteY;
+			
+				e.aireCollision.x = e.aireCollision.x + e.carteX;
+				e.aireCollision.y = e.aireCollision.y + e.carteY;
+			
+				switch (entite.direction) {
+				case "haut":
+					entite.aireCollision.y -= entite.vitesse;
+					if (entite.aireCollision.intersects(e.aireCollision)) {
+							entite.collision = true;
+							return e;
+					}
+					break;
+				case "bas":
+					entite.aireCollision.y += entite.vitesse;
+					if (entite.aireCollision.intersects(e.aireCollision)) {
+							entite.collision = true;
+							return e;
+						
+					}
+					break;
+				case "gauche":
+					entite.aireCollision.x -= entite.vitesse;
+					if (entite.aireCollision.intersects(e.aireCollision)) {
+							entite.collision = true;
+							return e;
+						
+					}
+					break;
+				case "droite":
+					entite.aireCollision.x += entite.vitesse;
+					if (entite.aireCollision.intersects(e.aireCollision)) {
+							entite.collision = true;
+							return e;
+						
+					}
+					break;
+				}
+				entite.aireCollision.x = entite.aireSolideDefautX;
+				entite.aireCollision.y = entite.aireSolideDefautY;
+			
+				e.aireCollision.x = e.aireSolideDefautX;
+				e.aireCollision.y = e.aireSolideDefautY;
+			}
+		}
+		return null;
 	}
 	
 	public int analyserObjet(Entite entite, boolean joueur) {

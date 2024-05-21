@@ -12,10 +12,12 @@ import main.FonctionUtiles;
 
 public class Vipere extends Entite {
 
-    public Vipere(int numero, String sexe, Ecran ecran) {
-        super(150, 500, 100, 60, 15, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
+    public Vipere(int x, int y, int numero, String sexe, Ecran ecran) {
+        super(4800, 500, 100, 60, 15, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
         dureeVie = 15;
 
+		carteX = x;
+		carteY = y;
 
         aireCollision = new Rectangle(20, 20, 28, 28);
 		
@@ -29,8 +31,6 @@ public class Vipere extends Entite {
 
     public void initialiser() {
 		
-		carteX = ecran.tailleFinale * 23;
-		carteY = ecran.tailleFinale * 21;
 		vitesse = 3;
 		direction = "bas";
 	}

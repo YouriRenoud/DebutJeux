@@ -12,10 +12,12 @@ import main.FonctionUtiles;
 
 public class Renard extends Entite {
 
-    public Renard(int numero, String sexe, Ecran ecran) {
-        super(100, 200, 100, 60, 15, 10, "bebe Renard" + sexe + numero, sexe, ecran);
+    public Renard(int x, int y, int numero, String sexe, Ecran ecran) {
+        super(9000, 200, 100, 60, 15, 10, "bebe Renard" + sexe + numero, sexe, ecran);
         dureeVie = 15;
 
+		carteX = x;
+		carteY = y;
 
         aireCollision = new Rectangle(8, 30, 22, 20);
 		
@@ -28,9 +30,6 @@ public class Renard extends Entite {
     }
 
     public void initialiser() {
-		
-		carteX = ecran.tailleFinale * 23;
-		carteY = ecran.tailleFinale * 21;
 		vitesse = 3;
 		direction = "bas";
 	}

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -44,7 +45,7 @@ public class Ecran extends JPanel implements Runnable {
 	public Joueur joueur = new Joueur(this, action);
 
 	public JeuObject obj[] = new JeuObject[10];
-	public Entite ent[] = new Entite[10];
+	public List<Entite> ent = new ArrayList<>();
 
 	public int nbrEntite = 0;
 
@@ -118,6 +119,7 @@ public class Ecran extends JPanel implements Runnable {
 					e.Deplacer(e);
 				}
 			}
+			gerer2.verifierMorts();
 		}
 		if (etatActuel == pauseJeu) {
 
@@ -137,10 +139,9 @@ public class Ecran extends JPanel implements Runnable {
 			}
 		}
 
-		assert ent[0] != null;
-		for (int i=0; i < ent.length; i++) {
-			if (ent[i] != null) {
-				ent[i].afficher(graph2);
+		for (Entite e: ent) {
+			if (e != null) {
+				e.afficher(graph2);
 			}
 		}
 		

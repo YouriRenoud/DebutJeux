@@ -77,7 +77,7 @@ public class Entite {
             this.food = this.food + food;
         }
         if (this.food <= 0) {
-            this.alive = false;
+            setPv(0);
         }
     }
 
@@ -85,16 +85,16 @@ public class Entite {
         return age;
     }
 
-    public void setAge(int age, Entite animal) {
+    public void setAge(int age) {
         String[] nvNom = this.nom.split(" ");
         if (this.age - age == 0) {
-            this.alive = false;
-        }
+			setPv(0);
+		}
         this.age = this.age - age;
-        if (this.age <= animal.dureeVie - animal.dureeVie/4 && nvNom.length > 1) {
+        if (this.age <= dureeVie - dureeVie/4 && nvNom.length > 1) {
             this.nom = "jeune " + nvNom[1];
         }
-        if (this.age <= animal.dureeVie/2 && nvNom.length > 1) {
+        if (this.age <= dureeVie/2 && nvNom.length > 1) {
             this.nom = nvNom[1];
         }
     }
@@ -178,7 +178,9 @@ public class Entite {
 			ecran.collisions.AnalyserTerrain(this);
 			
 			int index = ecran.collisions.analyserObjet(this, true);
+			Entite e = ecran.collisions.analyserEntite(this);
 			interactionObject(index);
+			interactionEntite(e);
 			
 			if (collision == false) {
 				switch(direction) {
@@ -214,6 +216,86 @@ public class Entite {
 	
 	public void interactionObject(int index) {
 		
+	}
+
+	public void interactionEntite(Entite e) {
+        if (e != null) {
+            if (this instanceof Poule) {
+                interactionPoule(e);
+            } else if (this instanceof Renard) {
+                interactionRenard(e);
+            } else if (this instanceof Vipere) {
+                interactionVipere(e);
+            }
+        }
+    }
+
+    private void interactionPoule(Entite e) {
+        Poule poule = (Poule) this;
+        if (e instanceof Vipere vipere) {
+            interactionPouleVipere(vipere, poule);
+        } else if (canReproduce(e)) {
+            reproduce(e, Poule::new);
+        }
+    }
+
+    private void interactionRenard(Entite e) {
+        Renard renard = (Renard) this;
+        if (e instanceof Poule poule) {
+            interactionPouleRenard(poule, renard);
+        } else if (canReproduce(e)) {
+            reproduce(e, Renard::new);
+        }
+    }
+
+	
+    private void interactionVipere(Entite e) {
+        Vipere vipere = (Vipere) this;
+        if (e instanceof Renard renard) {
+            interactionRenardVipere(renard, vipere);
+        } else if (canReproduce(e)) {
+            reproduce(e, Vipere::new);
+        }
+    }
+
+    private boolean canReproduce(Entite e) {
+        return !e.getNom().equals(this.getNom()) && e instanceof Poule
+                && e.getFertilite() >= 100 && e.getPv() > 0 && this.getFertilite() >= 100
+                && !e.getSexe().equals(this.getSexe());
+    }
+
+    private void reproduce(Entite e, EntityFactory factory) {	
+        Random random = new Random();
+        String sexe = random.nextInt(2) == 0 ? "M" : "F";
+        Entite newAnimal = factory.create(this.carteX, this.carteY, ecran.nbrEntite, sexe, ecran);
+        ecran.ent.add(newAnimal);
+        e.setFertilite(-100);
+        this.setFertilite(-100);
+    }
+
+	public void interactionPouleRenard(Poule poule, Renard renard) {
+        poule.setPv(renard.getDegats());
+        if (!poule.isAlive()) {
+            renard.setFood(20);
+        }
+    }
+
+    public void interactionPouleVipere(Vipere vipere, Poule poule) {
+        vipere.setPv(poule.getDegats());
+        if (!vipere.isAlive()) {
+            poule.setFood(20);
+        }
+    }
+
+    public void interactionRenardVipere(Renard renard, Vipere vipere) {
+        renard.setPv(vipere.getDegats());
+        if (!renard.isAlive()) {
+            vipere.setFood(20);
+        }
+    }
+
+	interface EntityFactory {
+		Entite create(int carteX, int carteY, int nbrEntite, String sexe, Ecran ecran);
 	}
 
 	public void afficher(Graphics2D graph2) {
