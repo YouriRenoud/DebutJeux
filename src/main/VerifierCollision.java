@@ -1,0 +1,130 @@
+package main;
+
+import Entites.Entite;
+
+public class VerifierCollision {
+	
+	Ecran ecran;
+	
+	public VerifierCollision(Ecran ecran) {
+		this.ecran = ecran;
+	}
+	
+	public void AnalyserTerrain(Entite entite) {
+		
+		int gaucheX = entite.carteX + entite.aireCollision.x;
+		int droiteX = entite.carteX + entite.aireCollision.x + entite.aireCollision.width;
+		int hautY = entite.carteY + entite.aireCollision.y;
+		int basY = entite.carteY + entite.aireCollision.y + entite.aireCollision.height;
+		
+		int colGauche = gaucheX/ecran.tailleFinale;
+		int colDroite = droiteX/ecran.tailleFinale;
+		int lignHaut = hautY/ecran.tailleFinale;
+		int lignBas = basY/ecran.tailleFinale;
+		
+		int numTerrain1, numTerrain2;
+		
+		switch(entite.direction) {
+		case "haut":
+			lignHaut = (hautY+entite.vitesse)/ecran.tailleFinale;
+			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
+			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
+			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+				entite.collision = true;
+			}
+			break;
+		case "bas":
+			lignBas = (basY-entite.vitesse)/ecran.tailleFinale;
+			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignBas];
+			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
+			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+				entite.collision = true;
+			}
+			break;
+		case "gauche":
+			colGauche = (gaucheX-entite.vitesse)/ecran.tailleFinale;
+			numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
+			numTerrain2 = ecran.terrain.parcoursCarte[colGauche][lignBas];
+			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+				entite.collision = true;
+			}
+			break;
+		case "droite":
+			colDroite = (droiteX-entite.vitesse)/ecran.tailleFinale;
+			numTerrain1 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
+			numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
+			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+				entite.collision = true;
+			}
+			break;
+		}
+	}
+	
+	public int analyserObjet(Entite entite, boolean joueur) {
+		
+		int index = 999;
+		
+		for (int i=0; i < ecran.obj.length; i++) {
+			if (ecran.obj[i] != null) {
+			entite.aireCollision.x = entite.aireCollision.x + entite.carteX;
+			entite.aireCollision.y = entite.aireCollision.y + entite.carteY;
+			
+			ecran.obj[i].aireSolide.x = ecran.obj[i].aireSolide.x + ecran.obj[i].x;
+			ecran.obj[i].aireSolide.y = ecran.obj[i].aireSolide.y + ecran.obj[i].y;
+			
+			switch (entite.direction) {
+			case "haut":
+				entite.aireCollision.y -= entite.vitesse;
+				if (entite.aireCollision.intersects(ecran.obj[i].aireSolide)) {
+					if (ecran.obj[i].collision == true) {
+						entite.collision = true;
+					}
+					if (joueur == true) {
+						index = i;
+					}
+				}
+				break;
+			case "bas":
+				entite.aireCollision.y += entite.vitesse;
+				if (entite.aireCollision.intersects(ecran.obj[i].aireSolide)) {
+					if (ecran.obj[i].collision == true) {
+						entite.collision = true;
+					}
+					if (joueur == true) {
+						index = i;
+					}
+				}
+				break;
+			case "gauche":
+				entite.aireCollision.x -= entite.vitesse;
+				if (entite.aireCollision.intersects(ecran.obj[i].aireSolide)) {
+					if (ecran.obj[i].collision == true) {
+						entite.collision = true;
+					}
+					if (joueur == true) {
+						index = i;
+					}
+				}
+				break;
+			case "droite":
+				entite.aireCollision.x += entite.vitesse;
+				if (entite.aireCollision.intersects(ecran.obj[i].aireSolide)) {
+					if (ecran.obj[i].collision == true) {
+						entite.collision = true;
+					}
+					if (joueur == true) {
+						index = i;
+					}
+				}
+				break;
+			}
+			entite.aireCollision.x = entite.aireSolideDefautX;
+			entite.aireCollision.y = entite.aireSolideDefautY;
+			
+			ecran.obj[i].aireSolide.x = ecran.obj[i].aireDefautX;
+			ecran.obj[i].aireSolide.y = ecran.obj[i].aireDefautY;
+		}
+		}
+		return index;
+	}
+}
