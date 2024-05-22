@@ -30,8 +30,8 @@ public class Ecran extends JPanel implements Runnable {
 	public final int ecranLargeur = ligneMax * tailleFinale;
 
 	// param map monde
-	public final int mondeColMax = 50;
-	public final int mondeLignMax = 50;
+	public final int mondeColMax = 100;
+	public final int mondeLignMax = 100;
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 

@@ -25,17 +25,17 @@ public class GestionTerrain {
 		parcoursCarte = new int[ecran.mondeColMax][ecran.mondeLignMax];
 
 		getImage();
-		chargerCarte("/cartes/monde.txt");
+		chargerCarte("/cartes/monde1.txt");
 	}
 
 	public void getImage() {
 
 		initialiser(0, "Herbe", false);
-		initialiser(2, "EauPeuProfonde", false);
+		initialiser(2, "EauPeuProfonde", true);
 		initialiser(1, "Mur", true);
 		initialiser(5, "Terre", false);
-		initialiser(3, "Desert", false);
-		initialiser(4, "Arbre", true);
+		initialiser(4, "Desert", false);
+		initialiser(3, "Arbre", true);
 	}
 
 	public void initialiser(int index, String image, boolean collision) {

@@ -276,7 +276,8 @@ public class Entite {
     private void reproduce(Entite e, EntityFactory factory) {
         Random random = new Random();
         String sexe = random.nextInt(2) == 0 ? "M" : "F";
-        Entite newAnimal = factory.create(this.carteX/ecran.tailleFinale, this.carteY/ecran.tailleFinale, ecran.nbrEntite, sexe, ecran);
+
+        Entite newAnimal = factory.create(this.carteX/ecran.tailleFinale + 2, this.carteY/ecran.tailleFinale + 2, ecran.nbrEntite, sexe, ecran);
         ecran.ent.add(newAnimal);
         e.setFertilite(-10000);
         this.setFertilite(-10000);
@@ -353,7 +354,14 @@ public class Entite {
         // System.out.println(carteX);
         // System.out.println(carteY);
 
-        graph2.drawImage(image, actuelX, actuelY, null);
+        int mondeX = this.carteX;
+        int mondeY = this.carteY;
+        if (mondeX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX
+        && mondeX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
+        && mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY
+        && mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {        
+            graph2.drawImage(image, actuelX, actuelY, null);
+        }
     }
 
 }

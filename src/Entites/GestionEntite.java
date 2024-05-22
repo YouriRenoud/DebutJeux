@@ -7,13 +7,13 @@ import java.util.Random;
 
 import main.Ecran;
 import main.FonctionUtiles;
+import terrain.GestionTerrain;
 import terrain.Terrain;
 
 public class GestionEntite {
 
 	Ecran ecran;
 	public Terrain[] terrain;
-	public int parcoursCarte[][];
 
 	public GestionEntite(Ecran ecran) {
 		this.ecran = ecran;
@@ -25,25 +25,26 @@ public class GestionEntite {
 		Random random = new Random();
 		for (int i = 2; i < ecran.mondeColMax; i = i + 3) {
 			for (int j = 2; j < ecran.mondeLignMax; j = j + 3) {
+				int typeTerrain = ecran.terrain.parcoursCarte[i][j];
 				double renardType = random.nextInt(100) + 1;
 				double pouleType = random.nextInt(100) + 1;
 				double vipereType = random.nextInt(100) + 1;
 				int sexe = random.nextInt(2);
-				if (renardType <= 20) {
+				if (renardType <= 20 && ecran.nbrEntite < 400 && ecran.terrain.terrain[typeTerrain].interaction == false) {
 					if (sexe == 0) {
 						ecran.ent.add(new Renard(i, j, ecran.nbrEntite, "M", ecran));
 					} else {
 						ecran.ent.add(new Renard(i, j, ecran.nbrEntite, "F", ecran));
 					}
 				}
-				if (vipereType <= 20) {
+				if (vipereType <= 20 && ecran.nbrEntite < 400 && ecran.terrain.terrain[typeTerrain].interaction == false) {
 					if (sexe == 0) {
 						ecran.ent.add(new Vipere(i, j, ecran.nbrEntite, "M", ecran));
 					} else {
 						ecran.ent.add(new Vipere(i, j, ecran.nbrEntite, "F", ecran));
 					}
 				}
-				if (pouleType <= 20) {
+				if (pouleType <= 20 && ecran.nbrEntite < 400 && ecran.terrain.terrain[typeTerrain].interaction == false) {
 					if (sexe == 0) {
 						ecran.ent.add(new Poule(i, j, ecran.nbrEntite, "M", ecran));
 					} else {
