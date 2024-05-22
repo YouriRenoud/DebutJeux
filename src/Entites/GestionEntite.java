@@ -1,6 +1,8 @@
 package Entites;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import main.Ecran;
@@ -79,16 +81,16 @@ public class GestionEntite {
 	}
 
 	public void verifierMorts() {
-		Iterator<Entite> iterator = ecran.ent.iterator();
-		while (iterator.hasNext()) {
-			Entite e = iterator.next();
+		List<Entite> aRetirer = new ArrayList<>();
+		for (Entite e: ecran.ent) {
 			if (e != null && e.getPv() <= 0) {
-				iterator.remove();
+				aRetirer.add(e);
 			}
 			e.setAge(1);
 			e.setFood(-5);
 			e.setFertilite(20);
 		}
+		ecran.ent.removeAll(aRetirer);
 	}
 
 }

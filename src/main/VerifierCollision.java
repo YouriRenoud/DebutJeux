@@ -27,7 +27,7 @@ public class VerifierCollision {
 		switch (entite.direction) {
 			case "haut":
 				lignHaut = (hautY + entite.vitesse) / ecran.tailleFinale;
-				if (lignHaut < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length) {
+				if (lignHaut < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length && lignHaut >= 0 && colGauche >= 0 && colDroite >= 0) {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
@@ -37,7 +37,7 @@ public class VerifierCollision {
 				break;
 			case "bas":
 				lignBas = (basY - entite.vitesse) / ecran.tailleFinale;
-				if (lignBas < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length) {
+				if (lignBas < ecran.terrain.parcoursCarte[0].length && colGauche < ecran.terrain.parcoursCarte.length && colDroite < ecran.terrain.parcoursCarte.length && lignBas >= 0 && colGauche >= 0 && colDroite >= 0) {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignBas];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
@@ -47,7 +47,7 @@ public class VerifierCollision {
 				break;
 			case "gauche":
 				colGauche = (gaucheX - entite.vitesse) / ecran.tailleFinale;
-				if (colGauche < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length) {
+				if (colGauche < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length && lignHaut >= 0 && colGauche >= 0 && lignBas >= 0) {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colGauche][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
@@ -57,7 +57,7 @@ public class VerifierCollision {
 				break;
 			case "droite":
 				colDroite = (droiteX - entite.vitesse) / ecran.tailleFinale;
-				if (colDroite < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length) {
+				if (colDroite < ecran.terrain.parcoursCarte.length && lignHaut < ecran.terrain.parcoursCarte[0].length && lignBas < ecran.terrain.parcoursCarte[0].length && lignHaut >= 0 && lignBas >= 0 && colDroite >= 0) {
 					numTerrain1 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {

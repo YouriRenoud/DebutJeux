@@ -13,9 +13,11 @@ import Entites.GestionEntite;
 import Entites.Joueur;
 import object.JeuObject;
 import terrain.GestionTerrain;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 public class Ecran extends JPanel implements Runnable {
-	public final int tailleElement = 16;
+	final int tailleElement = 16;
 	final int echelle = 3;
 
 	public final int tailleFinale = tailleElement * echelle;
@@ -45,7 +47,7 @@ public class Ecran extends JPanel implements Runnable {
 	public Joueur joueur = new Joueur(this, action);
 
 	public JeuObject obj[] = new JeuObject[10];
-	public List<Entite> ent = new ArrayList<>();
+	public List<Entite> ent = new CopyOnWriteArrayList<>();
 
 	public int nbrEntite = 0;
 
@@ -114,9 +116,8 @@ public class Ecran extends JPanel implements Runnable {
 		if (etatActuel == enJeu) {
 			joueur.miseAJour();
 
-			List<Entite> entCopy = new ArrayList<>(ent); // Create a copy of the ent list
 
-			for (Entite e : entCopy) { // Iterate over the copy
+			for (Entite e : ent) { // Iterate over the copy
 				if (e != null) {
 					e.Deplacer(e);
 				}
@@ -141,11 +142,11 @@ public class Ecran extends JPanel implements Runnable {
 			}
 		}
 
-		for (Entite e : ent) {
-			if (e != null) {
-				e.afficher(graph2);
+			for (Entite e : ent) {
+				if (e != null) {
+					e.afficher(graph2);
+				}
 			}
-		}
 
 		joueur.afficher(graph2);
 
