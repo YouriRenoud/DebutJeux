@@ -45,6 +45,10 @@ public class ActionClavier implements KeyListener {
 				ecran.etatActuel = ecran.enJeu;
 			}
 		}
+
+		if (touche == KeyEvent.VK_E) {
+				ecran.interfaceJoueur.finDuJeu = true;
+		}
 	}
 
 	@Override

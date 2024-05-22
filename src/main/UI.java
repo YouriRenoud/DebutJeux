@@ -45,14 +45,23 @@ public class UI {
 		graph.setFont(arial30);
 		graph.setColor(Color.white);
 
-		if (ecran.etatActuel == ecran.enJeu) {
-			afficherstats();
+		if (finDuJeu) {
+
+			resumePartie();
+			ecran.filDuJeu = null;
+		} else {
+			if (ecran.etatActuel == ecran.enJeu) {
+			
+				tempsDeJeu += (double) 1/60;
+ 				graph.drawString("Time: " + format.format(tempsDeJeu), ecran.tailleFinale*12, 12*ecran.tailleFinale);
+				afficherstats();
+			}
+			if (ecran.etatActuel == ecran.pauseJeu) {
+				dessinerPause();
+				afficherstats();
+			}
 		}
-		if (ecran.etatActuel == ecran.pauseJeu) {
-			dessinerPause();
-		}
-		
-// 		if (finDuJeu) {
+//		if (finDuJeu) {
 			
 // 			graph.setFont(arial30);
 // 			graph.setColor(Color.white);
@@ -120,7 +129,7 @@ public class UI {
  	}
 
 	public void dessinerPause() {
-		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 80F));
+		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 30F));
 		String texte = "PAUSE";
 		int x = getXCentre(texte);
 		int y = ecran.ecranLargeur/2;
@@ -129,17 +138,71 @@ public class UI {
 	}
 
 	public void afficherstats() {
-		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 80F));
-		String texte = "Nombre animaux" + ecran.nbrEntite;
-		int x = getXCentre(texte);
-		int y = ecran.ecranLargeur/4;
+		String texte = "Nombre animaux: " + ecran.nbrEntite;
 
-		graph.drawString(texte, x, y);
+		String texte1 = "Nombre poules: " + ecran.nombrePoules;
+		String texte2 = "Nombre renards: " + ecran.nombreRenards;
+		String texte3 = "Nombre viperes: " + ecran.nombreViperes;
+		int x = 12*ecran.tailleFinale - 3;
+
+		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 20F));
+
+		graph.setColor(Color.yellow);
+		graph.drawString(texte1, x, 1*ecran.tailleFinale/2);
+		graph.setColor(Color.red);
+		graph.drawString(texte2, x, 2*ecran.tailleFinale/2);
+		graph.setColor(Color.green);
+		graph.drawString(texte3, x, 3*ecran.tailleFinale/2);
+
+		graph.setColor(Color.white);		
+		graph.drawString(texte, x, 4*ecran.tailleFinale/2);
+
 	}
 
 	public int getXCentre(String texte) {
 		int longueur = (int) graph.getFontMetrics().getStringBounds(texte, graph).getWidth();
 		int x = ecran.ecranLongueur/2 - longueur/2;
 		return x;
+	}
+
+	public void resumePartie() {
+
+		String texte = "Partie terminée:";
+		String texte1 = "Nombre animaux crées: " + (ecran.poulesTotal+ecran.renradTotal+ecran.vipereTotal);
+		String texte2 = "Nombre poules crées: " + ecran.poulesTotal;
+		String texte3 = "Poules restantes: " + ecran.nombrePoules;
+		String texte4 = "Nombre renards crées: " + ecran.renradTotal;
+		String texte5 = "Renards restants: " + ecran.nombreRenards;
+		String texte6 = "Nombre viperes crées: " + ecran.vipereTotal;
+		String texte7 = "Viperes restantes: " + ecran.nombreViperes;
+		String texte8 = "Temps écoule: " + tempsDeJeu;
+
+		int x = getXCentre(texte);
+		int y = ecran.ligneMax * ecran.tailleFinale / 2;
+
+		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 20F));
+
+		graph.setColor(Color.white);
+		graph.drawString(texte1, x, y + ecran.tailleFinale/2);
+
+		graph.setColor(Color.yellow);
+		graph.drawString(texte2, x, y + 4*ecran.tailleFinale/2);
+		graph.drawString(texte3, x, y + 5*ecran.tailleFinale/2);
+
+		graph.setColor(Color.red);
+		graph.drawString(texte4, x, y + 7*ecran.tailleFinale/2);
+		graph.drawString(texte5, x, y + 8*ecran.tailleFinale/2);
+
+		graph.setColor(Color.green);
+		graph.drawString(texte6, x, y + 10*ecran.tailleFinale/2);
+		graph.drawString(texte7, x, y + 11*ecran.tailleFinale/2);
+
+		graph.setColor(Color.white);	
+		graph.drawString(texte8, x, y + 13*ecran.tailleFinale/2);
+
+		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 80F));
+		graph.setColor(Color.black);
+		graph.drawString(texte, x - 120, y - 80);
+
 	}
 }

@@ -23,8 +23,8 @@ public class GestionEntite {
 	public void setObjects() {
 
 		Random random = new Random();
-		for (int i = 2; i < 50; i = i + 3) {
-			for (int j = 2; j < 50; j = j + 3) {
+		for (int i = 2; i < ecran.mondeColMax; i = i + 3) {
+			for (int j = 2; j < ecran.mondeLignMax; j = j + 3) {
 				double renardType = random.nextInt(100) + 1;
 				double pouleType = random.nextInt(100) + 1;
 				double vipereType = random.nextInt(100) + 1;
@@ -84,11 +84,21 @@ public class GestionEntite {
 		List<Entite> aRetirer = new ArrayList<>();
 		for (Entite e: ecran.ent) {
 			if (e != null && e.getPv() <= 0) {
+				if (e instanceof Poule) {
+					ecran.nombrePoules--;
+				}
+				if (e instanceof Renard) {
+					ecran.nombreRenards--;
+				}
+				if (e instanceof Vipere) {
+					ecran.nombreViperes--;
+				}
 				aRetirer.add(e);
 			}
 			e.setAge(1);
 			e.setFood(-1);
 			e.setFertilite(20);
+			System.out.println(e.getFood());
 		}
 		ecran.ent.removeAll(aRetirer);
 		ecran.nbrEntite -= aRetirer.size();

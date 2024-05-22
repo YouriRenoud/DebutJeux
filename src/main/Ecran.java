@@ -60,6 +60,14 @@ public class Ecran extends JPanel implements Runnable {
 	public int etatActuel;
 	public final int enJeu = 1;
 	public final int pauseJeu = 2;
+	public boolean terminer = false;
+
+	public int nombreRenards = 0;
+	public int nombrePoules = 0;
+	public int nombreViperes = 0;
+	public int vipereTotal = 0;
+	public int renradTotal = 0;
+	public int poulesTotal = 0;
 
 	public Ecran() {
 

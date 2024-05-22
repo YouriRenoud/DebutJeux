@@ -13,7 +13,7 @@ import main.FonctionUtiles;
 public class Renard extends Entite {
 
 	public Renard(int x, int y, int numero, String sexe, Ecran ecran) {
-		super(5000, 20000, 5000, 10000, 15000, 10, "bebe Renard" + sexe + numero, sexe, ecran);
+		super(5000, 20000, 5000, 10000, 3500, 10, "bebe Renard" + sexe + numero, sexe, ecran);
 		dureeVie = 15;
 
 		carteX = x;
@@ -31,6 +31,8 @@ public class Renard extends Entite {
 		this.carteX = x * ecran.tailleFinale;
 		this.carteY = y * ecran.tailleFinale;
 
+		ecran.nombreRenards++;
+		ecran.renradTotal++;
 	}
 
 	public void initialiser() {

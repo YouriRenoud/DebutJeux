@@ -13,7 +13,7 @@ import main.FonctionUtiles;
 public class Poule extends Entite {
 
 	public Poule(int x, int y, int numero, String sexe, Ecran ecran) {
-		super(3000, 20000, 3000, 10000, 15000, 10, "bebe Poule" + sexe + numero, sexe, ecran);
+		super(3000, 20000, 3000, 10000, 3500, 10, "bebe Poule" + sexe + numero, sexe, ecran);
 		dureeVie = 15;
 
 		carteX = x;
@@ -30,6 +30,9 @@ public class Poule extends Entite {
 
 		this.carteX = x * ecran.tailleFinale;
 		this.carteY = y * ecran.tailleFinale;
+
+		ecran.nombrePoules++;
+		ecran.poulesTotal++;
 
 	}
 

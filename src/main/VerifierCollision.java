@@ -31,7 +31,7 @@ public class VerifierCollision {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
-						entite.collision = true;
+						entite.direction = "bas";
 					}
 				}
 				break;
@@ -41,7 +41,7 @@ public class VerifierCollision {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignBas];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
-						entite.collision = true;
+						entite.direction = "haut";
 					}
 				}
 				break;
@@ -51,7 +51,7 @@ public class VerifierCollision {
 					numTerrain1 = ecran.terrain.parcoursCarte[colGauche][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colGauche][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
-						entite.collision = true;
+						entite.direction = "droite";
 					}
 				}
 				break;
@@ -61,7 +61,7 @@ public class VerifierCollision {
 					numTerrain1 = ecran.terrain.parcoursCarte[colDroite][lignHaut];
 					numTerrain2 = ecran.terrain.parcoursCarte[colDroite][lignBas];
 					if (ecran.terrain.terrain[numTerrain1].interaction || ecran.terrain.terrain[numTerrain2].interaction) {
-						entite.collision = true;
+						entite.direction = "gauche";
 					}
 				}
 				break;
@@ -82,14 +82,14 @@ public class VerifierCollision {
 				case "haut":
 					entite.aireCollision.y -= entite.vitesse;
 					if (entite.aireCollision.intersects(e.aireCollision)) {
-							entite.collision = true;
+							entite.direction = "bas";
 							return e;
 					}
 					break;
 				case "bas":
 					entite.aireCollision.y += entite.vitesse;
 					if (entite.aireCollision.intersects(e.aireCollision)) {
-							entite.collision = true;
+							entite.direction = "haut";
 							return e;
 						
 					}
@@ -97,7 +97,7 @@ public class VerifierCollision {
 				case "gauche":
 					entite.aireCollision.x -= entite.vitesse;
 					if (entite.aireCollision.intersects(e.aireCollision)) {
-							entite.collision = true;
+							entite.direction = "droite";
 							return e;
 						
 					}
@@ -105,7 +105,7 @@ public class VerifierCollision {
 				case "droite":
 					entite.aireCollision.x += entite.vitesse;
 					if (entite.aireCollision.intersects(e.aireCollision)) {
-							entite.collision = true;
+							entite.direction = "gauche";
 							return e;
 						
 					}

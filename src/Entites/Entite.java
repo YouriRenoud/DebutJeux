@@ -21,6 +21,7 @@ public class Entite {
     int marcher = 1;
     int compteur = 0;
     int attente = 0;
+    int initCollision = 0;
 
     public Rectangle aireCollision;
     public int aireSolideDefautX, aireSolideDefautY;
@@ -182,6 +183,7 @@ public class Entite {
             }
             attente = 0;
         }
+
         collision = false;
         ecran.collisions.AnalyserTerrain(this);
 
@@ -278,27 +280,26 @@ public class Entite {
         ecran.ent.add(newAnimal);
         e.setFertilite(-10000);
         this.setFertilite(-10000);
-        System.out.println("GBAIZ");
     }
 
     public void interactionPouleRenard(Poule poule, Renard renard) {
         poule.changePV(renard.getDegats());
         if (!poule.isAlive()) {
-            renard.setFood(20);
+            renard.setFood(2000);
         }
     }
 
     public void interactionPouleVipere(Vipere vipere, Poule poule) {
         vipere.changePV(poule.getDegats());
         if (!vipere.isAlive()) {
-            poule.setFood(20);
+            poule.setFood(2000);
         }
     }
 
     public void interactionRenardVipere(Renard renard, Vipere vipere) {
         renard.changePV(vipere.getDegats());
         if (!renard.isAlive()) {
-            vipere.setFood(20);
+            vipere.setFood(2000);
         }
     }
 

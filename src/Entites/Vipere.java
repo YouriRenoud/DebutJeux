@@ -13,7 +13,7 @@ import main.FonctionUtiles;
 public class Vipere extends Entite {
 
 	public Vipere(int x, int y, int numero, String sexe, Ecran ecran) {
-		super(2000, 5000, 2000, 10000, 15000, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
+		super(2000, 5000, 2000, 10000, 3500, 10, "bebe Vipere" + sexe + numero, sexe, ecran);
 		dureeVie = 15;
 
 		carteX = x;
@@ -30,6 +30,9 @@ public class Vipere extends Entite {
 
 		this.carteX = x * ecran.tailleFinale;
 		this.carteY = y * ecran.tailleFinale;
+
+		ecran.nombreViperes++;
+		ecran.vipereTotal++;
 
 	}
 
