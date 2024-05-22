@@ -38,8 +38,8 @@ public class Joueur extends Entite {
 	
 	public void initialiser() {
 		
-		carteX = ecran.tailleFinale * 23;
-		carteY = ecran.tailleFinale * 21;
+		carteX = ecran.tailleFinale * 5;
+		carteY = ecran.tailleFinale * 5;
 		vitesse = 5;
 		direction = "bas";
 	}

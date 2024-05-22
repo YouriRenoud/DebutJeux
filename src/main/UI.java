@@ -46,7 +46,7 @@ public class UI {
 		graph.setColor(Color.white);
 
 		if (ecran.etatActuel == ecran.enJeu) {
-
+			afficherstats();
 		}
 		if (ecran.etatActuel == ecran.pauseJeu) {
 			dessinerPause();
@@ -124,6 +124,15 @@ public class UI {
 		String texte = "PAUSE";
 		int x = getXCentre(texte);
 		int y = ecran.ecranLargeur/2;
+
+		graph.drawString(texte, x, y);
+	}
+
+	public void afficherstats() {
+		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 80F));
+		String texte = "Nombre animaux" + ecran.nbrEntite;
+		int x = getXCentre(texte);
+		int y = ecran.ecranLargeur/4;
 
 		graph.drawString(texte, x, y);
 	}

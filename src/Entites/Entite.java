@@ -74,7 +74,7 @@ public class Entite {
     }
 
     public void setFood(int food) {
-        if (this.food + food <= 150) {
+        if (this.food + food <= 10000) {
             this.food = this.food + food;
         }
         if (this.food <= 0) {
@@ -105,7 +105,7 @@ public class Entite {
     }
 
     public void setFertilite(int fertilite) {
-        if (this.fertilite + fertilite < 121) {
+        if (this.fertilite + fertilite < 12000) {
             this.fertilite = this.fertilite + fertilite;
         }
     }
@@ -115,7 +115,14 @@ public class Entite {
     }
 
     public void setPv(int pv) {
-        this.pv = this.pv - pv;
+        this.pv = pv;
+        if (this.pv <= 0) {
+            this.alive = false;
+        }
+    }
+
+    public void changePV(int pv) {
+        this.pv -= pv;
         if (this.pv <= 0) {
             this.alive = false;
         }
@@ -159,7 +166,7 @@ public class Entite {
     public void Deplacer(Entite entite) {
 
         attente++;
-        if (attente > 60) {
+        if (attente > 30) {
             hasard();
             if (actionHaut == true) {
                 direction = "haut";
@@ -243,9 +250,10 @@ public class Entite {
         Renard renard = (Renard) this;
         if (e instanceof Poule poule) {
             interactionPouleRenard(poule, renard);
-        } else if (canReproduce(e)) {
+        } else if (canReproduce(e) && e instanceof Renard) {
             reproduce(e, Renard::new);
         }
+        
     }
 
     private void interactionVipere(Entite e) {
@@ -258,36 +266,37 @@ public class Entite {
     }
 
     private boolean canReproduce(Entite e) {
-        return !e.getNom().equals(this.getNom()) && e instanceof Poule
-                && e.getFertilite() >= 100 && e.getPv() > 0 && this.getFertilite() >= 100
+        return !e.getNom().equals(this.getNom())
+                && e.getFertilite() >= 10000 && e.getPv() > 0 && this.getFertilite() >= 10000
                 && !e.getSexe().equals(this.getSexe());
     }
 
     private void reproduce(Entite e, EntityFactory factory) {
         Random random = new Random();
         String sexe = random.nextInt(2) == 0 ? "M" : "F";
-        Entite newAnimal = factory.create(this.carteX, this.carteY, ecran.nbrEntite, sexe, ecran);
+        Entite newAnimal = factory.create(this.carteX/ecran.tailleFinale, this.carteY/ecran.tailleFinale, ecran.nbrEntite, sexe, ecran);
         ecran.ent.add(newAnimal);
-        e.setFertilite(-100);
-        this.setFertilite(-100);
+        e.setFertilite(-10000);
+        this.setFertilite(-10000);
+        System.out.println("GBAIZ");
     }
 
     public void interactionPouleRenard(Poule poule, Renard renard) {
-        poule.setPv(renard.getDegats());
+        poule.changePV(renard.getDegats());
         if (!poule.isAlive()) {
             renard.setFood(20);
         }
     }
 
     public void interactionPouleVipere(Vipere vipere, Poule poule) {
-        vipere.setPv(poule.getDegats());
+        vipere.changePV(poule.getDegats());
         if (!vipere.isAlive()) {
             poule.setFood(20);
         }
     }
 
     public void interactionRenardVipere(Renard renard, Vipere vipere) {
-        renard.setPv(vipere.getDegats());
+        renard.changePV(vipere.getDegats());
         if (!renard.isAlive()) {
             vipere.setFood(20);
         }

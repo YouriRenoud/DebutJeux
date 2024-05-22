@@ -23,8 +23,8 @@ public class GestionEntite {
 	public void setObjects() {
 
 		Random random = new Random();
-		for (int i = 0; i < 50; i = i + 3) {
-			for (int j = 0; j < 50; j = j + 3) {
+		for (int i = 2; i < 50; i = i + 3) {
+			for (int j = 2; j < 50; j = j + 3) {
 				double renardType = random.nextInt(100) + 1;
 				double pouleType = random.nextInt(100) + 1;
 				double vipereType = random.nextInt(100) + 1;
@@ -87,10 +87,11 @@ public class GestionEntite {
 				aRetirer.add(e);
 			}
 			e.setAge(1);
-			e.setFood(-5);
+			e.setFood(-1);
 			e.setFertilite(20);
 		}
 		ecran.ent.removeAll(aRetirer);
+		ecran.nbrEntite -= aRetirer.size();
 	}
 
 }

@@ -1,5 +1,6 @@
 package main;
 
+import Entites.Entite;
 import java.util.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import Entites.Entite;
 import Entites.GestionEntite;
 import Entites.Joueur;
+import Entites.Poule;
 import object.JeuObject;
 import terrain.GestionTerrain;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -89,6 +91,8 @@ public class Ecran extends JPanel implements Runnable {
 			double intervalle = 1000000000 / FPS;
 			double prochainIntervalle = System.nanoTime() + intervalle;
 
+			//ent.add(new Poule(6, 6, this.nbrEntite, "F", this));
+
 			miseAJour();
 
 			repaint();
@@ -116,7 +120,6 @@ public class Ecran extends JPanel implements Runnable {
 		if (etatActuel == enJeu) {
 			joueur.miseAJour();
 
-
 			for (Entite e : ent) { // Iterate over the copy
 				if (e != null) {
 					e.Deplacer(e);
@@ -129,6 +132,7 @@ public class Ecran extends JPanel implements Runnable {
 		}
 	}
 
+	int compteur = 0;
 	public void paintComponent(Graphics graph) {
 		super.paintComponent(graph);
 
@@ -142,11 +146,12 @@ public class Ecran extends JPanel implements Runnable {
 			}
 		}
 
-			for (Entite e : ent) {
-				if (e != null) {
-					e.afficher(graph2);
-				}
+		for (Entite e : ent) {
+			if (e != null) {
+				e.afficher(graph2);
+				//System.out.println(e.carteX + " " + e.carteY);
 			}
+		}
 
 		joueur.afficher(graph2);
 
