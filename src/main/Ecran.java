@@ -13,10 +13,10 @@ import Entites.Entite;
 import Entites.GestionEntite;
 import Entites.Joueur;
 import Entites.Poule;
+import Entites.Renard;
 import object.JeuObject;
 import terrain.GestionTerrain;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 
 public class Ecran extends JPanel implements Runnable {
 	final int tailleElement = 16;
@@ -100,7 +100,7 @@ public class Ecran extends JPanel implements Runnable {
 			double intervalle = 1000000000 / FPS;
 			double prochainIntervalle = System.nanoTime() + intervalle;
 
-			//ent.add(new Poule(6, 6, this.nbrEntite, "F", this));
+			// ent.add(new Poule(6, 6, this.nbrEntite, "F", this));
 
 			miseAJour();
 
@@ -131,7 +131,16 @@ public class Ecran extends JPanel implements Runnable {
 
 			for (Entite e : ent) { // Iterate over the copy
 				if (e != null) {
-					e.Deplacer(e);
+					if (e instanceof Renard) {
+						if (this.nombrePoules == 0) { // Fix: Change nbrePoules to nombrePoules
+							System.out.println("Toutes les poules sont mortes");
+							e.Deplacer(e, 30);
+						} else {
+							e.chasseRenard(e);
+						}
+					} else {
+						e.Deplacer(e, 30);
+					}
 				}
 			}
 			gerer2.verifierMorts();
@@ -142,6 +151,7 @@ public class Ecran extends JPanel implements Runnable {
 	}
 
 	int compteur = 0;
+
 	public void paintComponent(Graphics graph) {
 		super.paintComponent(graph);
 
@@ -156,13 +166,13 @@ public class Ecran extends JPanel implements Runnable {
 		}
 
 		if (commencer) {
-		for (Entite e : ent) {
-			if (e != null) {
-				e.afficher(graph2);
-				//System.out.println(e.carteX + " " + e.carteY);
+			for (Entite e : ent) {
+				if (e != null) {
+					e.afficher(graph2);
+					// System.out.println(e.carteX + " " + e.carteY);
+				}
 			}
 		}
-	}
 
 		joueur.afficher(graph2);
 

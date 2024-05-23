@@ -98,7 +98,7 @@ public class Entite {
         this.age = this.age - age;
         if (this.age - age == 1) {
             double mort = Math.random();
-            if (mort < 1/age) {
+            if (mort < 1 / age) {
                 setPv(0);
             }
         }
@@ -182,7 +182,7 @@ public class Entite {
             if (e.getClass() == this.getClass()) {
                 int partenaireX = e.carteX;
                 int partenaireY = e.carteY;
-                int distanceVipere = ((x - partenaireX)^2 + (y - partenaireY)^2);
+                int distanceVipere = ((x - partenaireX) ^ 2 + (y - partenaireY) ^ 2);
                 if (distanceVipere < distance) {
                     distance = distanceVipere;
                     pos[0] = e.carteX;
@@ -196,16 +196,16 @@ public class Entite {
     public void moveToVipere() {
         int[] vipereProche = this.chercherPartenaire();
         if (vipereProche != null) {
-            //this.direction = ecran.gerer2.trouverChemin(vipereProche, this);
+            // this.direction = ecran.gerer2.trouverChemin(vipereProche, this);
 
         }
 
     }
 
-    public void Deplacer(Entite entite) {
+    public void Deplacer(Entite entite, int delai) {
 
         attente++;
-        if (attente > 30) {
+        if (attente > delai) {
             hasard();
             if (actionHaut == true) {
                 direction = "haut";
@@ -222,6 +222,11 @@ public class Entite {
             attente = 0;
         }
 
+        bouger(entite, direction);
+
+    }
+
+    public void bouger(Entite entite, String direction) {
         collision = false;
         ecran.collisions.AnalyserTerrain(this);
 
@@ -293,7 +298,7 @@ public class Entite {
         } else if (canReproduce(e) && e instanceof Renard) {
             reproduce(e, Renard::new);
         }
-        
+
     }
 
     private void interactionVipere(Entite e) {
@@ -315,7 +320,8 @@ public class Entite {
         Random random = new Random();
         String sexe = random.nextInt(2) == 0 ? "M" : "F";
 
-        Entite newAnimal = factory.create(this.carteX/ecran.tailleFinale + 2, this.carteY/ecran.tailleFinale + 2, ecran.nbrEntite, sexe, ecran);
+        Entite newAnimal = factory.create(this.carteX / ecran.tailleFinale + 2, this.carteY / ecran.tailleFinale + 2,
+                ecran.nbrEntite, sexe, ecran);
         ecran.ent.add(newAnimal);
         e.setFertilite(-10000);
         this.setFertilite(-10000);
@@ -395,11 +401,181 @@ public class Entite {
         int mondeX = this.carteX;
         int mondeY = this.carteY;
         if (mondeX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX
-        && mondeX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
-        && mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY
-        && mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {    
+                && mondeX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
+                && mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY
+                && mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {
             graph2.drawImage(image, actuelX, actuelY, null);
         }
+    }
+
+    private boolean isWalkable(Node node) {
+        // Add your logic to determine if a node is walkable (e.g., check terrain,
+        // obstacles)
+        return true;
+    }
+
+    public String trouverChemin(int[] proche, Entite e) {
+        int debutX = e.carteX / ecran.tailleFinale;
+        int debutY = e.carteY / ecran.tailleFinale;
+        int objectifX = proche[0] / ecran.tailleFinale;
+        int objectifY = proche[1] / ecran.tailleFinale;
+
+        int largeur = ecran.mondeColMax;
+        int hauteur = ecran.mondeLignMax;
+
+        boolean[][] closedSet = new boolean[largeur][hauteur];
+        PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(Node::getFScore));
+        Node[][] allNodes = new Node[largeur][hauteur];
+
+        for (int x = 0; x < largeur; x++) {
+            for (int y = 0; y < hauteur; y++) {
+                allNodes[x][y] = new Node(x, y);
+            }
+        }
+
+        Node startNode = allNodes[debutX][debutY];
+        Node goalNode = allNodes[objectifX][objectifY];
+
+        startNode.gScore = 0;
+        startNode.fScore = heuristic(startNode, goalNode);
+        openSet.add(startNode);
+
+        int compteur = 0;
+        while (!openSet.isEmpty()) {
+            Node current = openSet.poll();
+
+            if (current.equals(goalNode)) {
+
+                ArrayList<Integer> path = reconstructPath(current);
+                if (path.size() > 3) {
+                    String direction = trouverDirection(path);
+                    System.out.println(direction);
+                    return direction;
+                } else {
+                    return "random";
+                }
+            }
+
+            closedSet[current.x][current.y] = true;
+
+            for (Node neighbor : getNeighbors(current, allNodes)) {
+                compteur++;
+                if (closedSet[neighbor.x][neighbor.y] || !isWalkable(neighbor)) {
+                    continue;
+                }
+
+                int tentativeGScore = current.gScore + 1; // Assuming uniform cost for each move
+
+                if (tentativeGScore < neighbor.gScore) {
+                    neighbor.cameFrom = current;
+                    neighbor.gScore = tentativeGScore;
+                    neighbor.fScore = neighbor.gScore + heuristic(neighbor, goalNode);
+
+                    if (!openSet.contains(neighbor)) {
+                        openSet.add(neighbor);
+                    }
+                }
+            }
+        }
+
+        return null; // Path not found
+    }
+
+    private int heuristic(Node startNode, Node goalNode) {
+        return Math.abs(startNode.x - goalNode.x) + Math.abs(startNode.y - goalNode.y);
+    }
+
+    private List<Node> getNeighbors(Node node, Node[][] allNodes) {
+        List<Node> neighbors = new ArrayList<>();
+        int x = node.x;
+        int y = node.y;
+
+        if (x > 0)
+            neighbors.add(allNodes[x - 1][y]);
+        if (x < allNodes.length - 1)
+            neighbors.add(allNodes[x + 1][y]);
+        if (y > 0)
+            neighbors.add(allNodes[x][y - 1]);
+        if (y < allNodes[0].length - 1)
+            neighbors.add(allNodes[x][y + 1]);
+
+        return neighbors;
+    }
+
+    private String trouverDirection(ArrayList<Integer> chemin) {
+        int dx = chemin.get(chemin.size() - 4) - this.carteX / ecran.tailleFinale;
+        int dy = chemin.get(chemin.size() - 3) - this.carteY / ecran.tailleFinale;
+        int dxfinal = Math.abs(chemin.get(0) - this.carteX / ecran.tailleFinale);
+        int dyfinal = Math.abs(chemin.get(1) - this.carteY / ecran.tailleFinale);
+
+        if (dx == 1 && dxfinal > dyfinal) {
+            direction = "droite";
+        } else if (dx == -1 && dxfinal > dyfinal) {
+            direction = "gauche";
+        } else if (dy == 1 && dyfinal > dxfinal) {
+            direction = "bas";
+        } else if (dy == -1 && dyfinal > dxfinal) {
+            direction = "haut";
+        }
+        System.out.println(dx + " " + dy + " " + dxfinal + " " + dyfinal + " " + direction);
+        return direction;
+    }
+
+    private ArrayList<Integer> reconstructPath(Node current) {
+        ArrayList<Integer> sortie = new ArrayList<Integer>();
+        while (current != null) {
+            sortie.add(current.x);
+            sortie.add(current.y);
+            current = current.cameFrom;
+        }
+        return sortie;
+    }
+
+    public void chasseRenard(Entite entite) {
+        if (ecran.nombrePoules == 0) {
+            Deplacer(entite, 5);
+            return;
+        }
+        int[] pouleProche = this.chercherPoule();
+        System.out.println(pouleProche[0] + " " + pouleProche[1]);
+        String directiondonnee = trouverChemin(pouleProche, this);
+        System.out.println(directiondonnee);
+        if (directiondonnee.equals("random")) {
+            Deplacer(entite, 5);
+            return;
+        } else {
+            if (pouleProche != null) {
+                attente++;
+                if (attente > 5) {
+                    direction = directiondonnee;
+                    attente = 0;
+                }
+
+                bouger(entite, direction);
+            }
+        }
+
+    }
+
+    int[] chercherPoule() {
+        int[] pos = new int[2];
+        int x = this.carteX;
+        int y = this.carteY;
+        int distance = 100000;
+        System.out.println(ecran.ent);
+        for (Entite e : ecran.ent) {
+            if (e instanceof Poule) {
+                int partenaireX = e.carteX;
+                int partenaireY = e.carteY;
+                int distancePoule = (x - partenaireX) * (x - partenaireX) + (y - partenaireY) * (y - partenaireY);
+                if (distancePoule < distance) {
+                    distance = distancePoule;
+                    pos[0] = e.carteX;
+                    pos[1] = e.carteY;
+                }
+            }
+        }
+        return pos;
     }
 
 }
