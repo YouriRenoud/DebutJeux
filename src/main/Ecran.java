@@ -61,6 +61,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int enJeu = 1;
 	public final int pauseJeu = 2;
 	public boolean terminer = false;
+	public boolean commencer = false;
 
 	public int nombreRenards = 0;
 	public int nombrePoules = 0;
@@ -125,7 +126,7 @@ public class Ecran extends JPanel implements Runnable {
 
 	public void miseAJour() {
 
-		if (etatActuel == enJeu) {
+		if (etatActuel == enJeu && commencer) {
 			joueur.miseAJour();
 
 			for (Entite e : ent) { // Iterate over the copy
@@ -154,12 +155,14 @@ public class Ecran extends JPanel implements Runnable {
 			}
 		}
 
+		if (commencer) {
 		for (Entite e : ent) {
 			if (e != null) {
 				e.afficher(graph2);
 				//System.out.println(e.carteX + " " + e.carteY);
 			}
 		}
+	}
 
 		joueur.afficher(graph2);
 

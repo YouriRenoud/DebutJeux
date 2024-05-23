@@ -50,6 +50,9 @@ public class UI {
 			resumePartie();
 			ecran.filDuJeu = null;
 		} else {
+			if (ecran.commencer == false) {
+				dessinerCommandes();
+			} else {
 			if (ecran.etatActuel == ecran.enJeu) {
 			
 				tempsDeJeu += (double) 1/60;
@@ -60,6 +63,7 @@ public class UI {
 				dessinerPause();
 				afficherstats();
 			}
+		}
 		}
 //		if (finDuJeu) {
 			
@@ -135,6 +139,36 @@ public class UI {
 		int y = ecran.ecranLargeur/2;
 
 		graph.drawString(texte, x, y);
+	}
+
+	public void dessinerCommandes() {
+		String texte = "BIENVENUE DANS";
+		String texte9 = "AVENTURE TIME:";
+		String texte1 = " Commandes clavier: ";
+		String texte2 = "Touche P: pause ";
+		String texte3 = "Touche L: lancer le jeu";
+		String texte4 = "Touche E: fin du jeu";
+		String texte5 = "Flèches: deplacement de l'écran";
+		String texte6 = "Nombre viperes crées: " + ecran.vipereTotal;
+		String texte7 = "Viperes restantes: " + ecran.nombreViperes;
+		String texte8 = "Temps écoule: " + tempsDeJeu;
+
+		int x = getXCentre(texte);
+		int y = ecran.ligneMax * ecran.tailleFinale / 2;
+
+		graph.setColor(Color.white);
+
+		graph.drawString(texte1, x-4, y + ecran.tailleFinale/2);
+		graph.drawString(texte2, x-4, y + 2*ecran.tailleFinale/2);
+		graph.drawString(texte3, x-4, y + 3*ecran.tailleFinale/2);
+		graph.drawString(texte4, x-4, y + 4*ecran.tailleFinale/2);
+		graph.drawString(texte5, x-4, y + 5*ecran.tailleFinale/2);
+
+		graph.setFont(graph.getFont().deriveFont(Font.BOLD, 60F));
+		graph.setColor(Color.black);
+		graph.drawString(texte, x - 120, y - 180);
+		graph.drawString(texte9, x - 120, y - 120);
+
 	}
 
 	public void afficherstats() {

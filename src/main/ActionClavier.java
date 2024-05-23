@@ -49,6 +49,11 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_E) {
 				ecran.interfaceJoueur.finDuJeu = true;
 		}
+
+		if (touche == KeyEvent.VK_L) {
+			ecran.commencer = true;
+	}
+
 	}
 
 	@Override

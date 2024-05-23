@@ -4,9 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.Position;
 
 import main.Ecran;
 
@@ -162,6 +168,35 @@ public class Entite {
                 actionDroite = true;
                 break;
         }
+    }
+
+    int[] chercherPartenaire() {
+        int[] pos = new int[2];
+        int x = this.carteX;
+        int y = this.carteY;
+        int distance = 1000;
+        for (Entite e : ecran.ent) {
+            if (e.getClass() == this.getClass()) {
+                int partenaireX = e.carteX;
+                int partenaireY = e.carteY;
+                int distanceVipere = ((x - partenaireX)^2 + (y - partenaireY)^2);
+                if (distanceVipere < distance) {
+                    distance = distanceVipere;
+                    pos[0] = e.carteX;
+                    pos[1] = e.carteY;
+                }
+            }
+        }
+        return pos;
+    }
+
+    public void moveToVipere() {
+        int[] vipereProche = this.chercherPartenaire();
+        if (vipereProche != null) {
+            //this.direction = ecran.gerer2.trouverChemin(vipereProche, this);
+
+        }
+
     }
 
     public void Deplacer(Entite entite) {
@@ -359,7 +394,7 @@ public class Entite {
         if (mondeX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX
         && mondeX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
         && mondeY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY
-        && mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {        
+        && mondeY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {    
             graph2.drawImage(image, actuelX, actuelY, null);
         }
     }
