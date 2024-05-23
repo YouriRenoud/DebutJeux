@@ -2,6 +2,11 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
+
+import Entites.Poule;
+import Entites.Renard;
+import Entites.Vipere;
 
 public class ActionClavier implements KeyListener {
 
@@ -37,7 +42,7 @@ public class ActionClavier implements KeyListener {
 			bas = true;
 		}
 
-		if (touche == KeyEvent.VK_P) {
+		if (touche == KeyEvent.VK_ESCAPE) {
 			if (ecran.etatActuel == ecran.enJeu) {
 				ecran.etatActuel = ecran.pauseJeu;
 			}
@@ -52,7 +57,42 @@ public class ActionClavier implements KeyListener {
 
 		if (touche == KeyEvent.VK_L) {
 			ecran.commencer = true;
-	}
+		}
+
+		if (touche == KeyEvent.VK_P) {
+			Random random = new Random();
+			int newX = random.nextInt(ecran.mondeColMax);
+			int newY = random.nextInt(ecran.mondeLignMax);
+			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
+
+			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
+			ecran.ent.add(new Poule(newX, newY, ecran.nbrEntite, "M", ecran));
+			}
+		}
+
+		if (touche == KeyEvent.VK_R) {
+			Random random = new Random();
+			int newX = random.nextInt(ecran.mondeColMax);
+			int newY = random.nextInt(ecran.mondeLignMax);
+			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
+
+			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
+			
+			ecran.ent.add(new Renard(newX, newY, ecran.nbrEntite, "M", ecran));
+			}
+		}
+
+		if (touche == KeyEvent.VK_V) {
+			Random random = new Random();
+			int newX = random.nextInt(ecran.mondeColMax);
+			int newY = random.nextInt(ecran.mondeLignMax);
+			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
+
+			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
+				
+				ecran.ent.add(new Vipere(newX, newY, ecran.nbrEntite, "M", ecran));
+			}
+		}
 
 	}
 

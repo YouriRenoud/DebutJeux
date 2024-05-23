@@ -67,7 +67,7 @@ public class Joueur extends Entite {
 		FonctionUtiles fct = new FonctionUtiles();
 		BufferedImage imageEchelle = null;
 		try {
-			imageEchelle = ImageIO.read(getClass().getResourceAsStream("/joueur/" + image + ".png"));
+			imageEchelle = ImageIO.read(getClass().getResourceAsStream("/renard/" + image + ".png"));
 			imageEchelle = fct.miseAEchelle(imageEchelle, ecran.tailleFinale, ecran.tailleFinale);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -97,6 +97,8 @@ public class Joueur extends Entite {
 			
 			int index = ecran.collisions.analyserObjet(this, true);
 			interactionObject(index);
+			// Entite e = ecran.collisions.analyserEntite(this);
+			// interactionEntite(e);
 			
 			if (collision == false) {
 				switch(direction) {
@@ -169,7 +171,7 @@ public class Joueur extends Entite {
 			}
 			break;
 		}
-		//graph2.drawImage(image, ecranX, ecranY, null);
+		graph2.drawImage(image, ecranX, ecranY, null);
 	}
 
 }

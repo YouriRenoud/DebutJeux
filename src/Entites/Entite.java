@@ -95,10 +95,13 @@ public class Entite {
 
     public void setAge(int age) {
         String[] nvNom = this.nom.split(" ");
-        if (this.age - age == 0) {
-            setPv(0);
-        }
         this.age = this.age - age;
+        if (this.age - age == 1) {
+            double mort = Math.random();
+            if (mort < 1/age) {
+                setPv(0);
+            }
+        }
         if (this.age <= dureeVie - dureeVie / 4 && nvNom.length > 1) {
             this.nom = "jeune " + nvNom[1];
         }
