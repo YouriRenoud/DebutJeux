@@ -94,6 +94,10 @@ public class ActionClavier implements KeyListener {
 			}
 		}
 
+		if (touche == KeyEvent.VK_C) {
+			ecran.interfaceJoueur.commandes = true;
+		}
+
 	}
 
 	@Override
@@ -115,7 +119,11 @@ public class ActionClavier implements KeyListener {
 		
 		if (touche == KeyEvent.VK_DOWN) {
 			bas = false;
-		}		
+		}
+
+		if (touche == KeyEvent.VK_C) {
+			ecran.interfaceJoueur.commandes = false;
+		}
 	}
 
 }

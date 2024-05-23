@@ -23,6 +23,7 @@ public class UI {
 	public DecimalFormat format = new DecimalFormat("#0.000");
 	
 	public boolean finDuJeu;
+	public boolean commandes = false;
 	
 	public UI(Ecran ecran) {
 		this.ecran = ecran;
@@ -62,6 +63,9 @@ public class UI {
 			if (ecran.etatActuel == ecran.pauseJeu) {
 				dessinerPause();
 				afficherstats();
+			}
+			if (commandes) {
+				dessinerCommandes();
 			}
 		}
 		}
@@ -149,20 +153,25 @@ public class UI {
 		String texte3 = "Touche L: lancer le jeu";
 		String texte4 = "Touche E: fin du jeu";
 		String texte5 = "Flèches: deplacement de l'écran";
-		String texte6 = "Nombre viperes crées: " + ecran.vipereTotal;
-		String texte7 = "Viperes restantes: " + ecran.nombreViperes;
-		String texte8 = "Temps écoule: " + tempsDeJeu;
+		String texte6 = "Touche P: ajouter une poule ";
+		String texte7 = "Touche R: ajouter un renard";
+		String texte8 = "Touche V: ajouter une vipère";
+		String texte10 = "Touche C: afficher les commandes";
 
 		int x = getXCentre(texte);
 		int y = ecran.ligneMax * ecran.tailleFinale / 2;
 
 		graph.setColor(Color.white);
 
-		graph.drawString(texte1, x-4, y + ecran.tailleFinale/2);
-		graph.drawString(texte2, x-4, y + 2*ecran.tailleFinale/2);
-		graph.drawString(texte3, x-4, y + 3*ecran.tailleFinale/2);
-		graph.drawString(texte4, x-4, y + 4*ecran.tailleFinale/2);
-		graph.drawString(texte5, x-4, y + 5*ecran.tailleFinale/2);
+		graph.drawString(texte1, x-40, y + ecran.tailleFinale/2 - 80);
+		graph.drawString(texte2, x-40, y + 2*ecran.tailleFinale/2 - 50);
+		graph.drawString(texte3, x-40, y + 3*ecran.tailleFinale/2 - 40);
+		graph.drawString(texte4, x-40, y + 4*ecran.tailleFinale/2 - 30);
+		graph.drawString(texte6, x-40, y + 5*ecran.tailleFinale/2 - 20);
+		graph.drawString(texte7, x-40, y + 6*ecran.tailleFinale/2 - 10);
+		graph.drawString(texte8, x-40, y + 7*ecran.tailleFinale/2);
+		graph.drawString(texte5, x-40, y + 8*ecran.tailleFinale/2 + 10);
+		graph.drawString(texte10, x-40, y + 9*ecran.tailleFinale/2 + 20);
 
 		graph.setFont(graph.getFont().deriveFont(Font.BOLD, 60F));
 		graph.setColor(Color.black);
