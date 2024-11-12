@@ -13,6 +13,11 @@ public class Main {
 		Ecran ecran = new Ecran();
 		affichage.add(ecran);
 		
+		ecran.configuration.chargerConfiguration();
+		if (ecran.pleinEcranOn) {
+			
+		}
+		
 		affichage.pack();
 		
 		affichage.setLocationRelativeTo(null);

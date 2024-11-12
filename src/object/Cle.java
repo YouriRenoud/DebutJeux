@@ -3,21 +3,17 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import Entites.Entite;
 import main.Ecran;
 
-public class Cle extends JeuObject {
+public class Cle extends Entite {
 	
-	Ecran ecran;
-
 	public Cle(Ecran ecran) {
-		this.ecran = ecran;
+		super(ecran);
+		
 		nom = "Cle";
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/items/Cle.png"));
-			fct.miseAEchelle(image, ecran.tailleFinale, ecran.tailleFinale);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		typeEntite = utilitaireType;
+		arriere = initialiser("/items/Cle.png", ecran.tailleFinale, ecran.tailleFinale);
+		description = "[" + nom + "]\nOuvre certaines portes.";
 	}
 }

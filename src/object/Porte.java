@@ -1,24 +1,22 @@
 package object;
 
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
+import Entites.Entite;
 import main.Ecran;
 
-public class Porte extends JeuObject {
+public class Porte extends Entite {
 	
-	public Ecran ecran;
-
 	public Porte(Ecran ecran) {
-		nom = "Porte";
-		this.ecran = ecran;
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/items/PorteFermee.png"));
-			fct.miseAEchelle(image, ecran.tailleFinale, ecran.tailleFinale);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		super(ecran);
 		
-		collision = true;
+		nom = "Porte";
+		arriere = initialiser("/items/PorteFermee.png", ecran.tailleFinale, ecran.tailleFinale);
+		collision1 = true;
+		
+		aireCollision.x = 0;
+		aireCollision.y = 16;
+		aireCollision.width = 48;
+		aireCollision.height = 32;
+		aireSolideDefautX = aireCollision.x;
+		aireSolideDefautY = aireCollision.y;
 	}
 }

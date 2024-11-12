@@ -3,23 +3,17 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import Entites.Entite;
 import main.Ecran;
 
-public class Coffre extends JeuObject {
+public class Coffre extends Entite {
 	
-	Ecran ecran;
-
 	public Coffre(Ecran ecran) {
-		nom = "Coffre";
-		this.ecran = ecran;
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/items/CoffreFerme.png"));
-			fct.miseAEchelle(image, ecran.tailleFinale, ecran.tailleFinale);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		super(ecran);
 		
-		collision = true;
+		nom = "Coffre";
+		arriere = initialiser("/items/CoffreFerme", ecran.tailleFinale, ecran.tailleFinale);
+		
+		collision1 = true;
 	}
 }

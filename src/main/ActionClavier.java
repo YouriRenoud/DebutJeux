@@ -2,22 +2,17 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
-
-import Entites.Poule;
-import Entites.Renard;
-import Entites.Vipere;
 
 public class ActionClavier implements KeyListener {
 
-
 	Ecran ecran;
-	public boolean haut, bas, gauche, droite;
+	public boolean haut, bas, gauche, droite, entree, attaquer, tirer;
+	public boolean debug = false;
 	
-
 	public ActionClavier(Ecran ecran) {
 		this.ecran = ecran;
 	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
@@ -26,6 +21,215 @@ public class ActionClavier implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int touche = e.getKeyCode();
 		
+		if (ecran.etatJeu == ecran.intro) {
+			etatIntro(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.jouer) {
+			etatJouer(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.pause) {
+			etatPause(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.parler) {
+			etatParler(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.stats) {
+			etatStats(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.options) {
+			etatOptions(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.perdu) {
+			etatPerdu(touche);
+		}
+		
+		else if (ecran.etatJeu == ecran.marchander) {
+			etatMarchant(touche);
+		}
+	}
+	
+	public void etatMarchant(int touche) {
+		
+		if (touche == KeyEvent.VK_ENTER) {
+			entree = true;
+		}
+		
+		if (ecran.interfaceJoueur.sousEtats == 0) {
+			if (touche == KeyEvent.VK_UP) {
+				ecran.interfaceJoueur.numCommande--;
+				if (ecran.interfaceJoueur.numCommande < 0) {
+					ecran.interfaceJoueur.numCommande = 2;
+				}
+				ecran.jouerSE(10);
+			}
+			
+			if (touche == KeyEvent.VK_DOWN) {
+				ecran.interfaceJoueur.numCommande++;
+				if (ecran.interfaceJoueur.numCommande > 2) {
+					ecran.interfaceJoueur.numCommande = 0;
+				}
+				ecran.jouerSE(10);
+			}
+		}
+	}
+	
+	public void etatPerdu(int touche) {
+		
+		if (touche == KeyEvent.VK_UP) {
+			ecran.interfaceJoueur.numCommande--;
+			if (ecran.interfaceJoueur.numCommande < 0) {
+				ecran.interfaceJoueur.numCommande = 1;
+			}
+			ecran.jouerSE(10);
+		}
+		if (touche == KeyEvent.VK_DOWN) {
+			ecran.interfaceJoueur.numCommande++;
+			if (ecran.interfaceJoueur.numCommande > 1) {
+				ecran.interfaceJoueur.numCommande = 0;
+			}
+			ecran.jouerSE(10);
+		}
+		if (touche == KeyEvent.VK_ENTER) {
+			if (ecran.interfaceJoueur.numCommande == 0) {
+				ecran.etatJeu = ecran.jouer;
+				ecran.reessayer();
+				ecran.jouerMusique(0);
+			}
+			else if (ecran.interfaceJoueur.numCommande == 1) {
+				ecran.etatJeu = ecran.intro;
+				ecran.recommencer();
+			}
+		}
+	}
+	
+	public void etatOptions(int touche) {
+		if (touche == KeyEvent.VK_ESCAPE) {
+			ecran.etatJeu = ecran.jouer;
+		}
+		if (touche == KeyEvent.VK_ENTER) {
+			entree = true;
+		}
+		
+		int maxNumCommande = 0;
+		switch(ecran.interfaceJoueur.sousEtats) {
+		case 0: maxNumCommande = 5; break;
+		case 3: maxNumCommande = 1; break;
+		}
+		if (touche == KeyEvent.VK_UP) {
+			ecran.interfaceJoueur.numCommande--;
+			ecran.jouerSE(10);
+			if (ecran.interfaceJoueur.numCommande < 0) {
+				ecran.interfaceJoueur.numCommande = maxNumCommande;
+			}
+		}
+		if (touche == KeyEvent.VK_DOWN) {
+			ecran.interfaceJoueur.numCommande++;
+			ecran.jouerSE(10);
+			if (ecran.interfaceJoueur.numCommande > maxNumCommande) {
+				ecran.interfaceJoueur.numCommande = 0;
+			}
+		}
+		if (touche == KeyEvent.VK_LEFT) {
+			if (ecran.interfaceJoueur.sousEtats == 0) {
+				if (ecran.interfaceJoueur.numCommande == 1 && ecran.musique.echelleVolume > 0) {
+					ecran.musique.echelleVolume--;
+					ecran.musique.verifierVolume();
+					ecran.jouerSE(10);
+				}
+				if (ecran.interfaceJoueur.numCommande == 2 && ecran.son.echelleVolume > 0) {
+					ecran.son.echelleVolume--;
+					ecran.jouerSE(10);
+				}
+			}
+		}
+		if (touche == KeyEvent.VK_RIGHT) {
+			if (ecran.interfaceJoueur.sousEtats == 0) {
+				if (ecran.interfaceJoueur.numCommande == 1 && ecran.musique.echelleVolume < 5) {
+					ecran.musique.echelleVolume++;
+					ecran.musique.verifierVolume();
+					ecran.jouerSE(10);
+				}
+				if (ecran.interfaceJoueur.numCommande == 2 && ecran.son.echelleVolume < 5) {
+					ecran.son.echelleVolume++;
+					ecran.jouerSE(10);
+				}
+			}
+		}
+	}
+	
+	public void etatIntro (int touche) {
+		if (ecran.interfaceJoueur.introNum == 0) {
+			if (touche == KeyEvent.VK_UP) {
+				ecran.interfaceJoueur.numCommande--;
+			}
+			
+			if (touche == KeyEvent.VK_DOWN) {
+				ecran.interfaceJoueur.numCommande++;
+			}
+			
+			if (touche == KeyEvent.VK_ENTER) {
+				
+				if (ecran.interfaceJoueur.numCommande == 0) {
+					ecran.interfaceJoueur.introNum = 1;
+					ecran.jouerMusique(0);
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 1) {
+					
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 2) {
+					System.exit(0);
+				}
+			}
+		}
+		
+		else if (ecran.interfaceJoueur.introNum == 1) {
+			if (touche == KeyEvent.VK_UP) {
+				ecran.interfaceJoueur.numCommande--;
+			}
+			
+			if (touche == KeyEvent.VK_DOWN) {
+				ecran.interfaceJoueur.numCommande++;
+			}
+			
+			if (touche == KeyEvent.VK_ENTER) {
+				
+				if (ecran.interfaceJoueur.numCommande == 0) {
+					ecran.etatJeu = ecran.jouer;
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 1) {
+					ecran.etatJeu = ecran.jouer;
+
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 2) {
+					ecran.etatJeu = ecran.jouer;
+
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 3) {
+					ecran.etatJeu = ecran.jouer;
+
+				}
+				
+				if (ecran.interfaceJoueur.numCommande == 4) {
+					ecran.interfaceJoueur.introNum = 0;
+					ecran.interfaceJoueur.numCommande = 0;
+				}
+			}
+		}
+	}
+	
+	public void etatJouer (int touche) {
+
 		if (touche == KeyEvent.VK_RIGHT) {
 			droite = true;
 		}
@@ -37,67 +241,88 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_UP) {
 			haut = true;
 		}
-		
+	
 		if (touche == KeyEvent.VK_DOWN) {
 			bas = true;
 		}
-
-		if (touche == KeyEvent.VK_ESCAPE) {
-			if (ecran.etatActuel == ecran.enJeu) {
-				ecran.etatActuel = ecran.pauseJeu;
+		
+		if (touche == KeyEvent.VK_S) {
+			tirer = true;
+		}
+		
+		if (touche == KeyEvent.VK_T) {
+			if (debug == false) {
+				debug = true;
 			}
-			else if (ecran.etatActuel == ecran.pauseJeu) {
-				ecran.etatActuel = ecran.enJeu;
-			}
+			else {debug = false;}
 		}
-
-		if (touche == KeyEvent.VK_E) {
-				ecran.interfaceJoueur.finDuJeu = true;
-		}
-
-		if (touche == KeyEvent.VK_L) {
-			ecran.commencer = true;
-		}
-
-		if (touche == KeyEvent.VK_P) {
-			Random random = new Random();
-			int newX = random.nextInt(ecran.mondeColMax);
-			int newY = random.nextInt(ecran.mondeLignMax);
-			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
-
-			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
-			ecran.ent.add(new Poule(newX, newY, ecran.nbrEntite, "M", ecran));
-			}
-		}
-
+		
 		if (touche == KeyEvent.VK_R) {
-			Random random = new Random();
-			int newX = random.nextInt(ecran.mondeColMax);
-			int newY = random.nextInt(ecran.mondeLignMax);
-			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
-
-			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
-			
-			ecran.ent.add(new Renard(newX, newY, ecran.nbrEntite, "M", ecran));
+			switch (ecran.carteActuelle) {
+			case 0: ecran.terrain.chargerCarte("/cartes/monde1.txt", 0); break;
+			case 1: ecran.terrain.chargerCarte("/cartes/interior01.txt", 1); break;
 			}
 		}
-
-		if (touche == KeyEvent.VK_V) {
-			Random random = new Random();
-			int newX = random.nextInt(ecran.mondeColMax);
-			int newY = random.nextInt(ecran.mondeLignMax);
-			int typeTerrain = ecran.terrain.parcoursCarte[newX][newY];
-
-			if (ecran.terrain.terrain[typeTerrain].interaction == false) {
-				
-				ecran.ent.add(new Vipere(newX, newY, ecran.nbrEntite, "M", ecran));
-			}
-		}
-
+		
 		if (touche == KeyEvent.VK_C) {
-			ecran.interfaceJoueur.commandes = true;
+			ecran.etatJeu = ecran.stats;
 		}
-
+		
+		if (touche == KeyEvent.VK_P) {
+			ecran.etatJeu = ecran.pause;
+		}
+		
+		if (touche == KeyEvent.VK_ENTER) {
+			entree = true;
+		}
+		
+		if (touche == KeyEvent.VK_X) {
+			attaquer = true;
+		}
+		
+		if (touche == KeyEvent.VK_ESCAPE) {
+			ecran.etatJeu = ecran.options;
+		}
+	}
+	
+	public void etatPause (int touche) {
+		if (touche == KeyEvent.VK_P) {
+			ecran.etatJeu = ecran.jouer;
+		}
+	}
+	
+	public void etatParler (int touche) {
+		if (touche == KeyEvent.VK_ENTER) {
+			ecran.etatJeu = ecran.jouer;
+		}
+	}
+	
+	public void etatStats (int touche) {
+		if (touche == KeyEvent.VK_C) {
+			ecran.etatJeu = ecran.jouer;
+		}
+		if (touche == KeyEvent.VK_RIGHT && ecran.interfaceJoueur.emplacementCol != 4) {
+			ecran.interfaceJoueur.emplacementCol++;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_LEFT && ecran.interfaceJoueur.emplacementCol != 0) {
+			ecran.interfaceJoueur.emplacementCol--;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_UP && ecran.interfaceJoueur.emplacementLign != 0) {
+			ecran.interfaceJoueur.emplacementLign--;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_DOWN && ecran.interfaceJoueur.emplacementLign != 3) {
+			ecran.interfaceJoueur.emplacementLign++;
+			ecran.jouerSE(10);
+		}
+		if (touche == KeyEvent.VK_ENTER) {
+			ecran.joueur.selectionnerItem();
+		}
 	}
 
 	@Override
@@ -120,9 +345,9 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_DOWN) {
 			bas = false;
 		}
-
-		if (touche == KeyEvent.VK_C) {
-			ecran.interfaceJoueur.commandes = false;
+		
+		if (touche == KeyEvent.VK_S) {
+			tirer = false;
 		}
 	}
 
