@@ -1,5 +1,6 @@
 package Entites;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 import main.Ecran;
@@ -20,9 +21,14 @@ public class Mage extends Entite {
 	public void actions() {
 		
 		if (enChemin) {
-			int arriveeCol = 23;
-			int arriveeLign = 21;
+			int arriveeCol = 10;
+			int arriveeLign = 11;
 			chercherChemin(arriveeCol, arriveeLign);
+
+			aireCollision = new Rectangle(10, 25, 28, 23);
+		
+			aireSolideDefautX = aireCollision.x;
+			aireSolideDefautY = aireCollision.y;
 		}
 		else {
 			attente++;

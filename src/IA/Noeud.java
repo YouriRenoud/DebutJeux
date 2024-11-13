@@ -2,7 +2,7 @@ package IA;
 
 public class Noeud {
     
-    Noeud parent;
+    public Noeud parent;
     public int col, lign;
     int gCost, hCost, fCost;
     boolean solide;
