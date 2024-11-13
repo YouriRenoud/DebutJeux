@@ -19,6 +19,7 @@ public class PotionSoin extends Entite {
 		valeur = 2;
 		arriere = initialiser("/items/PotionSoin.png", ecran.tailleFinale, ecran.tailleFinale);
 		description = "[" + nom + "]\nRécupère 1 coeur.";
+		prix = 55;
 	}
 	
 	public void utiliser(Entite entite, int index) {

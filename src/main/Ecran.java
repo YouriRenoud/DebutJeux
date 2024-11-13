@@ -95,7 +95,7 @@ public class Ecran extends JPanel implements Runnable {
 		gerer.setMage();
 		gerer.setMonstre();
 		gerer.setElementIntercatif();
-		jouerMusique(0);
+		//jouerMusique(0);
 		etatJeu = intro;
 		
 		tempEcran = new BufferedImage(ecranWidth, ecranHeight, BufferedImage.TYPE_INT_ARGB);
@@ -157,7 +157,6 @@ public class Ecran extends JPanel implements Runnable {
 	}
 	
 	public void miseAJour () {
-		System.out.println(action.entree);
 		if (etatJeu == jouer) {
 			joueur.miseAJour();
 			

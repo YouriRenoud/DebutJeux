@@ -19,6 +19,7 @@ public class Marchant extends Entite {
 		
 		getImage();
 		setDialogues();
+		setItems();
 
 	}
 	

@@ -73,6 +73,7 @@ public class Entite {
 	public int valeur;
 	public int type;
 	public String description = "";
+	public int prix;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;

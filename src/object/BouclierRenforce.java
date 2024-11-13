@@ -16,6 +16,7 @@ public class BouclierRenforce extends Entite {
 		arriere = initialiser("/items/BouclierRenforce.png", ecran.tailleFinale, ecran.tailleFinale);		
 		defVal = 3;
 		description = "[" + nom + "]\nDéjà mieux que le bois.\nDéfense = " + defVal;
+		prix = 35;
 
 	}
 }

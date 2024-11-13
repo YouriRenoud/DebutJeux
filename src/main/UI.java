@@ -13,6 +13,7 @@ import Entites.Joueur;
 import object.Cle;
 import object.Coeur;
 import object.Mana;
+import object.Pieces;
 
 public class UI {
 	
@@ -20,7 +21,7 @@ public class UI {
 	Font arial30, arial80;
 	Graphics2D graph;
 	
-	BufferedImage coeurPlein, coeurMoitie, coeurVide, crystalPlein, crystalVide;
+	BufferedImage coeurPlein, coeurMoitie, coeurVide, crystalPlein, crystalVide, piece;
 	
 	public Entite npc;
 	
@@ -58,6 +59,9 @@ public class UI {
 		Entite crystal = new Mana(ecran);
 		crystalPlein = crystal.image;
 		crystalVide = crystal.image1;
+
+		Entite argent = new Pieces(ecran, 2);
+		piece = argent.arriere1;
 	}
 	
 	public void ajouterMessage(String text) {
@@ -156,11 +160,110 @@ public class UI {
 	}
 	
 	public void choixAchete() {
-		
+		dessinerInventaire(ecran.joueur, false);
+		dessinerInventaire(npc, true);
+
+		int x = ecran.tailleFinale * 2;
+		int y = ecran.tailleFinale * 9;
+		int width = ecran.tailleFinale * 6;
+		int height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("[ECHAP] retour", x + 24, y + 55);
+
+		x = ecran.tailleFinale * 12;
+		y = ecran.tailleFinale * 9;
+		width = ecran.tailleFinale * 6;
+		height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("Votre argent: " + ecran.joueur.argent, x + 24, y + 55);
+
+		int itemIndex = getItemIndexSelectionne(npcCol, npcLign);
+		if (itemIndex < npc.inventaire.size()) {
+			x = (int)(ecran.tailleFinale * 5.5);
+			y = (int)(ecran.tailleFinale * 5.5);
+			width = (int)(ecran.tailleFinale * 2.5);
+			height = ecran.tailleFinale;
+			dessinerFenetre(x, y, width, height);
+			graph.drawImage(piece, x + 10, y + 6, 32, 32, null);
+
+			int prix = npc.inventaire.get(itemIndex).prix;
+			String texte = "x " + prix;
+			x = longueurCentree(texte) - 132;
+			graph.drawString(texte, x, y+30);
+
+			if (ecran.action.entree) {
+				if (npc.inventaire.get(itemIndex).prix <= ecran.joueur.argent && ecran.joueur.inventaire.size() < ecran.joueur.tailleInventaireMax) {
+					ecran.joueur.argent -= npc.inventaire.get(itemIndex).prix;
+					ecran.joueur.inventaire.add(npc.inventaire.get(itemIndex));
+					//npc.inventaire.remove(itemIndex);
+					dialogueCourant = ("Vous avez acheté " + npc.inventaire.get(itemIndex).nom + " !");
+				}
+				else if (ecran.joueur.inventaire.size() == ecran.joueur.tailleInventaireMax) {
+					numCommande = 0;
+					sousEtats = 0;
+					ecran.etatJeu = ecran.parler;
+					dialogueCourant = ("Votre inventaire est plein !");
+					dessinerDialogue();
+				}
+				else {
+					numCommande = 0;
+					sousEtats = 0;
+					ecran.etatJeu = ecran.parler;
+					dialogueCourant = ("Vous n'avez pas assez d'argent !");
+					dessinerDialogue();
+				}	
+			}
+		}
 	}
 	
 	public void choixVendu() {
 		
+		dessinerInventaire(ecran.joueur, true);
+
+		int x = ecran.tailleFinale * 2;
+		int y = ecran.tailleFinale * 9;
+		int width = ecran.tailleFinale * 6;
+		int height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("[ECHAP] retour", x + 24, y + 55);
+
+		x = ecran.tailleFinale * 12;
+		y = ecran.tailleFinale * 9;
+		width = ecran.tailleFinale * 6;
+		height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("Votre argent: " + ecran.joueur.argent, x + 24, y + 55);
+
+		int itemIndex = getItemIndexSelectionne(emplacementCol, emplacementLign);
+		if (itemIndex < ecran.joueur.inventaire.size()) {
+			x = (int)(ecran.tailleFinale * 15.5);
+			y = (int)(ecran.tailleFinale * 5.5);
+			width = (int)(ecran.tailleFinale * 2.5);
+			height = ecran.tailleFinale;
+			dessinerFenetre(x, y, width, height);
+			graph.drawImage(piece, x + 10, y + 6, 32, 32, null);
+
+			int prix = ecran.joueur.inventaire.get(itemIndex).prix;
+			String texte = "x " + (int)(prix*0.8);
+			x = alignerDroite(texte, ecran.tailleFinale*18 - 10);
+			graph.drawString(texte, x, y+31);
+
+			if (ecran.action.entree) {
+
+				if (ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.armeActuelle
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.bouclierActuel) {
+					numCommande = 0;
+					sousEtats = 0;
+					ecran.etatJeu = ecran.parler;
+					dialogueCourant = "Vous ne pouvez pas vendre\nvotre équipement actuel !";
+					dessinerDialogue();	
+				}
+				else {
+					ecran.joueur.inventaire.remove(itemIndex);
+					ecran.joueur.argent += (int)(prix*0.8);
+				}
+			}
+		}
 	}
 	
 	public void dessinerTransitionCartes() {
@@ -444,7 +547,7 @@ public class UI {
 		int posCol = 0;
 		int posLign = 0;
 		
-		if (e instanceof Joueur) {
+		if (e == ecran.joueur) {
 			// fenetre d'inventaire joueur
 			stX = ecran.tailleFinale*12;
 			stY = ecran.tailleFinale;
@@ -491,8 +594,8 @@ public class UI {
 		
 		if (curseur == true) {
 			// curseur
-			int curseurX = emplacementXDebut + emplacementTaille*emplacementCol;
-			int curseurY = emplacementYDebut + emplacementTaille*emplacementLign;
+			int curseurX = emplacementXDebut + emplacementTaille*posCol;
+			int curseurY = emplacementYDebut + emplacementTaille*posLign;
 			int curseurWidth = ecran.tailleFinale;
 			int curseurHeight = ecran.tailleFinale;
 			

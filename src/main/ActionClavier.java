@@ -77,6 +77,20 @@ public class ActionClavier implements KeyListener {
 				ecran.jouerSE(10);
 			}
 		}
+
+		if (ecran.interfaceJoueur.sousEtats == 1) {
+			npcInventaire(touche);
+			if (touche == KeyEvent.VK_ESCAPE) {
+				ecran.interfaceJoueur.sousEtats = 0;
+			}
+		}
+
+		if (ecran.interfaceJoueur.sousEtats == 2) {
+			joueurInventaire(touche);
+			if (touche == KeyEvent.VK_ESCAPE) {
+				ecran.interfaceJoueur.sousEtats = 0;
+			}
+		}
 	}
 	
 	public void etatPerdu(int touche) {
@@ -301,6 +315,14 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_C) {
 			ecran.etatJeu = ecran.jouer;
 		}
+		if (touche == KeyEvent.VK_ENTER) {
+			ecran.joueur.selectionnerItem();
+		}
+
+		joueurInventaire(touche);
+	}
+
+	public void joueurInventaire(int touche) {
 		if (touche == KeyEvent.VK_RIGHT && ecran.interfaceJoueur.emplacementCol != 4) {
 			ecran.interfaceJoueur.emplacementCol++;
 			ecran.jouerSE(10);
@@ -320,8 +342,27 @@ public class ActionClavier implements KeyListener {
 			ecran.interfaceJoueur.emplacementLign++;
 			ecran.jouerSE(10);
 		}
-		if (touche == KeyEvent.VK_ENTER) {
-			ecran.joueur.selectionnerItem();
+	}
+
+	public void npcInventaire(int touche) {
+		if (touche == KeyEvent.VK_RIGHT && ecran.interfaceJoueur.npcCol != 4) {
+			ecran.interfaceJoueur.npcCol++;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_LEFT && ecran.interfaceJoueur.npcCol != 0) {
+			ecran.interfaceJoueur.npcCol--;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_UP && ecran.interfaceJoueur.npcLign != 0) {
+			ecran.interfaceJoueur.npcLign--;
+			ecran.jouerSE(10);
+		}
+		
+		if (touche == KeyEvent.VK_DOWN && ecran.interfaceJoueur.npcLign != 3) {
+			ecran.interfaceJoueur.npcLign++;
+			ecran.jouerSE(10);
 		}
 	}
 

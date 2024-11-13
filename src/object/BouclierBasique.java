@@ -12,5 +12,6 @@ public class BouclierBasique extends Entite {
 		arriere = initialiser("/items/BouclierBase.png", ecran.tailleFinale, ecran.tailleFinale);
 		defVal = 1;
 		description = "[" + nom + "]\nFait main en bois.\nDéfense = " + defVal;
+		prix = 5;
 	}
 }

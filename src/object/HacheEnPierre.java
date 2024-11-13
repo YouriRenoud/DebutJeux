@@ -18,5 +18,6 @@ public class HacheEnPierre extends Entite {
 		attArea.width = 35;
 		attArea.height = 22;
 		description = "[" + nom + "]\nArme de barbares,\nPeut couper des arbres.\nDégats = " + attVal;
+		prix = 50;
 	}
 }

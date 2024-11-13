@@ -13,5 +13,6 @@ public class Chaussure extends Entite {
 		
 		nom = "Chaussure";
 		arriere = initialiser("/items/Chaussures", ecran.tailleFinale, ecran.tailleFinale);
+		prix = 150;
 	}
 }

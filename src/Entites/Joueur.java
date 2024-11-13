@@ -73,7 +73,7 @@ public class Joueur extends Entite {
 		agilite = 1;
 		experience = 0;
 		niveauSuivant = 5;
-		argent = 0;
+		argent = 100;
 		maxMana = 6;
 		mana = maxMana;
 		armeActuelle = new HacheEnPierre(ecran);

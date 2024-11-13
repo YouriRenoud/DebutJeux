@@ -14,5 +14,6 @@ public class EpeeNormale extends Entite {
 		attArea.width = 30;
 		attArea.height = 30;
 		description = "[" + nom + "]\nUne vieille épée.\nAttaque = " + attVal;
+		prix = 5;
 	}
 }
