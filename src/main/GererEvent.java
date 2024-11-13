@@ -77,9 +77,9 @@ public class GererEvent {
 				eventPossible = false;
 			}
 			
-			else if (touche(0, 10, 10, "haut") == true) {
-				teleporter(ecran.parler);
-			}
+			//else if (touche(0, 10, 10, "haut") == true) {
+			//	teleporter(ecran.parler);
+			//}
 			
 			else if (touche(0, 30, 6, "toutes") == true) {
 				visiter(1, 12, 13);

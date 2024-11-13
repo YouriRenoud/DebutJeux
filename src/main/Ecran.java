@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import Entites.Entite;
 import Entites.Joueur;
+import IA.ChercheurChemin;
 import terrain.ElementInteractif;
 import terrain.GestionTerrain;
 
@@ -34,7 +35,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
-	public int carteActuelle = 1;
+	public int carteActuelle = 0;
 	
 	// plein ecran
 	int ecranWidth = mondeLongueur;
@@ -50,6 +51,7 @@ public class Ecran extends JPanel implements Runnable {
 	public VerifierCollision collisions = new VerifierCollision(this);
 	public GererObject gerer = new GererObject(this);
 	public GererEvent event = new GererEvent(this);
+	public ChercheurChemin chemin = new ChercheurChemin(this);
 	
 	public Son son = new Son();
 	public Son musique = new Son();

@@ -19,25 +19,32 @@ public class Mage extends Entite {
 	
 	public void actions() {
 		
-		attente++;
+		if (enChemin) {
+			int arriveeCol = 23;
+			int arriveeLign = 21;
+			chercherChemin(arriveeCol, arriveeLign);
+		}
+		else {
+			attente++;
 		
-		if (attente == 100) {
-			Random alea = new Random();
-			int i = alea.nextInt(100) + 1;
-			
-			if (i <= 25) {
-				direction = "haut";
+			if (attente == 100) {
+				Random alea = new Random();
+				int i = alea.nextInt(100) + 1;
+				
+				if (i <= 25) {
+					direction = "haut";
+				}
+				if (i > 25 && i <= 50) {
+					direction = "bas";
+				}
+				if (i > 50 && i <= 75) {
+					direction = "gauche";
+				}
+				if (i > 75) {
+					direction = "droite";
+				}
+				attente = 0;
 			}
-			if (i > 25 && i <= 50) {
-				direction = "bas";
-			}
-			if (i > 50 && i <= 75) {
-				direction = "gauche";
-			}
-			if (i > 75) {
-				direction = "droite";
-			}
-			attente = 0;
 		}
 	}
 	
@@ -52,6 +59,7 @@ public class Mage extends Entite {
 	
 	public void parler() {
 		super.parler();
+		enChemin = true;
 	}
 	
 	public void getImage() {

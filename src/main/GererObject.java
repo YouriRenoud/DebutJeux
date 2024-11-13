@@ -113,7 +113,7 @@ public class GererObject {
 		i++;
 		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 20, 22);
 		i++;
-		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 21, 21);
+		//ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 21, 21);
 		i++;
 	}
 }

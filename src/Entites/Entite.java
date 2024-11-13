@@ -81,6 +81,8 @@ public class Entite {
 	
 	public boolean invincible = false;
 	public int tempsInvincible = 0;
+
+	public boolean enChemin = false;
 	
 	public int typeEntite;
 	public final int joueurType = 0;
@@ -172,8 +174,7 @@ public class Entite {
 		}
 	}
 	
-	public void miseAJour() {
-		actions();
+	public void verifierCollision() {
 		collision0 = false;
 		
 		ecran.collisions.AnalyserTerrain(this);
@@ -182,10 +183,15 @@ public class Entite {
 		ecran.collisions.analyserEntite(this, ecran.monstre);
 		ecran.collisions.analyserEntite(this, ecran.iTerrain);
 		ecran.collisions.analyserObjet(this, false);
-		
+
 		if (this.typeEntite == monstreType && contactJoueur == true) {
 			degatJoueur(this.attaquer);
 		}
+	}
+
+	public void miseAJour() {
+		actions();
+		verifierCollision();
 		
 		if (collision0 == false) {
 			switch(direction) {
@@ -238,6 +244,77 @@ public class Entite {
 		}
 	}
 	
+	public void chercherChemin(int arriveeCol, int arriveeLign) {
+
+		int col = (carteX+aireCollision.x)/ecran.tailleFinale;
+		int lign = (carteY+aireCollision.y)/ecran.tailleFinale;
+
+		ecran.chemin.setNoeuds(col, lign, arriveeCol, arriveeLign, this);
+
+		if (ecran.chemin.chercher()) {
+
+			int xSuivant = ecran.chemin.cheminList.get(0).col*ecran.tailleFinale;
+			int ySuivant = ecran.chemin.cheminList.get(0).lign*ecran.tailleFinale;
+			int eGaucheX = carteX + aireCollision.x;
+			int eDroiteX = carteX + aireCollision.x + aireCollision.width;
+			int eHautY = carteY + aireCollision.y;
+			int eBasY = carteY + aireCollision.y + aireCollision.height;
+
+			if (eHautY > ySuivant && eGaucheX >= xSuivant && eDroiteX < xSuivant + ecran.tailleFinale) {
+				direction = "haut";
+			}
+			else if (eHautY < ySuivant && eGaucheX >= xSuivant && eDroiteX < xSuivant + ecran.tailleFinale) {
+				direction = "bas";
+			}
+			else if (eHautY >= ySuivant && eBasY < ySuivant + ecran.tailleFinale) {
+				if (eGaucheX > xSuivant) {
+					direction = "gauche";
+				}
+				if (eGaucheX < xSuivant) {
+					direction = "droite";
+				}
+			}
+			else if (eHautY > ySuivant && eGaucheX > xSuivant) {
+
+				direction = "haut";
+				verifierCollision();
+				if (collision1 == true) {
+					direction = "gauche";
+				}
+			}
+			else if (eHautY > ySuivant && eGaucheX < xSuivant) {
+
+				direction = "haut";
+				verifierCollision();
+				if (collision1 == true) {
+					direction = "droite";
+				}
+			}
+			else if (eHautY < ySuivant && eGaucheX > xSuivant) {
+
+				direction = "bas";
+				verifierCollision();
+				if (collision1 == true) {
+					direction = "gauche";
+				}
+			}
+			else if (eHautY < ySuivant && eGaucheX < xSuivant) {
+
+				direction = "bas";
+				verifierCollision();
+				if (collision1 == true) {
+					direction = "droite";
+				}
+			}
+
+			int colSuivante = ecran.chemin.cheminList.get(0).col;
+			int lignSuivante = ecran.chemin.cheminList.get(0).lign;
+			if (colSuivante == arriveeCol && lignSuivante == arriveeLign) {
+				enChemin = false;
+			}
+		}
+	}
+
 	public void mortEcran(Graphics2D graph) {
 		mortCompteur++;
 		ecran.jouerSE(8);
