@@ -61,6 +61,7 @@ public class Entite {
 	public int mana;
 	public Entite armeActuelle;
 	public Entite bouclierActuel;
+	public Entite lumiereActuelle;
 	
 	public int magie;
 	
@@ -76,8 +77,11 @@ public class Entite {
 	public int reculForce;
 	public int valeur;
 	public int type;
+	public int rayonLumiere;
 	public String description = "";
 	public int prix;
+	public boolean empillable = false;
+	public int possedes = 1;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -97,14 +101,19 @@ public class Entite {
 	public final int hacheType = 5;
 	public final int utilitaireType = 6;
 	public final int ramasserType = 7;
+	public final int obstacleType = 8;
+	public final int lumiereType = 9;
 	
 	public Entite(Ecran ecran) {
 		this.ecran = ecran;
 	}
 		
+	public void utiliser(Entite e) {}
 	public void utiliser(Entite entite, int index) {}
 	
 	public void verifierDrop() {}
+
+	public void interaction() {}
 	
 	public void dropItem(Entite item) {
 		for (int i=0; i < ecran.obj[1].length; i++) {
@@ -121,6 +130,30 @@ public class Entite {
 	
 	public void attaqueReaction() {}
 	
+	public int getGaucheX() {
+		return carteX + aireCollision.x;
+	}
+
+	public int getDroiteX() {
+		return carteX + aireCollision.x + aireCollision.width;
+	}
+
+	public int getHautY() {
+		return carteY + aireCollision.y;
+	}
+
+	public int getBasY() {
+		return carteY + aireCollision.y + aireCollision.height;
+	}
+
+	public int getCol() {
+		return (carteX+aireCollision.x)/ecran.tailleFinale;
+	}
+
+	public int getLign() {
+		return (carteY+aireCollision.y)/ecran.tailleFinale;
+	}
+
 	public int getParticuleMaxVie() {
 		return 0;
 	}
@@ -137,6 +170,40 @@ public class Entite {
 		return null;
 	}
 	
+	public int getDetecte(Entite e, Entite[][] obj, String type) {
+		int index = 999;
+
+		int xSuivant = e.getGaucheX();
+		int ySuivant = e.getHautY();
+
+		switch(e.direction) {
+			case "haut":
+				ySuivant = e.getHautY()-5; break;
+			case "bas":
+				ySuivant = e.getBasY()+1; break;
+			case "gauche":
+				xSuivant = e.getGaucheX()-5; break;
+			case "droite":
+				xSuivant = e.getDroiteX()+1; break;
+		}
+
+		int colSuivant = xSuivant/ecran.tailleFinale;
+		int lignSuivant = ySuivant/ecran.tailleFinale;
+
+		for (int i=0; i < obj[1].length; i++) {
+			if (obj[ecran.carteActuelle][i] != null) {
+				if (obj[ecran.carteActuelle][i].getCol() == colSuivant && obj[ecran.carteActuelle][i].getLign() == lignSuivant
+					&& obj[ecran.carteActuelle][i].nom.equals(type)) {
+
+					index = i;
+					break;
+				}
+			}
+		}
+
+		return index;
+	}
+
 	public void genererParticules(Entite generateur, Entite cible) {
 		
 		Color couleur = generateur.getParticuleCouleur();
@@ -325,13 +392,14 @@ public class Entite {
 
 				direction = "haut";
 				verifierCollision();
-				if (collision1 == true) {
+				if (collision1) {
 					direction = "droite";
 				}
 			}
 			else if (eHautY < ySuivant && eGaucheX - ecran.tailleFinale > xSuivant) {
 
 				direction = "bas";
+
 				verifierCollision();
 				if (collision1 == true) {
 					direction = "gauche";
@@ -341,7 +409,7 @@ public class Entite {
 
 				direction = "bas";
 				verifierCollision();
-				if (collision1 == true) {
+				if (collision1) {
 					direction = "droite";
 				}
 			}

@@ -9,6 +9,7 @@ import object.Cle;
 import object.Coeur;
 import object.Coffre;
 import object.HacheEnPierre;
+import object.Lanterne;
 import object.Mana;
 import object.Pieces;
 import object.Porte;
@@ -55,6 +56,18 @@ public class GererObject {
 		ecran.obj[mapNum][i] = new PotionSoin(ecran);
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*36;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*23;
+		i++;
+		ecran.obj[mapNum][i] = new Porte(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*24;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*21;
+		i++;
+		ecran.obj[mapNum][i] = new Coffre(ecran, new Chaussure(ecran));
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*22;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*21;
+		i++;
+		ecran.obj[mapNum][i] = new Coffre(ecran, new Lanterne(ecran));
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*23;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*15;
 		i++;
 	}
 	

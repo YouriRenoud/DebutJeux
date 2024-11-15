@@ -29,6 +29,8 @@ public class Joueur extends Entite {
 	public boolean toucheEnfoncee;
 	
 	public boolean annulerAttaque = false;
+
+	public boolean lumiereChangee = false;
 		
 	public Joueur(Ecran ecran, ActionClavier action) {
 		
@@ -39,7 +41,7 @@ public class Joueur extends Entite {
 		this.ecranX = ecran.ecranLongueur/2 - ecran.tailleFinale/2;
 		this.ecranY = ecran.ecranLargeur/2 - ecran.tailleFinale/2;
 		
-		aireCollision = new Rectangle(10, 25, 20, 25);
+		aireCollision = new Rectangle(15, 25, 23, 25);
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
@@ -75,7 +77,7 @@ public class Joueur extends Entite {
 		agilite = 1;
 		experience = 0;
 		niveauSuivant = 5;
-		argent = 100;
+		argent = 1000;
 		maxMana = 6;
 		mana = maxMana;
 		armeActuelle = new HacheEnPierre(ecran);
@@ -297,12 +299,17 @@ public class Joueur extends Entite {
 			if (ecran.obj[ecran.carteActuelle][i].typeEntite == ramasserType) {
 				ecran.obj[ecran.carteActuelle][i].utiliser(this, i);
 			}
+			else if (ecran.obj[ecran.carteActuelle][i].typeEntite == obstacleType) {
+				if (ecran.action.entree) {
+					ecran.obj[ecran.carteActuelle][i].interaction();
+					annulerAttaque = true;
+				}
+			}
 			else {
 				// Inventaire items
 				String texte;
-				
-				if (inventaire.size() != tailleInventaireMax) {
-					inventaire.add(ecran.obj[ecran.carteActuelle][i]);
+
+				if (itemRecuperable(ecran.obj[ecran.carteActuelle][i])) {
 					ecran.jouerSE(1);
 					texte = "Vous avez trouvé cet objet :\n" + ecran.obj[ecran.carteActuelle][i].nom + "!";
 				}
@@ -474,6 +481,46 @@ public class Joueur extends Entite {
 		}
 	}	
 	
+	public int chercherItemInventaire(String nom) {
+
+		int itemIndex = 999;
+
+		for (int i = 0; i < inventaire.size(); i++) {
+			if (inventaire.get(i).nom.equals(nom)) {
+				itemIndex = i;
+				break;
+			}
+		}
+		return itemIndex;
+	}
+
+	public boolean itemRecuperable(Entite item) {
+
+		boolean obtainable = false;
+
+		if (item.empillable) {
+			int index = chercherItemInventaire(item.nom);
+
+			if (index != 999) {
+				inventaire.get(index).possedes++;
+				obtainable = true;
+			}
+			else {
+				if (inventaire.size() < tailleInventaireMax) {
+					inventaire.add(item);
+					obtainable = true;
+				}
+			}
+		}
+		else {
+			if (inventaire.size() < tailleInventaireMax) {
+				inventaire.add(item);
+				obtainable = true;
+			}
+		}
+		return obtainable;
+	}
+
 	public void selectionnerItem() {
 		int itemIndex = ecran.interfaceJoueur.getItemIndexSelectionne(ecran.interfaceJoueur.emplacementCol, ecran.interfaceJoueur.emplacementLign);
 		
@@ -493,6 +540,16 @@ public class Joueur extends Entite {
 			
 			if (itemSelectionne.typeEntite == utilitaireType) {
 				itemSelectionne.utiliser(this, itemIndex);
+			}
+
+			if (itemSelectionne.typeEntite == lumiereType) {
+				if (lumiereActuelle == itemSelectionne) {
+					lumiereActuelle = null;
+				}
+				else {
+					lumiereActuelle = itemSelectionne;
+				}
+				lumiereChangee = true;
 			}
 		}
 	}	

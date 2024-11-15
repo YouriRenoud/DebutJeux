@@ -192,26 +192,23 @@ public class UI {
 			graph.drawString(texte, x, y+30);
 
 			if (ecran.action.entree) {
-				if (npc.inventaire.get(itemIndex).prix <= ecran.joueur.argent && ecran.joueur.inventaire.size() < ecran.joueur.tailleInventaireMax) {
-					ecran.joueur.argent -= npc.inventaire.get(itemIndex).prix;
-					ecran.joueur.inventaire.add(npc.inventaire.get(itemIndex));
-					//npc.inventaire.remove(itemIndex);
-					dialogueCourant = ("Vous avez acheté " + npc.inventaire.get(itemIndex).nom + " !");
-				}
-				else if (ecran.joueur.inventaire.size() == ecran.joueur.tailleInventaireMax) {
-					numCommande = 0;
-					sousEtats = 0;
-					ecran.etatJeu = ecran.parler;
-					dialogueCourant = ("Votre inventaire est plein !");
-					dessinerDialogue();
-				}
-				else {
+				if (npc.inventaire.get(itemIndex).prix > ecran.joueur.argent) {
 					numCommande = 0;
 					sousEtats = 0;
 					ecran.etatJeu = ecran.parler;
 					dialogueCourant = ("Vous n'avez pas assez d'argent !");
 					dessinerDialogue();
-				}	
+				}
+				else {
+					if (ecran.joueur.itemRecuperable(npc.inventaire.get(itemIndex))) {
+						ecran.joueur.argent -= npc.inventaire.get(itemIndex).prix;
+					}
+					else {
+						sousEtats = 0;
+						ecran.etatJeu = ecran.parler;
+						dialogueCourant = ("Votre inventaire est plein !");
+					}
+				}
 			}
 		}
 	}
@@ -259,7 +256,12 @@ public class UI {
 					dessinerDialogue();	
 				}
 				else {
-					ecran.joueur.inventaire.remove(itemIndex);
+					if (ecran.joueur.inventaire.get(itemIndex).possedes > 1) {
+						ecran.joueur.inventaire.get(itemIndex).possedes--;
+					}
+					else {
+						ecran.joueur.inventaire.remove(itemIndex);
+					}
 					ecran.joueur.argent += (int)(prix*0.8);
 				}
 			}
@@ -578,12 +580,31 @@ public class UI {
 		for (int i = 0; i < e.inventaire.size(); i++) {
 			//equiper curseur
 			if (e.inventaire.get(i) == e.bouclierActuel 
-					|| e.inventaire.get(i) == e.armeActuelle) {
+					|| e.inventaire.get(i) == e.armeActuelle
+					|| e.inventaire.get(i) == e.lumiereActuelle) {
 				graph.setColor(new Color(240, 190, 90));
 				graph.fillRoundRect(emplacementX, emplacementY, ecran.tailleFinale, ecran.tailleFinale, 10, 10);
 			}
 			graph.drawImage(e.inventaire.get(i).arriere, emplacementX, emplacementY, null);
 			
+			if (e == ecran.joueur && e.inventaire.get(i).possedes > 1) {
+				graph.setColor(Color.white);
+
+				graph.setFont(graph.getFont().deriveFont(18F));
+				int possedeX;
+				int possedeY;
+
+				String possede = "x" + e.inventaire.get(i).possedes;
+				possedeX = alignerDroite(possede, emplacementX + ecran.tailleFinale);
+				possedeY = emplacementY + ecran.tailleFinale;
+
+				graph.setColor(new Color(60, 60, 60));
+				graph.drawString(possede, possedeX, possedeY);
+
+				graph.setColor(Color.white);
+				graph.drawString(possede, possedeX-3, possedeY-3);
+			}
+
 			emplacementX += emplacementTaille;
 			
 			if (i == 4 || i == 9 || i == 14) {

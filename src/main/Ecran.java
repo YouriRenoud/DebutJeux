@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import Entites.Entite;
 import Entites.Joueur;
+import Environnement.GererEnvironnement;
 import IA.ChercheurChemin;
 import terrain.ElementInteractif;
 import terrain.GestionTerrain;
@@ -51,6 +52,7 @@ public class Ecran extends JPanel implements Runnable {
 	public VerifierCollision collisions = new VerifierCollision(this);
 	public GererObject gerer = new GererObject(this);
 	public GererEvent event = new GererEvent(this);
+	public GererEnvironnement environnement = new GererEnvironnement(this);
 	public ChercheurChemin chemin = new ChercheurChemin(this);
 	
 	public Son son = new Son();
@@ -98,6 +100,7 @@ public class Ecran extends JPanel implements Runnable {
 		gerer.setMage();
 		gerer.setMonstre();
 		gerer.setElementIntercatif();
+		environnement.initialiser();
 		//jouerMusique(0);
 		etatJeu = intro;
 		
@@ -208,6 +211,8 @@ public class Ecran extends JPanel implements Runnable {
 					iTerrain[carteActuelle][i].miseAJour();
 				}
 			}
+
+			environnement.miseAJour();
 		}
 		
 		if (etatJeu == pause) {
@@ -332,7 +337,7 @@ public class Ecran extends JPanel implements Runnable {
 			}
 			
 			listEntite.add(joueur);
-			
+
 			for (int i = 0; i < mage[1].length; i++) {
 				if (mage[carteActuelle][i] != null) {
 					listEntite.add(mage[carteActuelle][i]);
@@ -377,9 +382,11 @@ public class Ecran extends JPanel implements Runnable {
 			}
 			
 			listEntite.clear();
-			
+				
 			joueur.afficher(graph2);
-			
+
+			environnement.afficher(graph2);
+
 			interfaceJoueur.afficher(graph2);
 		}
 		

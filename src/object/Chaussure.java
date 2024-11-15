@@ -12,7 +12,8 @@ public class Chaussure extends Entite {
 		super(ecran);
 		
 		nom = "Chaussure";
-		arriere = initialiser("/items/Chaussures", ecran.tailleFinale, ecran.tailleFinale);
-		prix = 150;
+		arriere = initialiser("/items/Chaussures.png", ecran.tailleFinale, ecran.tailleFinale);
+		prix = 70;
+		description = "[" + nom + "]\nChaussure de course.\nVitesse + 1";
 	}
 }
