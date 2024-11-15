@@ -282,7 +282,7 @@ public class Entite {
 					direction = "gauche";
 				}
 			}
-			else if (eHautY > ySuivant && eGaucheX < xSuivant) {
+			else if (eHautY > ySuivant && eGaucheX - ecran.tailleFinale < xSuivant) {
 
 				direction = "haut";
 				verifierCollision();
@@ -290,7 +290,7 @@ public class Entite {
 					direction = "droite";
 				}
 			}
-			else if (eHautY < ySuivant && eGaucheX > xSuivant) {
+			else if (eHautY < ySuivant && eGaucheX - ecran.tailleFinale > xSuivant) {
 
 				direction = "bas";
 				verifierCollision();

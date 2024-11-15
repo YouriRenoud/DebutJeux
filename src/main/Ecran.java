@@ -408,17 +408,17 @@ public class Ecran extends JPanel implements Runnable {
 	}
 	
 	public void jouerMusique(int i) {
-		musique.setFichier(i);
-		musique.play();
-		musique.loop();
+		//musique.setFichier(i);
+		//musique.play();
+		//musique.loop();
 	}
 	
 	public void stopperMusique() {
-		musique.stop();
+		//musique.stop();
 	}
 	
 	public void jouerSE(int i) {
-		son.setFichier(i);
-		son.play();
+		//son.setFichier(i);
+		//son.play();
 	}
 }

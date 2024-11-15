@@ -26,7 +26,7 @@ public class Coeur extends Entite {
 			entite.vie += valeur;
 			ecran.interfaceJoueur.ajouterMessage("Vous gagner " + valeur + " vies !");
 			ecran.jouerSE(2);
-			ecran.obj[i] = null;
+			ecran.obj[ecran.carteActuelle][i] = null;
 		}
 		else {
 			if (this.compteur == 0) {
