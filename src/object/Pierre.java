@@ -13,7 +13,7 @@ public class Pierre extends Projectiles {
 		super(ecran);
 		this.ecran = ecran;
 		nom = "Pierre";
-		vitesse = 5;
+		vitesse = 3;
 		vieMax = 80;
 		vie = vieMax;
 		attaquer = 3;

@@ -98,7 +98,7 @@ public class ChercheurChemin {
         }
 
         if (debug == 0) {
-            afficherGrilleSolide();
+            //afficherGrilleSolide();
             debug = 1;
         }
     }

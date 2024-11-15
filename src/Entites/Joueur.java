@@ -55,6 +55,7 @@ public class Joueur extends Entite {
 		inventaire.add(armeActuelle);
 		inventaire.add(bouclierActuel);
 		inventaire.add(new Cle(ecran));
+		inventaire.add(new EpeeNormale(ecran));
 	}	
 	
 	public void initialiser() {
@@ -63,10 +64,11 @@ public class Joueur extends Entite {
 		carteY = ecran.tailleFinale * 21;
 		//carteX = ecran.tailleFinale * 12;
 		//carteY = ecran.tailleFinale * 12;
-		vitesse = 3;
+		vitesseDefaut = 3;
+		vitesse = vitesseDefaut;
 		direction = "bas";
 		
-		vieMax = 6;
+		vieMax = 10;
 		vie = vieMax;
 		niveau = 1;
 		force = 1;
@@ -249,7 +251,13 @@ public class Joueur extends Entite {
 			projectile.initialiser(carteX, carteY, direction, true, this);
 			
 			projectile.utiliserRessource(this);
-			ecran.listProjectiles.add(projectile);
+			//ecran.listProjectiles.add(projectile);
+			for (int i = 0; i < ecran.listProjectiles[1].length; i++) {
+				if (ecran.listProjectiles[ecran.carteActuelle][i] == null) {
+					ecran.listProjectiles[ecran.carteActuelle][i] = projectile;
+					break;
+				}
+			}	
 			
 			tirPossible = 0;
 			
@@ -351,7 +359,7 @@ public class Joueur extends Entite {
 			int aireSolWidth = aireCollision.width;
 			
 			switch(direction) {
-			case "haut": carteY -= attArea.height; break;
+			case "haut": carteY -= attArea.height + 15; break;
 			case "bas": carteY += attArea.height; break;
 			case "gauche": carteX -= attArea.width; break;
 			case "droite": carteX += attArea.width; break;
@@ -361,10 +369,13 @@ public class Joueur extends Entite {
 			aireCollision.height = attArea.height;
 			
 			int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
-			blesserMonstre(ennemiIndex, attaquer);
+			blesserMonstre(ennemiIndex, attaquer, armeActuelle.reculForce);
 			
 			int iTerrainIndex = ecran.collisions.analyserEntite(this, ecran.iTerrain);
 			attaquerTerrain(iTerrainIndex);
+
+			int projectileIndex = ecran.collisions.analyserEntite(this, ecran.listProjectiles);
+			attaquerProjectile(projectileIndex);
 			
 			carteX = actuelMondeX;
 			carteY = actuelMondeY;
@@ -372,10 +383,21 @@ public class Joueur extends Entite {
 			aireCollision.height = aireSolHeight;
 			aireCollision.width = aireSolWidth;
 		}
-		if (compteur > 25) {
+		if (compteur > 20) {
 			marcher = 1;
 			compteur = 0;
 			attaque = false;
+		}
+	}
+
+	public void attaquerProjectile(int index) {
+		if (index != 999) {
+			Entite projectile = ecran.listProjectiles[ecran.carteActuelle][index];
+			projectile.vie -= projectile.vieMax;
+			if (projectile.vie <= 0) {
+				ecran.listProjectiles[ecran.carteActuelle][index].vivant = false;
+				genererParticules(projectile, projectile);
+			}
 		}
 	}
 	
@@ -395,10 +417,14 @@ public class Joueur extends Entite {
 		}
 	}	
 	
-	public void blesserMonstre(int i, int attaquer) {
+	public void blesserMonstre(int i, int attaquer, int reculForce) {
 		if (i != 999) {
 			if (!ecran.monstre[ecran.carteActuelle][i].invincible) {
 				ecran.jouerSE(5);
+
+				if (reculForce > 0) {
+					recul(ecran.monstre[ecran.carteActuelle][i], reculForce);
+				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;
 				if (degats <= 0) {degats = 0;}
@@ -420,6 +446,13 @@ public class Joueur extends Entite {
 				ecran.monstre[ecran.carteActuelle][i].attaquer = 0;
 			}
 		}
+	}
+
+	public void recul(Entite entite, int reculForce) {
+
+		entite.direction = direction;
+		entite.vitesse += reculForce;
+		entite.recul = true;
 	}
 
 	public void verifierNiveau() {

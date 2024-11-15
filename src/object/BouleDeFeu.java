@@ -19,6 +19,7 @@ public class BouleDeFeu extends Projectiles {
 		attaquer = 5;
 		coutUtilisation = 1;
 		vivant = false;
+		reculForce = 0;
 		getImage();
 	}
 	

@@ -22,7 +22,9 @@ public class Mage extends Entite {
 		
 		if (enChemin) {
 			int arriveeCol = 10;
-			int arriveeLign = 11;
+			int arriveeLign = 8;
+			arriveeCol = (ecran.joueur.carteX + ecran.joueur.aireCollision.x) / ecran.tailleFinale;
+			arriveeLign = (ecran.joueur.carteY + ecran.joueur.aireCollision.y) / ecran.tailleFinale;
 			chercherChemin(arriveeCol, arriveeLign);
 
 			aireCollision = new Rectangle(10, 25, 28, 23);
@@ -31,6 +33,12 @@ public class Mage extends Entite {
 			aireSolideDefautY = aireCollision.y;
 		}
 		else {
+
+			aireCollision = new Rectangle(0, 0, 48, 48);
+		
+			aireSolideDefautX = aireCollision.x;
+			aireSolideDefautY = aireCollision.y;
+
 			attente++;
 		
 			if (attente == 100) {

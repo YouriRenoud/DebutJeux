@@ -61,7 +61,8 @@ public class Ecran extends JPanel implements Runnable {
 	public Entite mage[][] = new Entite[maxCartes][10];
 	public Entite monstre[][] = new Entite[maxCartes][20];
 	ArrayList<Entite> listEntite = new ArrayList<>();
-	public ArrayList<Entite> listProjectiles = new ArrayList<>();
+	public Entite listProjectiles[][] = new Entite[maxCartes][50];
+	//public ArrayList<Entite> listProjectiles = new ArrayList<>();
 	public ArrayList<Entite> listParticules = new ArrayList<>();
 	public ElementInteractif iTerrain[][] = new ElementInteractif[maxCartes][50];
 	
@@ -180,13 +181,13 @@ public class Ecran extends JPanel implements Runnable {
 				}
 			}
 
-			for (int i = 0; i < listProjectiles.size(); i++) {
-				if (listProjectiles.get(i) != null) {
-					if (listProjectiles.get(i).vivant == true) {
-						listProjectiles.get(i).miseAJour();
+			for (int i = 0; i < listProjectiles[1].length; i++) {
+				if (listProjectiles[carteActuelle][i] != null) {
+					if (listProjectiles[carteActuelle][i].vivant == true) {
+						listProjectiles[carteActuelle][i].miseAJour();
 					}
-					if (listProjectiles.get(i).vivant == false) {
-						listProjectiles.remove(i);
+					if (listProjectiles[carteActuelle][i].vivant == false) {
+						listProjectiles[carteActuelle][i] = null;
 					}
 				}
 			}
@@ -250,9 +251,9 @@ public class Ecran extends JPanel implements Runnable {
 				}
 			}
 			
-			for (int i = 0; i < listProjectiles.size(); i++) {
-				if (listProjectiles.get(i) != null) {
-					listEntite.add(listProjectiles.get(i));
+			for (int i = 0; i < listProjectiles[i].length; i++) {
+				if (listProjectiles[carteActuelle][i] != null) {
+					listEntite.add(listProjectiles[carteActuelle][i]);
 				}
 			}
 			
@@ -350,9 +351,9 @@ public class Ecran extends JPanel implements Runnable {
 				}
 			}
 			
-			for (int i = 0; i < listProjectiles.size(); i++) {
-				if (listProjectiles.get(i) != null) {
-					listEntite.add(listProjectiles.get(i));
+			for (int i = 0; i < listProjectiles[1].length; i++) {
+				if (listProjectiles[carteActuelle][i] != null) {
+					listEntite.add(listProjectiles[carteActuelle][i]);
 				}
 			}
 			

@@ -310,7 +310,7 @@ public class UI {
 		y += ecran.tailleFinale*4;
 		graph.drawString(texte, x, y);
 		if (numCommande == 0) {
-			graph.drawString(">", x-35, y);
+			graph.drawString(">", x-45, y);
 		}
 
 		texte = "Quitter";
@@ -318,7 +318,7 @@ public class UI {
 		y += 75;
 		graph.drawString(texte, x, y);
 		if (numCommande == 1) {
-			graph.drawString(">", x-35, y);
+			graph.drawString(">", x-45, y);
 		}
 	}
 
@@ -729,11 +729,11 @@ public class UI {
 		graph.setFont(graph.getFont().deriveFont(8F));
 		valeur = String.valueOf(ecran.joueur.armeActuelle.nom);
 		textX = alignerDroite(valeur, valX);
-		graph.drawString(valeur, textX + 5, textY);
+		graph.drawString(valeur, textX + 15, textY);
 		textY += hauteurLigne - 1;
 		valeur = String.valueOf(ecran.joueur.bouclierActuel.nom);
 		textX = alignerDroite(valeur, valX);
-		graph.drawString(valeur, textX + 5, textY);
+		graph.drawString(valeur, textX + 15, textY);
 		textY += hauteurLigne + 2;
 		graph.setFont(graph.getFont().deriveFont(20F));
 		valeur = String.valueOf(ecran.joueur.attaquer);

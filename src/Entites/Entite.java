@@ -26,7 +26,7 @@ public class Entite {
 	public String direction = "haut";
 	
 	int marcher = 1;
-	int compteur = 0;
+	public int compteur = 0;
 	
 	public Rectangle aireCollision = new Rectangle(0, 0, 48, 48);
 	public Rectangle attArea = new Rectangle(0, 0, 0, 0);
@@ -46,6 +46,9 @@ public class Entite {
 	public int vieBarreCompteur = 0;
 	
 	public boolean attaque = false;
+	public boolean recul = false;
+	int reculCompteur = 0;
+	public int vitesseDefaut;
 	public int niveau;
 	public int force;
 	public int agilite;
@@ -70,6 +73,7 @@ public class Entite {
 	
 	public int attVal;
 	public int defVal;
+	public int reculForce;
 	public int valeur;
 	public int type;
 	public String description = "";
@@ -190,23 +194,58 @@ public class Entite {
 	}
 
 	public void miseAJour() {
-		actions();
-		verifierCollision();
-		
-		if (collision0 == false) {
-			switch(direction) {
-			case "haut":
-				carteY -= vitesse;
-				break;
-			case "bas":
-				carteY += vitesse;
-				break;
-			case "gauche":
-				carteX -= vitesse;
-				break;
-			case "droite":
-				carteX += vitesse;
-				break;
+
+		if (recul) {
+
+			verifierCollision();
+			if (collision0) {
+				reculCompteur = 0;
+				recul = false;
+				vitesse = vitesseDefaut;
+			}
+			else if (!collision0) {
+				switch(ecran.joueur.direction) {
+					case "haut":
+					carteY -= vitesse;
+					break;
+				case "bas":
+					carteY += vitesse;
+					break;
+				case "gauche":
+					carteX -= vitesse;
+					break;
+				case "droite":
+					carteX += vitesse;
+					break;
+				}
+			}
+
+			reculCompteur++;
+			if (reculCompteur == 10) {
+				reculCompteur = 0;
+				recul = false;
+				vitesse = vitesseDefaut;
+			}
+		}
+		else {
+			actions();
+			verifierCollision();
+			
+			if (collision0 == false) {
+				switch(direction) {
+				case "haut":
+					carteY -= vitesse;
+					break;
+				case "bas":
+					carteY += vitesse;
+					break;
+				case "gauche":
+					carteX -= vitesse;
+					break;
+				case "droite":
+					carteX += vitesse;
+					break;
+				}
 			}
 		}
 	
@@ -274,7 +313,7 @@ public class Entite {
 					direction = "droite";
 				}
 			}
-			else if (eHautY > ySuivant && eGaucheX > xSuivant) {
+			else if (eHautY > ySuivant && eGaucheX - ecran.tailleFinale > xSuivant) {
 
 				direction = "haut";
 				verifierCollision();
@@ -282,7 +321,7 @@ public class Entite {
 					direction = "gauche";
 				}
 			}
-			else if (eHautY > ySuivant && eGaucheX - ecran.tailleFinale < xSuivant) {
+			else if (eHautY > ySuivant && eGaucheX < xSuivant) {
 
 				direction = "haut";
 				verifierCollision();
@@ -307,11 +346,11 @@ public class Entite {
 				}
 			}
 
-			int colSuivante = ecran.chemin.cheminList.get(0).col;
-			int lignSuivante = ecran.chemin.cheminList.get(0).lign;
-			if (colSuivante == arriveeCol && lignSuivante == arriveeLign) {
-				enChemin = false;
-			}
+			// int colSuivante = ecran.chemin.cheminList.get(0).col;
+			// int lignSuivante = ecran.chemin.cheminList.get(0).lign;
+			// if (colSuivante == arriveeCol && lignSuivante == arriveeLign) {
+			// 	enChemin = false;
+			// }
 		}
 	}
 

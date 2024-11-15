@@ -1,5 +1,6 @@
 package terrain;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class GestionTerrain {
 	Ecran ecran;
 	public Terrain[] terrain;
 	public int parcoursCarte[][][];
+
+	public boolean dessinerChemin = true;
 	
 	public GestionTerrain(Ecran ecran) {
 		this.ecran = ecran;
@@ -113,6 +116,19 @@ public class GestionTerrain {
 			if (colonne == ecran.mondeColMax) {
 				colonne = 0;
 				ligne++;
+			}
+		}
+
+		if (dessinerChemin) {
+			graph.setColor(new Color(255, 0, 0, 70));
+
+			for (int i=0; i < ecran.chemin.cheminList.size(); i++) {
+				int carteX = ecran.chemin.cheminList.get(i).col * ecran.tailleFinale;
+				int carteY = ecran.chemin.cheminList.get(i).lign * ecran.tailleFinale;
+				int ecranX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
+				int ecranY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
+
+				//graph.fillRect(ecranX, ecranY, ecran.tailleFinale, ecran.tailleFinale);
 			}
 		}
 	}
