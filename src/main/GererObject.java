@@ -10,6 +10,7 @@ import object.Coeur;
 import object.Coffre;
 import object.HacheEnPierre;
 import object.Lanterne;
+import object.Lit;
 import object.Mana;
 import object.Pieces;
 import object.Porte;
@@ -68,6 +69,10 @@ public class GererObject {
 		ecran.obj[mapNum][i] = new Coffre(ecran, new Lanterne(ecran));
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*23;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*15;
+		i++;
+		ecran.obj[mapNum][i] = new Lit(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*23;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*24;
 		i++;
 	}
 	

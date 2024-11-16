@@ -7,7 +7,7 @@ import main.Ecran;
 public class GererEnvironnement {
     
     Ecran ecran;
-    Lumieres lumieres;
+    public Lumieres lumieres;
 
     public GererEnvironnement(Ecran ecran) {
         this.ecran = ecran;

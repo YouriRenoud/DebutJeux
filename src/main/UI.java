@@ -108,6 +108,32 @@ public class UI {
 		if(ecran.etatJeu == ecran.marchander) {
 			dessinerMarcher();
 		}
+		if(ecran.etatJeu == ecran.dormir) {
+			dessinerDormir();
+		}
+	}
+
+	public void dessinerDormir() {
+		
+		dureeTransition++;
+
+		if (dureeTransition < 120) {
+			ecran.environnement.lumieres.filtreAlpha += 0.01f;
+			if (ecran.environnement.lumieres.filtreAlpha > 0.98f) {
+				ecran.environnement.lumieres.filtreAlpha = 0.98f;
+			}
+		}
+		if (dureeTransition> 120) {
+			ecran.environnement.lumieres.filtreAlpha -= 0.01f;
+			if (ecran.environnement.lumieres.filtreAlpha <= 0.0f) {
+				ecran.environnement.lumieres.filtreAlpha = 0.0f;
+				dureeTransition = 0;
+				ecran.environnement.lumieres.momentJour = ecran.environnement.lumieres.jour;
+				ecran.environnement.lumieres.jourCompteur = 0;
+				ecran.etatJeu = ecran.jouer;
+				ecran.joueur.getImage();
+			}
+		}
 	}
 	
 	public void dessinerMarcher() {

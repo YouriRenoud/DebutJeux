@@ -81,6 +81,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int perdu = 6;
 	public final int transitionCartes = 7;
 	public final int marchander = 8;
+	public final int dormir = 9;
 	
 	public boolean pleinEcranOn = false;
 	
@@ -416,17 +417,17 @@ public class Ecran extends JPanel implements Runnable {
 	}
 	
 	public void jouerMusique(int i) {
-		//musique.setFichier(i);
-		//musique.play();
-		//musique.loop();
+		musique.setFichier(i);
+		musique.play();
+		musique.loop();
 	}
 	
 	public void stopperMusique() {
-		//musique.stop();
+		musique.stop();
 	}
 	
 	public void jouerSE(int i) {
-		//son.setFichier(i);
-		//son.play();
+		son.setFichier(i);
+		son.play();
 	}
 }

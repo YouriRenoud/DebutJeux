@@ -164,6 +164,24 @@ public class Joueur extends Entite {
 		}
 	}
 	
+	public void getDormirImage(BufferedImage im) {
+		avant = im;
+			
+		avant1 = im;
+
+		arriere = im;
+
+		arriere1 = im;
+		
+		gauche = im;
+		
+		gauche1 = im;
+
+		droite = im;
+
+		droite1 = im;	
+	}
+
 	public void miseAJour() {
 		
 		if (attaque == true) {
