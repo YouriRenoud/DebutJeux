@@ -16,6 +16,7 @@ import Entites.Entite;
 import Entites.Joueur;
 import Environnement.GererEnvironnement;
 import IA.ChercheurChemin;
+import terrain.Carte;
 import terrain.ElementInteractif;
 import terrain.GestionTerrain;
 
@@ -30,9 +31,12 @@ public class Ecran extends JPanel implements Runnable {
 	public final int ecranLongueur = colonneMax * tailleFinale;
 	public final int ecranLargeur = ligneMax * tailleFinale;
 	
+
+	public GestionTerrain terrain = new GestionTerrain(this);
+
 	// param map monde
-	public final int mondeColMax = 50;
-	public final int mondeLignMax = 50;
+	public int mondeColMax;
+	public int mondeLignMax;
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
@@ -48,7 +52,6 @@ public class Ecran extends JPanel implements Runnable {
 	public Configuration configuration = new Configuration(this);
 	Thread filDuJeu;
 	
-	public GestionTerrain terrain = new GestionTerrain(this);
 	public VerifierCollision collisions = new VerifierCollision(this);
 	public GererObject gerer = new GererObject(this);
 	public GererEvent event = new GererEvent(this);
@@ -66,7 +69,8 @@ public class Ecran extends JPanel implements Runnable {
 	public Entite listProjectiles[][] = new Entite[maxCartes][50];
 	//public ArrayList<Entite> listProjectiles = new ArrayList<>();
 	public ArrayList<Entite> listParticules = new ArrayList<>();
-	public ElementInteractif iTerrain[][] = new ElementInteractif[maxCartes][50];
+	public ElementInteractif iTerrain[][] = new ElementInteractif[maxCartes][100];
+	public Carte carte = new Carte(this);
 	
 	public UI interfaceJoueur = new UI(this);
 	
@@ -82,6 +86,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int transitionCartes = 7;
 	public final int marchander = 8;
 	public final int dormir = 9;
+	public final int cartes = 10;
 	
 	public boolean pleinEcranOn = false;
 	
@@ -100,7 +105,7 @@ public class Ecran extends JPanel implements Runnable {
 		gerer.setObjects();
 		gerer.setMage();
 		gerer.setMonstre();
-		gerer.setElementIntercatif();
+		gerer.setElementInteractif();
 		environnement.initialiser();
 		//jouerMusique(0);
 		etatJeu = intro;
@@ -160,7 +165,7 @@ public class Ecran extends JPanel implements Runnable {
 		gerer.setObjects();
 		gerer.setMage();
 		gerer.setMonstre();
-		gerer.setElementIntercatif();
+		gerer.setElementInteractif();
 	}
 	
 	public void miseAJour () {
@@ -231,12 +236,6 @@ public class Ecran extends JPanel implements Runnable {
 		else {
 			terrain.afficher(graph2);
 			
-			for (int i = 0; i < iTerrain[1].length; i++) {
-				if (iTerrain[carteActuelle][i] != null) {
-					iTerrain[carteActuelle][i].afficher(graph2);
-				}
-			}
-			
 			listEntite.add(joueur);
 			
 			for (int i = 0; i < mage[1].length; i++) {
@@ -277,6 +276,13 @@ public class Ecran extends JPanel implements Runnable {
 					return resultat;
 				}
 			});
+
+			for (int i = 0; i < iTerrain[1].length; i++) {
+				if (iTerrain[carteActuelle][i] != null) {
+					iTerrain[carteActuelle][i].afficher(graph2);
+				}
+			}
+			System.out.println("erqh");
 			
 			for (int i = 0; i < listEntite.size(); i++) {
 				listEntite.get(i).afficher(graph2);
@@ -311,7 +317,7 @@ public class Ecran extends JPanel implements Runnable {
 
 		}
 	}
-		
+	
 	public void dessinerEcran() {
 		
 		Graphics g = getGraphics();
@@ -328,15 +334,18 @@ public class Ecran extends JPanel implements Runnable {
 		if (etatJeu == intro) {
 			interfaceJoueur.afficher(graph2);
 		}
+		else if (etatJeu == cartes) {
+			carte.dessinerCarteEntiereEcran(graph2);;
+		}
 		else {
 			terrain.afficher(graph2);
-			
-			for (int i = 0; i < iTerrain.length; i++) {
+
+			for (int i = 0; i < iTerrain[carteActuelle].length; i++) {
 				if (iTerrain[carteActuelle][i] != null) {
 					iTerrain[carteActuelle][i].afficher(graph2);
 				}
 			}
-			
+
 			listEntite.add(joueur);
 
 			for (int i = 0; i < mage[1].length; i++) {
@@ -387,6 +396,8 @@ public class Ecran extends JPanel implements Runnable {
 			joueur.afficher(graph2);
 
 			environnement.afficher(graph2);
+
+			carte.dessinerMiniCarte(graph2);
 
 			interfaceJoueur.afficher(graph2);
 		}

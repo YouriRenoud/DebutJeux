@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -19,35 +20,58 @@ public class GestionTerrain {
 	public int parcoursCarte[][][];
 
 	public boolean dessinerChemin = true;
+
+	public ArrayList<String> nomFichier = new ArrayList<>();
+	public ArrayList<String> collisionStatut = new ArrayList<>();
 	
 	public GestionTerrain(Ecran ecran) {
 		this.ecran = ecran;
 		
-		terrain = new Terrain[50];
-		parcoursCarte = new int[ecran.maxCartes][ecran.mondeColMax][ecran.mondeLignMax];
-		
+		InputStream fichier = getClass().getResourceAsStream("/cartes/terrainMondeDepart.txt");
+		BufferedReader lire = new BufferedReader(new InputStreamReader(fichier));
+
+		String ligne;
+
+		try {
+			while ((ligne = lire.readLine()) != null) {
+				nomFichier.add(ligne);
+				collisionStatut.add(lire.readLine());
+			}
+			lire.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		terrain = new Terrain[nomFichier.size()];		
 		getImage();
+
+		fichier = getClass().getResourceAsStream("/cartes/mondeDepart.txt");
+		lire = new BufferedReader(new InputStreamReader(fichier));
+
+		try {
+			ligne = lire.readLine();
+			String dimensions[] = ligne.split(" ");
+
+			ecran.mondeColMax = dimensions.length;
+			ecran.mondeLignMax = dimensions.length;
+			parcoursCarte = new int[ecran.maxCartes][ecran.mondeColMax][ecran.mondeLignMax];
+
+			lire.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		chargerCarte("/cartes/mondeDepart.txt", 0);
 		
-		chargerCarte("/cartes/monde1.txt", 0);
+		// chargerCarte("/cartes/monde1.txt", 1);
 		chargerCarte("/cartes/interior01.txt", 1);
 	}
 	
 	public void getImage() {
 
-			init(0, "Herbe", false);
-			init(10, "Herbe", false);
-			init(2, "EauPeuProfonde", false);
-			init(1, "Mur", true);
-			init(40, "Mur", true);
-			init(5, "Sable", false);
-			init(4, "Arbre (2)", true);
-			init(41, "Arbre (2)", true);
-			init(3, "Terre", false);
-			init(6, "Sable2", false);
-			init(7, "Desert", false);
-			init(8, "Maison", false);
-			init(43, "Sol", false);
-			init(44, "Table", true);
+		for (int i=0; i < nomFichier.size(); i++) {
+			init(i, nomFichier.get(i), Boolean.parseBoolean(collisionStatut.get(i)));}
 	}
 	
 	public void chargerCarte(String plan, int carteNum) {
@@ -85,7 +109,7 @@ public class GestionTerrain {
 		UtilityTool outil = new UtilityTool();
 		try {
 			terrain[index] = new Terrain();
-			terrain[index].image = ImageIO.read(getClass().getResourceAsStream("/terrains/" + image + ".png"));
+			terrain[index].image = ImageIO.read(getClass().getResourceAsStream("/terrains/" + image));
 			terrain[index].image = outil.scaleImage(terrain[index].image, ecran.tailleFinale, ecran.tailleFinale);
 			terrain[index].interaction = collision;
 		} catch (IOException e) {

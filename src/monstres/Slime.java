@@ -49,10 +49,9 @@ public class Slime extends Entite {
 		droite1 = initialiser("/Monsters/Slime2.png", ecran.tailleFinale, ecran.tailleFinale);
 
 	}
+	
+	public void actions() {
 
-	public void miseAJour() {
-		super.miseAJour();
-		
 		int xDistance = Math.abs(ecran.joueur.carteX - carteX);
 		int yDistance = Math.abs(ecran.joueur.carteY - carteY);
 		int terrainDistance = (xDistance + yDistance)/ecran.tailleFinale;
@@ -66,9 +65,6 @@ public class Slime extends Entite {
 		if (enChemin && terrainDistance > 5) {
 			enChemin = false;
 		}
-	}
-	
-	public void actions() {
 		
 		if (enChemin) {
 			int arriveeCol = 10;

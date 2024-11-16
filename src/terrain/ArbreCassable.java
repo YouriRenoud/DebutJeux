@@ -13,12 +13,15 @@ public class ArbreCassable extends ElementInteractif {
 		super(ecran, col, lign);
 		this.ecran = ecran;
 		
-		this.carteX = ecran.tailleFinale*col;
-		this.carteY = ecran.tailleFinale*lign;
+		carteX = ecran.tailleFinale*col;
+		carteY = ecran.tailleFinale*lign;
 		
-		vie = 3;
+		vie = 1;
+		direction = "haut";
 		
 		arriere = initialiser("/ElementInteractif/ArbreCassable.png", ecran.tailleFinale, ecran.tailleFinale);
+		arriere1 = initialiser("/ElementInteractif/ArbreCassable.png", ecran.tailleFinale, ecran.tailleFinale);
+
 		destructible = true;
 	}
 	

@@ -52,8 +52,18 @@ public class ActionClavier implements KeyListener {
 		else if (ecran.etatJeu == ecran.marchander) {
 			etatMarchant(touche);
 		}
+
+		else if (ecran.etatJeu == ecran.cartes) {
+			etatCarte(touche);
+		}
 	}
 	
+	public void etatCarte(int touche) {
+		if (touche == KeyEvent.VK_M) {
+			ecran.etatJeu = ecran.jouer;
+		}
+	}
+
 	public void etatMarchant(int touche) {
 		
 		if (touche == KeyEvent.VK_ENTER) {
@@ -296,6 +306,19 @@ public class ActionClavier implements KeyListener {
 		
 		if (touche == KeyEvent.VK_ESCAPE) {
 			ecran.etatJeu = ecran.options;
+		}
+
+		if (touche == KeyEvent.VK_M) {
+			ecran.etatJeu = ecran.cartes;
+		}
+
+		if (touche == KeyEvent.VK_L) {
+			if (ecran.carte.miniCarteOn == true) {
+				ecran.carte.miniCarteOn = false;
+			}
+			else {
+				ecran.carte.miniCarteOn = true;
+			}
 		}
 	}
 	

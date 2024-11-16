@@ -23,6 +23,7 @@ public class Mana extends Entite {
 		image = initialiser("/items/ManaPlein.png", ecran.tailleFinale, ecran.tailleFinale);
 		image1 = initialiser("/items/ManaVide.png", ecran.tailleFinale, ecran.tailleFinale);
 		description = "[" + nom + "]\nPour lancer des sorts.";
+		empillable = true;
 	}
 	
 	public void utiliser(Entite entite, int i) {

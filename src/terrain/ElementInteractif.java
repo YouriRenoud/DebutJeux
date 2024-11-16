@@ -46,13 +46,15 @@ public class ElementInteractif extends Entite {
 	public void afficher(Graphics2D graph) {
 		int actuelX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
 		int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
-
+	
 		if (carteX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX 
 				&& carteX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
 				&& carteY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY 
 				&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) {
-			
+
 			graph.drawImage(arriere, actuelX, actuelY, null);
+		}
+		else {
 		}
 	}
 }

@@ -81,12 +81,12 @@ public class GererEvent {
 			//	teleporter(ecran.parler);
 			//}
 			
-			else if (touche(0, 30, 6, "toutes") == true) {
+			else if (touche(0, 49, 94, "toutes") == true) {
 				visiter(1, 12, 13);
 			}
 			
 			else if (touche(1, 12, 13, "toutes") == true) {
-				visiter(0, 30, 6);
+				visiter(0, 49, 94);
 			}
 			
 			else if (touche(1, 12, 8, "haut") == true) {
