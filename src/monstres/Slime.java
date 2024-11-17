@@ -52,69 +52,18 @@ public class Slime extends Entite {
 	
 	public void actions() {
 
-		int xDistance = Math.abs(ecran.joueur.carteX - carteX);
-		int yDistance = Math.abs(ecran.joueur.carteY - carteY);
-		int terrainDistance = (xDistance + yDistance)/ecran.tailleFinale;
-
-		if (!enChemin && terrainDistance < 5) {
-			int i = new Random().nextInt(100)+1;
-			if (i < 50) {
-				enChemin = true;
-			}
-		}
-		if (enChemin && terrainDistance > 5) {
-			enChemin = false;
-		}
-		
 		if (enChemin) {
-			int arriveeCol = 10;
-			int arriveeLign = 8;
-			arriveeCol = (ecran.joueur.carteX + ecran.joueur.aireCollision.x) / ecran.tailleFinale;
-			arriveeLign = (ecran.joueur.carteY + ecran.joueur.aireCollision.y) / ecran.tailleFinale;
-			chercherChemin(arriveeCol, arriveeLign);
 
-			int i = new Random().nextInt(200)+1;
-			if (i > 199 ) {
-				if (this.carteX < ecran.joueur.carteX + ecran.ecranLongueur
-						&& this.carteY < ecran.joueur.carteY + ecran.ecranLargeur
-						&& projectile.ressourcesSuffisantes(this)) {
-					projectile.initialiser(carteX, carteY, direction, true, this);
-					//ecran.listProjectiles.add(projectile);
+			verifierChasse(ecran.joueur, 10, 100);
 
-					for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
-						if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
-							ecran.listProjectiles[ecran.carteActuelle][j] = projectile;
-							break;
-						}
-					}
-					ecran.jouerSE(11);
-					projectile.utiliserRessource(this);
-					tirPossible = 0;
-				}
-			}
+			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
+
+			verifierTirer(200, 20);
 		}
 		else {
+			arreterChasse(ecran.joueur, 10, 100);
 
-			attente++;
-		
-			if (attente == 100) {
-				Random alea = new Random();
-				int i = alea.nextInt(100) + 1;
-				
-				if (i <= 25) {
-					direction = "haut";
-				}
-				if (i > 25 && i <= 50) {
-					direction = "bas";
-				}
-				if (i > 50 && i <= 75) {
-					direction = "gauche";
-				}
-				if (i > 75) {
-					direction = "droite";
-				}
-				attente = 0;
-			}
+			getRandomDirection();
 		}
 	}
 	

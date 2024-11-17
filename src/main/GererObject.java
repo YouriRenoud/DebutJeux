@@ -2,6 +2,7 @@ package main;
 
 import Entites.Mage;
 import Entites.Marchant;
+import monstres.Orc;
 import monstres.Slime;
 import object.BouclierRenforce;
 import object.Chaussure;
@@ -131,6 +132,9 @@ public class GererObject {
 		ecran.monstre[mapNum][2] = new Slime(ecran);
 		ecran.monstre[mapNum][2].carteX = ecran.tailleFinale*51;
 		ecran.monstre[mapNum][2].carteY = ecran.tailleFinale*63;
+		ecran.monstre[mapNum][2] = new Orc(ecran);
+		ecran.monstre[mapNum][2].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][2].carteY = ecran.tailleFinale*67;
 	}
 	
 	public void setElementInteractif() {

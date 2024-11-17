@@ -143,18 +143,18 @@ public class GestionTerrain {
 			}
 		}
 
-		if (dessinerChemin) {
-			graph.setColor(new Color(255, 0, 0, 70));
+		// if (dessinerChemin) {
+		// 	graph.setColor(new Color(255, 0, 0, 70));
 
-			for (int i=0; i < ecran.chemin.cheminList.size(); i++) {
-				int carteX = ecran.chemin.cheminList.get(i).col * ecran.tailleFinale;
-				int carteY = ecran.chemin.cheminList.get(i).lign * ecran.tailleFinale;
-				int ecranX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
-				int ecranY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
+		// 	for (int i=0; i < ecran.chemin.cheminList.size(); i++) {
+		// 		int carteX = ecran.chemin.cheminList.get(i).col * ecran.tailleFinale;
+		// 		int carteY = ecran.chemin.cheminList.get(i).lign * ecran.tailleFinale;
+		// 		int ecranX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
+		// 		int ecranY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 
-				//graph.fillRect(ecranX, ecranY, ecran.tailleFinale, ecran.tailleFinale);
-			}
-		}
+		// 		graph.fillRect(ecranX, ecranY, ecran.tailleFinale, ecran.tailleFinale);
+		// 	}
+		// }
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -80,8 +81,12 @@ public class Entite {
 	public int rayonLumiere;
 	public String description = "";
 	public int prix;
+	public int dureeAttFrame1;
+	public int dureeAttFrame2;
 	public boolean empillable = false;
 	public int possedes = 1;
+	public Entite attaquant;
+	public String reculDirection;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -154,8 +159,28 @@ public class Entite {
 		return (carteY+aireCollision.y)/ecran.tailleFinale;
 	}
 
+	public int getDistanceX (Entite e) {
+		return Math.abs(carteX - e.carteX);
+	}
+
+	public int getDistanceY (Entite e) {
+		return Math.abs(carteY - e.carteY);
+	}
+
 	public int getParticuleMaxVie() {
 		return 0;
+	}
+
+	public int getTerrainDistance(Entite e) {
+		return (getDistanceX(e) + getDistanceY(e))/ecran.tailleFinale;
+	}
+
+	public int getColArrivee (Entite e) {
+		return (e.carteX + e.aireCollision.x)/ecran.tailleFinale;
+	}
+
+	public int getLignArrivee (Entite e) {
+		return (e.carteY + e.aireCollision.y)/ecran.tailleFinale;
 	}
 	
 	public int getParticuleVitesse() {
@@ -260,6 +285,176 @@ public class Entite {
 		}
 	}
 
+	public void verifierTirer(int rate, int intervalleTir) {
+		int i = new Random().nextInt(rate);
+		if (i <= 1 ) {				
+
+			if (projectile.ressourcesSuffisantes(this)
+					&& tirPossible <= intervalleTir) {
+				projectile.initialiser(carteX, carteY, direction, true, this);
+				//ecran.listProjectiles.add(projectile);
+				System.out.println("sljdf");
+
+				for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
+					if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
+						ecran.listProjectiles[ecran.carteActuelle][j] = projectile;
+						break;
+					}
+				}
+				ecran.jouerSE(11);
+				projectile.utiliserRessource(this);
+				tirPossible = 0;
+			}
+		}
+	}
+
+	public void arreterChasse(Entite e, int distance, int rate) {
+
+		if (getTerrainDistance(e) < distance) {
+			int i = new Random().nextInt(rate);
+			if (i == 0) {
+				enChemin = true;
+			}
+		}
+	}
+
+	public void verifierChasse(Entite e, int distance, int rate) {
+
+		if (getTerrainDistance(e) > distance) {
+			int i = new Random().nextInt(rate);
+			if (i == 0) {
+				enChemin = false;
+			}
+		}
+	}
+
+	public void recul(Entite entite, int reculForce, Entite attaquant) {
+
+		this.attaquant = attaquant;
+		entite.reculDirection = attaquant.direction;
+		entite.vitesse += reculForce;
+		entite.recul = true;
+	}
+
+	public void verifierAttaque(int rate, int vertical, int horizontal) {
+
+		boolean cibleRange = false;
+		int xDistance = getDistanceX(ecran.joueur);
+		int yDistance = getDistanceY(ecran.joueur);
+
+		switch(direction) {
+		case "haut":
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteY < carteY){
+				cibleRange = true;
+			}
+			break;
+		case "bas":
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteY > carteY){
+				cibleRange = true;
+			}
+			break;
+		case "gauche":
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteX < carteX){
+				cibleRange = true;
+			}
+			break;
+		case "droite":
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteX > carteX){
+				cibleRange = true;
+			}
+			break;
+		}
+
+		if (cibleRange) {
+			int i = new Random().nextInt(rate);
+			if (i == 0) {
+				attaque = true;
+				tirPossible = 0;
+				compteur = 0;
+				marcher = 0;
+			}
+		}
+
+	}
+
+	public void attaque() {
+		
+		compteur++;
+		
+		if (compteur <= dureeAttFrame1) {
+			marcher = 1;
+		}
+		if (compteur > dureeAttFrame1 && compteur <= dureeAttFrame2) {
+			marcher = 2;
+			
+			int actuelMondeX = carteX;
+			int actuelMondeY = carteY;
+			
+			int aireSolHeight = aireCollision.height;
+			int aireSolWidth = aireCollision.width;
+			
+			switch(direction) {
+			case "haut": carteY -= attArea.height + 15; break;
+			case "bas": carteY += attArea.height; break;
+			case "gauche": carteX -= attArea.width; break;
+			case "droite": carteX += attArea.width; break;
+			}
+			
+			aireCollision.width = attArea.width;
+			aireCollision.height = attArea.height;
+			
+			if (typeEntite == monstreType) {
+				if (ecran.collisions.analyserJoueur(this)) {
+					degatJoueur(attaquer);
+				}
+			}
+			else {
+				int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
+				ecran.joueur.blesserMonstre(this, ennemiIndex, attaquer, armeActuelle.reculForce);
+				
+				int iTerrainIndex = ecran.collisions.analyserEntite(this, ecran.iTerrain);
+				ecran.joueur.attaquerTerrain(iTerrainIndex);
+	
+				int projectileIndex = ecran.collisions.analyserEntite(this, ecran.listProjectiles);
+				ecran.joueur.attaquerProjectile(projectileIndex);
+			}
+			
+			carteX = actuelMondeX;
+			carteY = actuelMondeY;
+			
+			aireCollision.height = aireSolHeight;
+			aireCollision.width = aireSolWidth;
+		}
+		if (compteur > dureeAttFrame2) {
+			marcher = 1;
+			compteur = 0;
+			attaque = false;
+		}
+	}
+
+	public void getRandomDirection() {
+		attente++;
+		
+		if (attente == 100) {
+			Random alea = new Random();
+			int i = alea.nextInt(100) + 1;
+			
+			if (i <= 25) {
+				direction = "haut";
+			}
+			if (i > 25 && i <= 50) {
+				direction = "bas";
+			}
+			if (i > 50 && i <= 75) {
+				direction = "gauche";
+			}
+			if (i > 75) {
+				direction = "droite";
+			}
+			attente = 0;
+		}
+	}
+
 	public void miseAJour() {
 
 		if (recul) {
@@ -271,7 +466,7 @@ public class Entite {
 				vitesse = vitesseDefaut;
 			}
 			else if (!collision0) {
-				switch(ecran.joueur.direction) {
+				switch(reculDirection) {
 					case "haut":
 					carteY -= vitesse;
 					break;
@@ -294,6 +489,9 @@ public class Entite {
 				vitesse = vitesseDefaut;
 			}
 		}
+		else if (attaque) {
+			attaque();
+		}
 		else {
 			actions();
 			verifierCollision();
@@ -314,17 +512,17 @@ public class Entite {
 					break;
 				}
 			}
-		}
-	
-		compteur++;
-		if (compteur > 24) {
-			if (marcher == 1) {
-				marcher = 2;
+
+			compteur++;
+			if (compteur > 24) {
+				if (marcher == 1) {
+					marcher = 2;
+				}
+				else if (marcher == 2) {
+					marcher = 1;
+				}
+				compteur = 0;
 			}
-			else if (marcher == 2) {
-				marcher = 1;
-			}
-			compteur = 0;
 		}
 		
 		if (invincible == true) {
@@ -337,6 +535,9 @@ public class Entite {
 		
 		if (tirPossible < 60) {
 			tirPossible++;
+		}
+		else {
+			tirPossible = 0;
 		}
 	}
 	
@@ -458,46 +659,98 @@ public class Entite {
 		int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 		
 		BufferedImage image = null;
+		int tailleImage = ecran.tailleFinale;
+		int vertical = 1;
+		int horizontal = 1;
 
 		if (carteX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX 
 				&& carteX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
 				&& carteY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY 
 				&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) { 
 			
-			switch(direction) {
-			case "haut":
-				if (marcher == 1) {
-					image = arriere;
-				}
-				if (marcher == 2) {
-					image = arriere1;
-				}
-				break;
-			case "bas":
-				if (marcher == 1) {
-					image = avant;
-				}
-				if (marcher == 2) {
-					image = avant1;
-				}
-				break;
-			case "gauche":
-				if (marcher == 1) {
-					image = gauche;
-				}
-				if (marcher == 2) {
-					image = gauche1;
-				}
-				break;
-			case "droite":
-				if (marcher == 1) {
-					image = droite;
-				}
-				if (marcher == 2) {
-					image = droite1;
-				}
-				break;
-			}
+					int modifEcranX = actuelX;
+					int modifEcranY = actuelY;
+					
+					switch(direction) {
+					case "haut":
+						if (attaque) {
+							modifEcranY = actuelY - ecran.tailleFinale;
+							vertical = 2;
+							if (marcher == 1) {
+								image = attArriere;
+							}
+							if (marcher == 2) {
+								image = attArriere1;
+							}
+						}
+						if (!attaque) {
+							if (marcher == 1) {
+								image = arriere;
+							}
+							if (marcher == 2) {
+								image = arriere1;
+							}	
+						}
+						break;
+					case "bas":
+						if (attaque) {
+							vertical = 2;
+							if (marcher == 1) {
+								image = attAvant;
+							}
+							if (marcher == 2) {
+								image = attAvant1;
+							}
+						}
+						if (!attaque) {
+							if (marcher == 1) {
+								image = avant;
+							}
+							if (marcher == 2) {
+								image = avant1;
+							}	
+						}
+						break;
+					case "gauche":
+						if (attaque) {
+							horizontal = 2;
+							modifEcranX = actuelX - ecran.tailleFinale;
+							if (marcher == 1) {
+								image = attGauche;
+							}
+							if (marcher == 2) {
+								image = attGauche1;
+							}
+						}
+						if (!attaque) {
+							if (marcher == 1) {
+								image = gauche;
+							}
+							if (marcher == 2) {
+								image = gauche1;
+							}	
+						}
+						break;
+					case "droite":
+						if (attaque) {
+							horizontal = 2;
+							if (marcher == 1) {
+								image = attDroite;
+							}
+							if (marcher == 2) {
+								image = attDroite1;
+							}
+						}
+						if (!attaque) {
+							if (marcher == 1) {
+								image = droite;
+							}
+							if (marcher == 2) {
+								image = droite1;
+							}	
+						}
+						break;
+					}
 			
 			if (this.typeEntite == 2 && vieBarreActive) {
 				
@@ -540,7 +793,7 @@ public class Entite {
 				mortEcran(graph);
 			}
 			
-			graph.drawImage(image, actuelX, actuelY, null);
+			graph.drawImage(image, modifEcranX, modifEcranY, tailleImage*horizontal, tailleImage*vertical, null);
 			graph.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		}
 	}

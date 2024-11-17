@@ -20,5 +20,7 @@ public class HacheEnPierre extends Entite {
 		description = "[" + nom + "]\nArme de barbares,\nPeut couper des arbres.\nDégats = " + attVal;
 		prix = 50;
 		reculForce = 3;
+		dureeAttFrame1 = 10;
+		dureeAttFrame2 = 30;
 	}
 }

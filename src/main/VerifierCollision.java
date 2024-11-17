@@ -24,7 +24,12 @@ public class VerifierCollision {
 		
 		int numTerrain1, numTerrain2;
 		
-		switch(entite.direction) {
+		String direction = entite.direction;
+		if (entite.recul) {
+			direction = entite.reculDirection;
+		}
+
+		switch(direction) {
 		case "haut":
 			lignHaut = (hautY+entite.vitesse)/ecran.tailleFinale;
 			numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignHaut];
@@ -107,6 +112,11 @@ public class VerifierCollision {
 	
 	public int analyserEntite(Entite entite, Entite[][] cible) {
 		int index = 999;
+
+		String direction = entite.direction;
+		if (entite.recul) {
+			direction = entite.reculDirection;
+		}
 		
 		for (int i=0; i < cible[1].length; i++) {
 			if (cible[ecran.carteActuelle][i] != null) {
@@ -116,7 +126,7 @@ public class VerifierCollision {
 			cible[ecran.carteActuelle][i].aireCollision.x = cible[ecran.carteActuelle][i].aireCollision.x + cible[ecran.carteActuelle][i].carteX;
 			cible[ecran.carteActuelle][i].aireCollision.y = cible[ecran.carteActuelle][i].aireCollision.y + cible[ecran.carteActuelle][i].carteY;
 			
-			switch (entite.direction) {
+			switch (direction) {
 			case "haut":
 				entite.aireCollision.y -= entite.vitesse;
 				break;

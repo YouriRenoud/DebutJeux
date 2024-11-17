@@ -16,5 +16,7 @@ public class EpeeNormale extends Entite {
 		description = "[" + nom + "]\nUne vieille épée.\nAttaque = " + attVal;
 		prix = 5;
 		reculForce = 7;
+		dureeAttFrame1 = 5;
+		dureeAttFrame2 = 25;
 	}
 }

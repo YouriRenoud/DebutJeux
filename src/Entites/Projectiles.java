@@ -24,7 +24,7 @@ public class Projectiles extends Entite{
 		if (joueur == ecran.joueur) {
 			int monstreIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
 			if (monstreIndex != 999) {
-				ecran.joueur.blesserMonstre(monstreIndex, attaquer, reculForce);
+				ecran.joueur.blesserMonstre(this, monstreIndex, attaquer, reculForce);
 				genererParticules(joueur.projectile, ecran.monstre[ecran.carteActuelle][monstreIndex]);
 				vivant = false;
 			}
@@ -63,8 +63,12 @@ public class Projectiles extends Entite{
 	}
 	
 	public boolean ressourcesSuffisantes(Entite joueur) {
-		boolean resDispo = false;
-		return resDispo;
+		if (joueur.magie >= joueur.projectile.coutUtilisation) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void utiliserRessource(Entite joueur) {}

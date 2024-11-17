@@ -100,6 +100,8 @@ public class Joueur extends Entite {
 	
 	public int getAttaque() {
 		attArea = armeActuelle.attArea;
+		dureeAttFrame1 = armeActuelle.dureeAttFrame1;
+		dureeAttFrame2 = armeActuelle.dureeAttFrame2;
 		return force*armeActuelle.attVal;
 	}
 	
@@ -366,54 +368,6 @@ public class Joueur extends Entite {
 		}
 		
 	}
-	
-	public void attaque() {
-		
-		compteur++;
-		
-		if (compteur <= 5) {
-			marcher = 1;
-		}
-		if (compteur > 5 && compteur <= 25) {
-			marcher = 2;
-			
-			int actuelMondeX = carteX;
-			int actuelMondeY = carteY;
-			
-			int aireSolHeight = aireCollision.height;
-			int aireSolWidth = aireCollision.width;
-			
-			switch(direction) {
-			case "haut": carteY -= attArea.height + 15; break;
-			case "bas": carteY += attArea.height; break;
-			case "gauche": carteX -= attArea.width; break;
-			case "droite": carteX += attArea.width; break;
-			}
-			
-			aireCollision.width = attArea.width;
-			aireCollision.height = attArea.height;
-			
-			int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
-			blesserMonstre(ennemiIndex, attaquer, armeActuelle.reculForce);
-			
-			int iTerrainIndex = ecran.collisions.analyserEntite(this, ecran.iTerrain);
-			attaquerTerrain(iTerrainIndex);
-
-			int projectileIndex = ecran.collisions.analyserEntite(this, ecran.listProjectiles);
-			attaquerProjectile(projectileIndex);
-			
-			carteX = actuelMondeX;
-			carteY = actuelMondeY;
-			
-			aireCollision.height = aireSolHeight;
-			aireCollision.width = aireSolWidth;
-		}
-		if (compteur > 20) {
-			marcher = 1;
-			compteur = 0;
-			attaque = false;
-		}
-	}
 
 	public void attaquerProjectile(int index) {
 		if (index != 999) {
@@ -442,13 +396,13 @@ public class Joueur extends Entite {
 		}
 	}	
 	
-	public void blesserMonstre(int i, int attaquer, int reculForce) {
+	public void blesserMonstre(Entite attaquant, int i, int attaquer, int reculForce) {
 		if (i != 999) {
 			if (!ecran.monstre[ecran.carteActuelle][i].invincible) {
 				ecran.jouerSE(5);
 
 				if (reculForce > 0) {
-					recul(ecran.monstre[ecran.carteActuelle][i], reculForce);
+					recul(ecran.monstre[ecran.carteActuelle][i], reculForce, attaquant);
 				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;
@@ -471,13 +425,6 @@ public class Joueur extends Entite {
 				ecran.monstre[ecran.carteActuelle][i].attaquer = 0;
 			}
 		}
-	}
-
-	public void recul(Entite entite, int reculForce) {
-
-		entite.direction = direction;
-		entite.vitesse += reculForce;
-		entite.recul = true;
 	}
 
 	public void verifierNiveau() {
