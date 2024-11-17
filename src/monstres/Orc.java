@@ -28,6 +28,7 @@ public class Orc extends Entite {
 		defendre = 5;
 		experience = 6;
 		magie = 0;
+		reculForce = 4;
         dureeAttFrame1 = 30;
         dureeAttFrame2 = 65;
 		
@@ -83,7 +84,7 @@ public class Orc extends Entite {
 		}
 
         if (!attaque) {
-            verifierAttaque(25, ecran.tailleFinale*4, ecran.tailleFinale);
+            verifierAttaque(15, ecran.tailleFinale*4, ecran.tailleFinale);
         }
 	}
 	

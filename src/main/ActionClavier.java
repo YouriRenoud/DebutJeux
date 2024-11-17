@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class ActionClavier implements KeyListener {
 
 	Ecran ecran;
-	public boolean haut, bas, gauche, droite, entree, attaquer, tirer;
+	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger;
 	public boolean debug = false;
 	
 	public ActionClavier(Ecran ecran) {
@@ -303,6 +303,10 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_X) {
 			attaquer = true;
 		}
+
+		if (touche == KeyEvent.VK_Q) {
+			proteger = true;
+		}
 		
 		if (touche == KeyEvent.VK_ESCAPE) {
 			ecran.etatJeu = ecran.options;
@@ -412,6 +416,18 @@ public class ActionClavier implements KeyListener {
 		
 		if (touche == KeyEvent.VK_S) {
 			tirer = false;
+		}
+
+		if (touche == KeyEvent.VK_ENTER) {
+			entree = false;
+		}
+
+		if (touche == KeyEvent.VK_X) {
+			attaquer = false;
+		}
+
+		if (touche == KeyEvent.VK_Q) {
+			proteger = false;
 		}
 	}
 

@@ -33,7 +33,7 @@ public class Projectiles extends Entite{
 			boolean contactJoueur = ecran.collisions.analyserJoueur(this);
 			if (!ecran.joueur.invincible && contactJoueur) {
 				degatJoueur(attaquer);
-				genererParticules(joueur.projectile, ecran.joueur);
+				genererParticules(joueur.projectile, joueur.projectile);
 				vivant = false;
 			}
 		}

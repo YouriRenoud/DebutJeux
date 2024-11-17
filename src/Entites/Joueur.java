@@ -49,6 +49,7 @@ public class Joueur extends Entite {
 		this.initialiser();
 		this.getImage();
 		this.getAttImage();
+		this.getProtegerImage();
 		this.setItems();
 	}
 
@@ -96,6 +97,8 @@ public class Joueur extends Entite {
 	public void retablirVieMana() {
 		vie = vieMax;
 		mana = maxMana;
+		invincible = false;
+		transparent = false;
 	}
 	
 	public int getAttaque() {
@@ -166,6 +169,14 @@ public class Joueur extends Entite {
 		}
 	}
 	
+	public void getProtegerImage() {
+		gardeBas = initialiser("/joueur/protegerAvant.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeHaut = initialiser("/joueur/protegerArriere.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeGauche = initialiser("/joueur/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeDroite = initialiser("/joueur/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+
+	}
+
 	public void getDormirImage(BufferedImage im) {
 		avant = im;
 			
@@ -185,11 +196,56 @@ public class Joueur extends Entite {
 	}
 
 	public void miseAJour() {
-		
-		if (attaque == true) {
+
+		if (recul) {
+
+			collision0 = false;
+			ecran.collisions.AnalyserTerrain(this);
+			
+			ecran.collisions.analyserObjet(this, true);
+			ecran.collisions.analyserEntite(this, ecran.mage);
+			ecran.collisions.analyserEntite(this, ecran.monstre);
+			ecran.collisions.analyserEntite(this, ecran.iTerrain);
+
+			if (collision0) {
+				reculCompteur = 0;
+				recul = false;
+				vitesse = vitesseDefaut;
+			}
+			else if (!collision0) {
+				switch(reculDirection) {
+					case "haut":
+					carteY -= vitesse;
+					break;
+				case "bas":
+					carteY += vitesse;
+					break;
+				case "gauche":
+					carteX -= vitesse;
+					break;
+				case "droite":
+					carteX += vitesse;
+					break;
+				}
+			}
+
+			reculCompteur++;
+			if (reculCompteur == 10) {
+				reculCompteur = 0;
+				recul = false;
+				vitesse = vitesseDefaut;
+			}
+		}
+
+		else if (attaque == true) {
 			attaque();
 		}
 		
+		else if (action.proteger) {
+			proteger = true;
+			parerCompteur++;
+		}
+
 		else if (action.haut || action.bas || action.gauche || action.droite || action.attaquer) {
 			if (action.haut == true) {
 				direction = "haut";
@@ -223,8 +279,7 @@ public class Joueur extends Entite {
 			int monstreIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
 			interactionMonstre(monstreIndex);
 			
-			int iElement = ecran.collisions.analyserEntite(this, ecran.iTerrain);
-			
+			ecran.collisions.analyserEntite(this, ecran.iTerrain);
 			
 			ecran.event.analyserEvent();
 						
@@ -255,7 +310,9 @@ public class Joueur extends Entite {
 			
 			annulerAttaque = false;
 			ecran.action.attaquer = false;
-
+			proteger = false;
+			parerCompteur = 0;
+		
 			compteur++;
 			if (compteur > 15) {
 				if (marcher == 1) {
@@ -266,6 +323,15 @@ public class Joueur extends Entite {
 				}
 				compteur = 0;
 			}
+		}
+		else {
+			compteur++;
+			if (compteur == 20) {
+				marcher = 1;
+				compteur = 0;
+			}
+			proteger = false;
+			parerCompteur = 0;
 		}
 		
 		if (ecran.action.tirer == true && projectile.vivant == false
@@ -291,6 +357,7 @@ public class Joueur extends Entite {
 			if (tempsInvincible > 60) {
 				tempsInvincible = 0;
 				invincible = false;
+				transparent = false;
 			}
 		}
 		
@@ -345,13 +412,15 @@ public class Joueur extends Entite {
 	public void interactionMonstre(int index) {
 		
 		if (index != 999) {
-			
+
+			System.out.println(invincible);
 			if (invincible == false && !ecran.monstre[ecran.carteActuelle][index].mort) {
 				ecran.jouerSE(6);
 				int degats = ecran.monstre[ecran.carteActuelle][index].attaquer - defendre;
 				if (degats <= 0) {degats = 0;}
 				vie -= degats;
 				invincible = true;
+				transparent = true;
 			}
 		}
 	}
@@ -403,6 +472,10 @@ public class Joueur extends Entite {
 
 				if (reculForce > 0) {
 					recul(ecran.monstre[ecran.carteActuelle][i], reculForce, attaquant);
+				}
+
+				if (ecran.monstre[ecran.carteActuelle][i].desequilibre) {
+					attaquer *= 5;
 				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;
@@ -546,6 +619,9 @@ public class Joueur extends Entite {
 					image = arriere1;
 				}	
 			}
+			if (proteger) {
+				image = gardeHaut;
+			}
 			break;
 		case "bas":
 			if (attaque) {
@@ -563,6 +639,9 @@ public class Joueur extends Entite {
 				if (marcher == 2) {
 					image = avant1;
 				}	
+			}
+			if (proteger) {
+				image = gardeBas;
 			}
 			break;
 		case "gauche":
@@ -583,6 +662,9 @@ public class Joueur extends Entite {
 					image = gauche1;
 				}	
 			}
+			if (proteger) {
+				image = gardeGauche;
+			}
 			break;
 		case "droite":
 			if (attaque) {
@@ -601,10 +683,13 @@ public class Joueur extends Entite {
 					image = droite1;
 				}	
 			}
+			if (proteger) {
+				image = gardeDroite;
+			}
 			break;
 		}
 		
-		if (invincible == true) {
+		if (transparent == true) {
 			graph2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 		}
 		graph2.drawImage(image, modifEcranX, modifEcranY, null);

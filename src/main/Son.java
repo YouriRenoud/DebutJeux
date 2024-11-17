@@ -32,6 +32,9 @@ public class Son {
 		sonURL[14] = getClass().getResource("/sons/porte.wav");
 		sonURL[15] = getClass().getResource("/sons/mage.wav");
 		sonURL[16] = getClass().getResource("/sons/dormir.wav");
+		sonURL[17] = getClass().getResource("/sons/coupBloque.wav");
+		sonURL[18] = getClass().getResource("/sons/parry.wav");
+
 
 	}
 	

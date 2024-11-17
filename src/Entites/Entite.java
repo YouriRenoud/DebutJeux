@@ -24,6 +24,7 @@ public class Entite {
 	
 	public BufferedImage avant, arriere, gauche, droite, avant1, arriere1, gauche1, droite1;
 	public BufferedImage attAvant, attArriere, attGauche, attDroite, attAvant1, attArriere1, attGauche1, attDroite1;
+	public BufferedImage gardeHaut, gardeBas, gardeGauche, gardeDroite;
 	public String direction = "haut";
 	
 	int marcher = 1;
@@ -87,12 +88,17 @@ public class Entite {
 	public int possedes = 1;
 	public Entite attaquant;
 	public String reculDirection;
+	public boolean proteger = false;
+	public int parerCompteur = 0;
+	public int desequilibreCompteur = 0;
+	public boolean desequilibre = false;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
 	public boolean collision1 = false;
 	
 	public boolean invincible = false;
+	public boolean transparent = false;
 	public int tempsInvincible = 0;
 
 	public boolean enChemin = false;
@@ -203,13 +209,13 @@ public class Entite {
 
 		switch(e.direction) {
 			case "haut":
-				ySuivant = e.getHautY()-5; break;
+				ySuivant = e.getHautY()-ecran.joueur.vitesse; break;
 			case "bas":
-				ySuivant = e.getBasY()+1; break;
+				ySuivant = e.getBasY()+ecran.joueur.vitesse; break;
 			case "gauche":
-				xSuivant = e.getGaucheX()-5; break;
+				xSuivant = e.getGaucheX()-ecran.joueur.vitesse; break;
 			case "droite":
-				xSuivant = e.getDroiteX()+1; break;
+				xSuivant = e.getDroiteX()+ecran.joueur.vitesse; break;
 		}
 
 		int colSuivant = xSuivant/ecran.tailleFinale;
@@ -227,6 +233,19 @@ public class Entite {
 		}
 
 		return index;
+	}
+
+	public String getDirectionOpposee(String e) {
+		String direction;
+
+		switch (e) {
+			case "haut": direction = "bas"; break;
+			case "bas": direction = "haut"; break;
+			case "gauche": direction = "droite"; break;
+			case "droite": direction = "gauche"; break;
+			default: direction = "haut"; break;
+		}
+		return direction;
 	}
 
 	public void genererParticules(Entite generateur, Entite cible) {
@@ -530,6 +549,7 @@ public class Entite {
 			if (tempsInvincible > 40) {
 				tempsInvincible = 0;
 				invincible = false;
+				transparent = false;
 			}
 		}
 		
@@ -539,12 +559,46 @@ public class Entite {
 		else {
 			tirPossible = 0;
 		}
+
+		if (desequilibre) {
+			desequilibreCompteur++;
+			if (desequilibreCompteur > 60) {
+				desequilibre = false;
+				desequilibreCompteur = 0;
+			}
+		}
 	}
 	
 	public void degatJoueur(int attaquer) {
 		if (ecran.joueur.invincible == false) {
-			ecran.jouerSE(6);
 			int degats = attaquer - ecran.joueur.defendre;
+
+			String peutProteger = getDirectionOpposee(direction);
+
+			if (ecran.joueur.proteger && ecran.joueur.direction.equals(peutProteger)) {
+
+				if (ecran.joueur.parerCompteur < 30) {
+					degats = 0;
+					ecran.jouerSE(18);
+					recul(this, reculForce, ecran.joueur);
+					desequilibre = true;
+					compteur =- 60;
+				}
+				else {
+					degats = (int)(degats/3);
+					ecran.jouerSE(17);
+				}
+
+			}
+			else {
+				ecran.jouerSE(6);
+			}
+
+			if (degats > 0) {
+				transparent = true;
+				recul(ecran.joueur, reculForce, this);
+			}
+
 			if (degats <= 0) {degats = 0;}
 			ecran.joueur.vie -= degats;
 			ecran.joueur.invincible = true;
