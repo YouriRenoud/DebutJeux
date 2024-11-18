@@ -20,7 +20,7 @@ public class Orc extends Entite {
 		
 		nom = "Orc";
 		typeEntite = monstreType;
-		vitesseDefaut = 2;
+		vitesseDefaut = 1;
 		vitesse = vitesseDefaut;
 		vieMax = 35;
 		vie = vieMax;
@@ -58,14 +58,14 @@ public class Orc extends Entite {
 	}
 
     public void getAttImage() {
-        attAvant = initialiser("/Monsters/orcAttAvant.png", ecran.tailleFinale, ecran.tailleFinale);
-        attArriere = initialiser("/Monsters/orcAttArriere.png", ecran.tailleFinale, ecran.tailleFinale);
-        attGauche = initialiser("/Monsters/orcAttGauche.png", ecran.tailleFinale, ecran.tailleFinale);
-        attDroite = initialiser("/Monsters/orcAttDroite.png", ecran.tailleFinale, ecran.tailleFinale);
-        attArriere1 = initialiser("/Monsters/orcAttArriere1.png", ecran.tailleFinale, ecran.tailleFinale);
-        attAvant1 = initialiser("/Monsters/orcAttAvant1.png", ecran.tailleFinale, ecran.tailleFinale);
-        attGauche1 = initialiser("/Monsters/orcAttGauche1.png", ecran.tailleFinale, ecran.tailleFinale);
-        attDroite1 = initialiser("/Monsters/orcAttDroite1.png", ecran.tailleFinale, ecran.tailleFinale);
+        attAvant = initialiser("/Monsters/orcAttAvant.png", ecran.tailleFinale, ecran.tailleFinale*2);
+        attArriere = initialiser("/Monsters/orcAttArriere.png", ecran.tailleFinale, ecran.tailleFinale*2);
+        attGauche = initialiser("/Monsters/orcAttGauche.png", ecran.tailleFinale*2, ecran.tailleFinale);
+        attDroite = initialiser("/Monsters/orcAttDroite.png", ecran.tailleFinale*2, ecran.tailleFinale);
+        attArriere1 = initialiser("/Monsters/orcAttArriere1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+        attAvant1 = initialiser("/Monsters/orcAttAvant1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+        attGauche1 = initialiser("/Monsters/orcAttGauche1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+        attDroite1 = initialiser("/Monsters/orcAttDroite1.png", ecran.tailleFinale*2, ecran.tailleFinale);
     }
 	
 	public void actions() {
@@ -80,7 +80,7 @@ public class Orc extends Entite {
 		else {
 			arreterChasse(ecran.joueur, 10, 100);
 
-			getRandomDirection();
+			getRandomDirection(150);
 		}
 
         if (!attaque) {

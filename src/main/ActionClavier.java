@@ -8,6 +8,7 @@ public class ActionClavier implements KeyListener {
 	Ecran ecran;
 	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger;
 	public boolean debug = false;
+	public boolean godMode = false;
 	
 	public ActionClavier(Ecran ecran) {
 		this.ecran = ecran;
@@ -281,6 +282,13 @@ public class ActionClavier implements KeyListener {
 				debug = true;
 			}
 			else {debug = false;}
+		}
+
+		if (touche == KeyEvent.VK_G) {
+			if (godMode == false) {
+				godMode = true;
+			}
+			else {godMode = false;}
 		}
 		
 		if (touche == KeyEvent.VK_R) {

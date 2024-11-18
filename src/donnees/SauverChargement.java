@@ -130,7 +130,7 @@ public class SauverChargement {
                         ecran.obj[i][j].carteX = sd.mondeObjX[i][j];
                         ecran.obj[i][j].carteY = sd.mondeObjY[i][j];
                         if (sd.mondeObjContenu[i][j] != null) {
-                            ecran.obj[i][j].contenu = ecran.generateur.getObject(sd.mondeObjContenu[i][j], sd.typeObj[i][j]);
+                            ecran.obj[i][j].initialiserContenu(ecran.generateur.getObject(sd.mondeObjContenu[i][j], sd.typeObj[i][j]));
                             ecran.obj[i][j].ouvert = sd.mondeObjOuverts[i][j];
                             if (ecran.obj[i][j].ouvert) {
                                 ecran.obj[i][j].arriere = ecran.obj[i][j].arriere1;

@@ -96,6 +96,7 @@ public class Entite {
 	public Entite contenu;
 	public boolean ouvert = false;
 	public Entite entiteReliee;
+	public boolean enrage = false;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -188,11 +189,11 @@ public class Entite {
 	}
 
 	public int getDistanceX (Entite e) {
-		return Math.abs(carteX - e.carteX);
+		return Math.abs(getXCentre() - e.getXCentre());
 	}
 
 	public int getDistanceY (Entite e) {
-		return Math.abs(carteY - e.carteY);
+		return Math.abs(getYCentre() - e.getYCentre());
 	}
 
 	public int getParticuleMaxVie() {
@@ -268,6 +269,16 @@ public class Entite {
 			default: direction = "haut"; break;
 		}
 		return direction;
+	}
+
+	public int getXCentre() {
+		int centreX = carteX + gauche.getWidth()/2;
+		return centreX;
+	}
+
+	public int getYCentre() {
+		int centreY = carteY + avant.getHeight()/2;
+		return centreY;
 	}
 
 	public void genererParticules(Entite generateur, Entite cible) {
@@ -388,22 +399,22 @@ public class Entite {
 
 		switch(direction) {
 		case "haut":
-			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteY < carteY){
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.getYCentre() < getYCentre()){
 				cibleRange = true;
 			}
 			break;
 		case "bas":
-			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteY > carteY){
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.getYCentre() > getYCentre()){
 				cibleRange = true;
 			}
 			break;
 		case "gauche":
-			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteX < carteX){
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.getXCentre() < getXCentre()){
 				cibleRange = true;
 			}
 			break;
 		case "droite":
-			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.carteX > carteX){
+			if (xDistance < horizontal && yDistance < vertical && ecran.joueur.getXCentre() > getXCentre()){
 				cibleRange = true;
 			}
 			break;
@@ -476,10 +487,10 @@ public class Entite {
 		}
 	}
 
-	public void getRandomDirection() {
+	public void getRandomDirection(int rate) {
 		attente++;
 		
-		if (attente == 100) {
+		if (attente > rate) {
 			Random alea = new Random();
 			int i = alea.nextInt(100) + 1;
 			
@@ -733,18 +744,37 @@ public class Entite {
 		graph.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaVal));
 	}
 	
+	public void bougerSelonJoueur(int intervalle) {
+
+		attente++;
+
+		if (attente > intervalle) {
+
+			if (getDistanceX(ecran.joueur) > getDistanceY(ecran.joueur)) {
+				if (ecran.joueur.getXCentre() < getXCentre()) {
+					direction = "gauche";
+				}
+				else {direction = "droite";}
+			}
+			else if (getDistanceX(ecran.joueur) < getDistanceY(ecran.joueur)) {
+				if (ecran.joueur.getYCentre() < getYCentre()) {
+					direction = "haut";
+				}
+				else {direction = "bas";}
+			}
+			attente = 0;
+		}
+	}
+
 	public void afficher(Graphics2D graph) {
 		int actuelX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
 		int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 		
 		BufferedImage image = null;
-		int tailleImage = ecran.tailleFinale;
-		int vertical = 1;
-		int horizontal = 1;
 
-		if (carteX + ecran.tailleFinale > ecran.joueur.carteX - ecran.joueur.ecranX 
+		if (carteX + ecran.tailleFinale*5 > ecran.joueur.carteX - ecran.joueur.ecranX
 				&& carteX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
-				&& carteY + ecran.tailleFinale > ecran.joueur.carteY - ecran.joueur.ecranY 
+				&& carteY + ecran.tailleFinale*5 > ecran.joueur.carteY - ecran.joueur.ecranY
 				&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) { 
 			
 					int modifEcranX = actuelX;
@@ -753,8 +783,7 @@ public class Entite {
 					switch(direction) {
 					case "haut":
 						if (attaque) {
-							modifEcranY = actuelY - ecran.tailleFinale;
-							vertical = 2;
+							modifEcranY = actuelY - avant.getWidth();
 							if (marcher == 1) {
 								image = attArriere;
 							}
@@ -773,7 +802,6 @@ public class Entite {
 						break;
 					case "bas":
 						if (attaque) {
-							vertical = 2;
 							if (marcher == 1) {
 								image = attAvant;
 							}
@@ -792,8 +820,7 @@ public class Entite {
 						break;
 					case "gauche":
 						if (attaque) {
-							horizontal = 2;
-							modifEcranX = actuelX - ecran.tailleFinale;
+							modifEcranX = actuelX - gauche.getWidth();
 							if (marcher == 1) {
 								image = attGauche;
 							}
@@ -812,7 +839,6 @@ public class Entite {
 						break;
 					case "droite":
 						if (attaque) {
-							horizontal = 2;
 							if (marcher == 1) {
 								image = attDroite;
 							}
@@ -872,7 +898,9 @@ public class Entite {
 				mortEcran(graph);
 			}
 			
-			graph.drawImage(image, modifEcranX, modifEcranY, tailleImage*horizontal, tailleImage*vertical, null);
+			if (image != null) {
+				graph.drawImage(image, modifEcranX, modifEcranY, image.getWidth(), image.getHeight(), null);
+			}
 			graph.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		}
 	}

@@ -61,8 +61,8 @@ public class Joueur extends Entite {
 	
 	public void initialiser() {
 		
-		carteX = ecran.tailleFinale * 3;
-		carteY = ecran.tailleFinale * 97;
+		carteX = ecran.tailleFinale * 49;
+		carteY = ecran.tailleFinale * 49;
 		//carteX = ecran.tailleFinale * 12;
 		//carteY = ecran.tailleFinale * 12;
 		vitesseDefaut = 3;
@@ -72,11 +72,11 @@ public class Joueur extends Entite {
 		vieMax = 10;
 		vie = vieMax;
 		niveau = 1;
-		force = 1;
+		force = 20;
 		agilite = 1;
 		experience = 0;
 		niveauSuivant = 5;
-		argent = 1000;
+		argent = 10;
 		maxMana = 6;
 		mana = maxMana;
 		armeActuelle = new HacheEnPierre(ecran);
@@ -94,6 +94,8 @@ public class Joueur extends Entite {
 	}
 	
 	public void valeurDefaut() {
+
+		ecran.carteActuelle = 0;
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
 		direction = "bas";
@@ -438,11 +440,14 @@ public class Joueur extends Entite {
 		if (mana > maxMana) {
 			mana = maxMana;
 		}
-		if (vie <= 0) {
-			ecran.etatJeu = ecran.perdu;
-			ecran.interfaceJoueur.numCommande = -1;
-			ecran.stopperMusique();
-			ecran.jouerSE(13);
+
+		if (ecran.action.godMode == false) {
+			if (vie <= 0) {
+				ecran.etatJeu = ecran.perdu;
+				ecran.interfaceJoueur.numCommande = -1;
+				ecran.stopperMusique();
+				ecran.jouerSE(13);
+			}
 		}
 	}
 	

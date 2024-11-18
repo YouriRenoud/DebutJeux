@@ -70,6 +70,12 @@ public class VerifierCollision {
 	public int analyserObjet(Entite entite, boolean joueur) {
 		
 		int index = 999;
+
+		String direction = entite.direction;
+		if (entite.recul) {
+			direction = entite.reculDirection;
+		}
+
 		for (int i=0; i < ecran.obj[1].length; i++) {
 			if (ecran.obj[ecran.carteActuelle][i] != null) {
 			entite.aireCollision.x = entite.aireCollision.x + entite.carteX;
@@ -78,7 +84,7 @@ public class VerifierCollision {
 			ecran.obj[ecran.carteActuelle][i].aireCollision.x = ecran.obj[ecran.carteActuelle][i].aireCollision.x + ecran.obj[ecran.carteActuelle][i].carteX;
 			ecran.obj[ecran.carteActuelle][i].aireCollision.y = ecran.obj[ecran.carteActuelle][i].aireCollision.y + ecran.obj[ecran.carteActuelle][i].carteY;
 			
-			switch (entite.direction) {
+			switch (direction) {
 			case "haut":
 				entite.aireCollision.y -= entite.vitesse;
 				break;

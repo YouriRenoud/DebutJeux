@@ -18,7 +18,7 @@ public class Slime extends Entite {
 		
 		nom = "Slime";
 		typeEntite = monstreType;
-		vitesseDefaut = 1;
+		vitesseDefaut = 2;
 		vitesse = vitesseDefaut;
 		vieMax = 20;
 		vie = vieMax;
@@ -63,7 +63,7 @@ public class Slime extends Entite {
 		else {
 			arreterChasse(ecran.joueur, 10, 100);
 
-			getRandomDirection();
+			getRandomDirection(100);
 		}
 	}
 	
