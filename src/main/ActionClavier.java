@@ -34,7 +34,7 @@ public class ActionClavier implements KeyListener {
 			etatPause(touche);
 		}
 		
-		else if (ecran.etatJeu == ecran.parler) {
+		else if (ecran.etatJeu == ecran.parler || ecran.etatJeu == ecran.scenes) {
 			etatParler(touche);
 		}
 		
@@ -124,6 +124,9 @@ public class ActionClavier implements KeyListener {
 			if (ecran.interfaceJoueur.numCommande == 0) {
 				ecran.etatJeu = ecran.jouer;
 				ecran.resetJeu(false);
+				if (ecran.musique.clip != null) {
+					ecran.stopperMusique();
+				}
 				ecran.jouerMusique(0);
 			}
 			else if (ecran.interfaceJoueur.numCommande == 1) {
@@ -202,12 +205,18 @@ public class ActionClavier implements KeyListener {
 				
 				if (ecran.interfaceJoueur.numCommande == 0) {
 					ecran.interfaceJoueur.introNum = 1;
+					if (ecran.musique.clip != null) {
+						ecran.stopperMusique();
+					}
 					ecran.jouerMusique(0);
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 1) {
 					ecran.sauverConfiguration.charger();
 					ecran.etatJeu = ecran.jouer;
+					if (ecran.musique.clip != null) {
+						ecran.stopperMusique();
+					}
 					ecran.jouerMusique(0);
 				}
 				

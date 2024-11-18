@@ -1,14 +1,18 @@
 package main;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main {
+
+	public static JFrame affichage;
 	public static void main(String[] args) {
 		
-		JFrame affichage = new JFrame();
+		affichage = new JFrame();
 		affichage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		affichage.setResizable(false);
 		affichage.setTitle("Adventure Time");
+		new Main().setIcon();
 		
 		Ecran ecran = new Ecran();
 		affichage.add(ecran);
@@ -26,4 +30,14 @@ public class Main {
 		ecran.initialiserJeu();
 		ecran.lancerFil();
 	}
+
+	public void setIcon() {
+        java.net.URL imgURL = getClass().getClassLoader().getResource("joueur/Avant1.png");
+        if (imgURL != null) {
+            ImageIcon icon = new ImageIcon(imgURL);
+            affichage.setIconImage(icon.getImage());
+        } else {
+            System.err.println("Erreur : L'image /joueur/Avant1.png est introuvable");
+        }
+    }
 }

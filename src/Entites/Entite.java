@@ -97,6 +97,8 @@ public class Entite {
 	public boolean ouvert = false;
 	public Entite entiteReliee;
 	public boolean enrage = false;
+	public boolean boss = false;
+	public boolean endormi = false;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -107,6 +109,9 @@ public class Entite {
 	public int tempsInvincible = 0;
 
 	public boolean enChemin = false;
+
+	public boolean temp = false;
+	public boolean dessiner = true;
 	
 	public int typeEntite;
 	public final int joueurType = 0;
@@ -162,6 +167,14 @@ public class Entite {
 		desequilibreCompteur = 0;
 		vieBarreCompteur = 0;
 		attente = 0;
+	}
+
+	public int getXEcran () {
+		return carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
+	}
+
+	public int getYEcran () {
+		return carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 	}
 
 	public int getGaucheX() {
@@ -512,96 +525,101 @@ public class Entite {
 
 	public void miseAJour() {
 
-		if (recul) {
+		if (!endormi) {
+			if (recul) {
 
-			verifierCollision();
-			if (collision0) {
-				reculCompteur = 0;
-				recul = false;
-				vitesse = vitesseDefaut;
+				verifierCollision();
+				if (collision0) {
+					reculCompteur = 0;
+					recul = false;
+					vitesse = vitesseDefaut;
+				}
+				else if (!collision0) {
+					switch(reculDirection) {
+						case "haut":
+						carteY -= vitesse;
+						break;
+					case "bas":
+						carteY += vitesse;
+						break;
+					case "gauche":
+						carteX -= vitesse;
+						break;
+					case "droite":
+						carteX += vitesse;
+						break;
+					}
+				}
+	
+				reculCompteur++;
+				if (reculCompteur == 10) {
+					reculCompteur = 0;
+					recul = false;
+					vitesse = vitesseDefaut;
+				}
 			}
-			else if (!collision0) {
-				switch(reculDirection) {
+			else if (attaque) {
+				attaque();
+			}
+			else {
+				actions();
+				verifierCollision();
+				
+				if (collision0 == false) {
+					switch(direction) {
 					case "haut":
-					carteY -= vitesse;
-					break;
-				case "bas":
-					carteY += vitesse;
-					break;
-				case "gauche":
-					carteX -= vitesse;
-					break;
-				case "droite":
-					carteX += vitesse;
-					break;
+						carteY -= vitesse;
+						break;
+					case "bas":
+						carteY += vitesse;
+						break;
+					case "gauche":
+						carteX -= vitesse;
+						break;
+					case "droite":
+						carteX += vitesse;
+						break;
+					}
+				}
+	
+				compteur++;
+				if (compteur > 24) {
+					if (marcher == 1) {
+						marcher = 2;
+					}
+					else if (marcher == 2) {
+						marcher = 1;
+					}
+					compteur = 0;
 				}
 			}
-
-			reculCompteur++;
-			if (reculCompteur == 10) {
-				reculCompteur = 0;
-				recul = false;
-				vitesse = vitesseDefaut;
-			}
-		}
-		else if (attaque) {
-			attaque();
-		}
-		else {
-			actions();
-			verifierCollision();
 			
-			if (collision0 == false) {
-				switch(direction) {
-				case "haut":
-					carteY -= vitesse;
-					break;
-				case "bas":
-					carteY += vitesse;
-					break;
-				case "gauche":
-					carteX -= vitesse;
-					break;
-				case "droite":
-					carteX += vitesse;
-					break;
+			if (invincible == true) {
+				tempsInvincible ++;
+				if (tempsInvincible > 40) {
+					tempsInvincible = 0;
+					invincible = false;
+					transparent = false;
 				}
 			}
-
-			compteur++;
-			if (compteur > 24) {
-				if (marcher == 1) {
-					marcher = 2;
-				}
-				else if (marcher == 2) {
-					marcher = 1;
-				}
-				compteur = 0;
+			
+			if (tirPossible < 60) {
+				tirPossible++;
 			}
-		}
-		
-		if (invincible == true) {
-			tempsInvincible ++;
-			if (tempsInvincible > 40) {
-				tempsInvincible = 0;
-				invincible = false;
-				transparent = false;
+			else {
+				tirPossible = 0;
 			}
-		}
-		
-		if (tirPossible < 60) {
-			tirPossible++;
+	
+			if (desequilibre) {
+				desequilibreCompteur++;
+				if (desequilibreCompteur > 60) {
+					desequilibre = false;
+					desequilibreCompteur = 0;
+				}
+			}
 		}
 		else {
-			tirPossible = 0;
-		}
 
-		if (desequilibre) {
-			desequilibreCompteur++;
-			if (desequilibreCompteur > 60) {
-				desequilibre = false;
-				desequilibreCompteur = 0;
-			}
 		}
 	}
 	
@@ -766,24 +784,26 @@ public class Entite {
 		}
 	}
 
+	public boolean surEcran() {
+		return carteX + ecran.tailleFinale*5 > ecran.joueur.carteX - ecran.joueur.ecranX
+		&& carteX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
+		&& carteY + ecran.tailleFinale*5 > ecran.joueur.carteY - ecran.joueur.ecranY
+		&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY;
+	}
+
 	public void afficher(Graphics2D graph) {
-		int actuelX = carteX - ecran.joueur.carteX + ecran.joueur.ecranX;
-		int actuelY = carteY - ecran.joueur.carteY + ecran.joueur.ecranY;
 		
 		BufferedImage image = null;
 
-		if (carteX + ecran.tailleFinale*5 > ecran.joueur.carteX - ecran.joueur.ecranX
-				&& carteX - ecran.tailleFinale < ecran.joueur.carteX + ecran.joueur.ecranX
-				&& carteY + ecran.tailleFinale*5 > ecran.joueur.carteY - ecran.joueur.ecranY
-				&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY) { 
+		if (surEcran()) { 
 			
-					int modifEcranX = actuelX;
-					int modifEcranY = actuelY;
+					int modifEcranX = getXEcran();
+					int modifEcranY = getYEcran();
 					
 					switch(direction) {
 					case "haut":
 						if (attaque) {
-							modifEcranY = actuelY - avant.getWidth();
+							modifEcranY = getYEcran() - avant.getWidth();
 							if (marcher == 1) {
 								image = attArriere;
 							}
@@ -820,7 +840,7 @@ public class Entite {
 						break;
 					case "gauche":
 						if (attaque) {
-							modifEcranX = actuelX - gauche.getWidth();
+							modifEcranX = getXEcran() - gauche.getWidth();
 							if (marcher == 1) {
 								image = attGauche;
 							}
@@ -856,25 +876,6 @@ public class Entite {
 						}
 						break;
 					}
-			
-			if (this.typeEntite == 2 && vieBarreActive) {
-				
-				double echelle = (double)(ecran.tailleFinale-20)/vieMax;
-				double vieBarre = echelle*vie;
-				
-				graph.setColor(new Color(35,35,35));
-				graph.fillRect(actuelX+9, actuelY-1, ecran.tailleFinale-18, 7);
-				
-				graph.setColor(new Color(255, 0, 30));
-				graph.fillRect(actuelX+10, actuelY, (int)vieBarre, 5);
-				
-				vieBarreCompteur ++;
-				
-				if (vieBarreCompteur > 300) {
-					vieBarreCompteur = 0;
-					vieBarreActive = false;
-				}
-			}
 			
 			if (this instanceof Pieces) {
 				if (this.type == 1) {

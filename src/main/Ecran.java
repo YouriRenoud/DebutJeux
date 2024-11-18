@@ -58,6 +58,7 @@ public class Ecran extends JPanel implements Runnable {
 	public GererEvent event = new GererEvent(this);
 	public GererEnvironnement environnement = new GererEnvironnement(this);
 	public ChercheurChemin chemin = new ChercheurChemin(this);
+	public GererScenes scene = new GererScenes(this);
 	
 	public Son son = new Son();
 	public Son musique = new Son();
@@ -91,12 +92,15 @@ public class Ecran extends JPanel implements Runnable {
 	public final int marchander = 8;
 	public final int dormir = 9;
 	public final int cartes = 10;
+	public final int scenes = 11;
 
 	public int lieuActuel = 0;
 	public int lieuSuivant = 0;
 	public final int dehors = 0;
 	public final int maison = 1;
 	public final int dongeon = 2;
+
+	public boolean bossCombat = false;
 	
 	public boolean pleinEcranOn = false;
 	
@@ -165,12 +169,14 @@ public class Ecran extends JPanel implements Runnable {
 	
 	public void resetJeu(boolean recommencer) {
 
+		stopperMusique();
 		lieuActuel = dehors;
 		joueur.valeurDefaut();
 		joueur.retablirStatuts();
 		joueur.resetCompteur();
 		gerer.setMonstre();
 		gerer.setMage();
+		enleverObjetsTemporaires();
 
 		if (recommencer) {
 			joueur.initialiser();
@@ -411,7 +417,10 @@ public class Ecran extends JPanel implements Runnable {
 
 			carte.dessinerMiniCarte(graph2);
 
-			interfaceJoueur.afficher(graph2);
+			interfaceJoueur.afficher(graph2);			
+
+			scene.afficher(graph2);
+
 		}
 		
 		if (action.debug == true) {
@@ -457,6 +466,19 @@ public class Ecran extends JPanel implements Runnable {
 
 		}		
 		lieuActuel = lieuSuivant;
+	}
+
+	public void enleverObjetsTemporaires() {
+
+		for (int i = 0; i < maxCartes; i++) {
+			for (int j = 0; j < obj[1].length; j++) {
+				if (monstre[carteActuelle][i] != null && monstre[carteActuelle][i].temp) {
+					if (monstre[carteActuelle][i].temp) {
+						monstre[carteActuelle][i] = null;
+					}
+				}
+			}
+		}
 	}
 
 	public void jouerMusique(int i) {

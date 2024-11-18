@@ -4,11 +4,13 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import Entites.Entite;
+import donnees.Progression;
 import main.Ecran;
 import object.Coeur;
 import object.Mana;
 import object.Pieces;
 import object.Pierre;
+import object.PorteFer;
 
 public class Demon extends Entite {
 
@@ -32,6 +34,9 @@ public class Demon extends Entite {
 		reculForce = 10;
         dureeAttFrame1 = 25;
         dureeAttFrame2 = 50;
+        boss = true;
+        endormi = true;
+        direction = "bas";
 		
 		aireCollision.x = ecran.tailleFinale;
 		aireCollision.y = ecran.tailleFinale;
@@ -39,11 +44,12 @@ public class Demon extends Entite {
 		aireCollision.height = 4*ecran.tailleFinale;
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
-        attArea.width = 3*ecran.tailleFinale;
+        attArea.width = 5*ecran.tailleFinale;
         attArea.height = 4*ecran.tailleFinale;
 		
 		getImage();
         getAttImage();
+        setDialogues();
 	}
 	
 	public void getImage() {
@@ -98,6 +104,12 @@ public class Demon extends Entite {
         }
     }
 	
+    public void setDialogues() {
+        dialogue[0][0] = "Je suis le roi des démons!";
+        dialogue[0][1] = "Qui ose troubler mon sommeil?";
+        dialogue[0][2] = "Je vais te réduire en cendres!";
+    }
+
 	public void actions() {
 
         if (!enrage && vie < vieMax/2) {
@@ -123,22 +135,22 @@ public class Demon extends Entite {
 	}
 	
 	public void verifierDrop() {
-		int i = new Random().nextInt(100)+1;
+        
+        ecran.bossCombat = false;
+
+        ecran.stopperMusique();
+        ecran.jouerMusique(21);
+
+        Progression.roiDemonBattu = true;
+
+        for (int i = 0; i < ecran.obj[1].length; i++) {
+
+            if (ecran.obj[ecran.carteActuelle][i] != null && ecran.obj[ecran.carteActuelle][i].nom.equals(PorteFer.objnom)) {
+                ecran.obj[ecran.carteActuelle][i] = null;
+                ecran.jouerSE(24);            }
+        }
 		
-		if (i < 50) {
-			dropItem(new Pieces(ecran, 1));
-		}
-		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Coeur(ecran));
-		}
-		if (i >= 80 && i < 99) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Mana(ecran));
-		}
-		if (i == 99) {
-			dropItem(new Pieces(ecran, 3));
-		}
+		dropItem(new Pieces(ecran, 1));
 	}
 	
 	public void attaqueReaction() {

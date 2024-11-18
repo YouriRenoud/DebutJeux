@@ -3,6 +3,7 @@ package main;
 import Entites.GrossePierre;
 import Entites.Mage;
 import Entites.Marchant;
+import donnees.Progression;
 import monstres.ChauveSouris;
 import monstres.Demon;
 import monstres.Orc;
@@ -12,6 +13,8 @@ import object.Chaussure;
 import object.Cle;
 import object.Coeur;
 import object.Coffre;
+import object.Emeraude;
+import object.EpeeLegendaire;
 import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
@@ -117,6 +120,25 @@ public class GererObject {
 		ecran.obj[8][i].carteX = ecran.tailleFinale*66;
 		ecran.obj[8][i].carteY = ecran.tailleFinale*48;
 		i++;
+
+		mapNum = 9;
+		i = 0;
+		ecran.obj[mapNum][i] = new PorteFer(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*49;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*23;
+		i++;
+		ecran.obj[mapNum][i] = new PorteFer(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*48;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*23;
+		i++;
+		ecran.obj[mapNum][i] = new EpeeLegendaire(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*48;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*22;
+		i++;
+		ecran.obj[mapNum][i] = new Emeraude(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*49;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*22;
+		i++;
 	}
 	
 	public void setMage() {
@@ -220,12 +242,15 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*23;
 		i++;
 
+		
 		i = 0;
 		mapNum = 9;
-		ecran.monstre[mapNum][i] = new Demon(ecran);
-		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*49;
-		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*35;
-		i++;
+		if (!Progression.roiDemonBattu) {
+			ecran.monstre[mapNum][i] = new Demon(ecran);
+			ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*47;
+			ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*28;
+			i++;
+		}
 	}
 	
 	public void setElementInteractif() {

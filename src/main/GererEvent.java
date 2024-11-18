@@ -3,6 +3,7 @@ package main;
 import java.awt.Rectangle;
 
 import Entites.Entite;
+import donnees.Progression;
 
 public class GererEvent {
 
@@ -108,6 +109,10 @@ public class GererEvent {
 				visiter(9, 49, 50, ecran.dongeon);
 			}
 
+			else if (touche(9, 49, 50, "toutes") == true) {
+				visiter(8, 47, 1, ecran.dongeon);
+			}
+
 			// else if (touche(9, 49, 50, "toutes") == true) {
 			// 	visiter(8, 49, 94);
 			// }
@@ -115,6 +120,10 @@ public class GererEvent {
 			else if (touche(1, 12, 8, "haut") == true) {
 				//ecran.etatJeu = ecran.marchander;
 				parler(ecran.mage[1][0]);
+			}
+
+			else if (touche(9, 49, 49, "toutes") == true) {
+				roiDemon();
 			}
 		}
 	}
@@ -207,5 +216,13 @@ public class GererEvent {
 			}
 			ecran.sauverConfiguration.sauver();
 
+	}
+
+	public void roiDemon() {
+		
+		if (!ecran.bossCombat && !Progression.roiDemonBattu) {
+			ecran.etatJeu = ecran.scenes;
+			ecran.scene.sceneNum = ecran.scene.roiDemon;
+		}
 	}
 }

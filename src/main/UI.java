@@ -85,6 +85,7 @@ public class UI {
 		}
 		if (ecran.etatJeu == ecran.jouer) {
 			dessinerVie();
+			dessinerVieMonstres();
 			dessinerMessages();
 		}
 		if (ecran.etatJeu == ecran.pause) {
@@ -549,6 +550,7 @@ public class UI {
 			graph.drawString(">", texteX - 30, texteY);
 			if (ecran.action.entree) {
 				sousEtats = 0;
+				introNum = 0;
 				ecran.etatJeu = ecran.intro;
 				ecran.resetJeu(true);
 			}
@@ -803,11 +805,13 @@ public class UI {
 		int x = ecran.tailleFinale/2;
 		int y = ecran.tailleFinale/2;
 		int i = 0;
+
+		int dimension = 32;
 		
 		while (i < ecran.joueur.vieMax/2) {
-			graph.drawImage(coeurVide, x, y, null);
+			graph.drawImage(coeurVide, x-16, y, dimension, dimension, null);
 			i++;
-			x += ecran.tailleFinale;
+			x += ecran.tailleFinale-16;
 		}
 		
 		x = ecran.tailleFinale/2;
@@ -815,42 +819,42 @@ public class UI {
 		i = 0;
 		
 		while (i < ecran.joueur.vie) {
-			graph.drawImage(coeurMoitie, x, y, null);
+			graph.drawImage(coeurMoitie, x-16, y, dimension, dimension, null);
 			i++;
 			if (i < ecran.joueur.vie) {
-				graph.drawImage(coeurPlein, x, y, null);			
+				graph.drawImage(coeurPlein, x-16, y, dimension, dimension, null);			
 				
 			}
 			i++;
-			x += ecran.tailleFinale;
+			x += ecran.tailleFinale-16;
 		}
 		
-		x = ecran.tailleFinale/2 - 10;
-		y = ecran.tailleFinale*2 - 20;
+		x = ecran.tailleFinale/2 - 25;
+		y = ecran.tailleFinale + 15;
 		i = 0;
 		int lim = 1;
 		while (i < ecran.joueur.maxMana) {
-			graph.drawImage(crystalVide, x, y, null);
+			graph.drawImage(crystalVide, x, y, dimension, dimension, null);
 			i++;
-			x += 40;
+			x += 28;
 			
-			if (i >= 4*lim) {
+			if (i >= 10*lim) {
 				y += 40;
 				x = ecran.tailleFinale/2 - 10;
 				lim++;
 			}
 		}
 		
-		x = ecran.tailleFinale/2 - 10;
-		y = ecran.tailleFinale*2 - 20;
+		x = ecran.tailleFinale/2 - 25;
+		y = ecran.tailleFinale + 15;
 		i = 0;
 		lim = 1;
 		
 		while (i < ecran.joueur.mana) {
-			graph.drawImage(crystalPlein, x, y, null);
+			graph.drawImage(crystalPlein, x, y, dimension, dimension, null);
 			i++;
-			x += 40;
-			if (i >= 4*lim) {
+			x += 28;
+			if (i >= 10*lim) {
 				y += 40;
 				x = ecran.tailleFinale/2 - 10;
 				lim++;
@@ -858,6 +862,51 @@ public class UI {
 		}
 	}
 	
+	public void dessinerVieMonstres() {
+
+		for (int i=0; i < ecran.monstre[1].length; i++) {
+
+			if (ecran.monstre[ecran.carteActuelle][i] != null && ecran.monstre[ecran.carteActuelle][i].surEcran()) {
+				if (ecran.monstre[ecran.carteActuelle][i].vieBarreActive
+				&& ecran.monstre[ecran.carteActuelle][i].boss == false) {
+				
+					double echelle = (double)(ecran.tailleFinale-20)/ecran.monstre[ecran.carteActuelle][i].vieMax;
+					double vieBarre = echelle*ecran.monstre[ecran.carteActuelle][i].vie;
+					
+					graph.setColor(new Color(35,35,35));
+					graph.fillRect(ecran.monstre[ecran.carteActuelle][i].getXEcran()+9, ecran.monstre[ecran.carteActuelle][i].getYEcran()-1, ecran.tailleFinale-18, 7);
+					
+					graph.setColor(new Color(255, 0, 30));
+					graph.fillRect(ecran.monstre[ecran.carteActuelle][i].getXEcran()+10, ecran.monstre[ecran.carteActuelle][i].getYEcran(), (int)vieBarre, 5);
+					
+					ecran.monstre[ecran.carteActuelle][i].vieBarreCompteur ++;
+					
+					if (ecran.monstre[ecran.carteActuelle][i].vieBarreCompteur > 300) {
+						ecran.monstre[ecran.carteActuelle][i].vieBarreCompteur = 0;
+						ecran.monstre[ecran.carteActuelle][i].vieBarreActive = false;
+					}
+				}
+				else if (ecran.monstre[ecran.carteActuelle][i].boss) {
+					double echelle = (double)(ecran.tailleFinale)*7/ecran.monstre[ecran.carteActuelle][i].vieMax;
+					double vieBarre = echelle*ecran.monstre[ecran.carteActuelle][i].vie;
+					
+					int x = ecran.ecranLongueur/2 - ecran.tailleFinale*4;
+					int y = ecran.tailleFinale*11;
+
+					graph.setColor(new Color(35,35,35));
+					graph.fillRect(x-1, y-1, ecran.tailleFinale*7, 22);
+					
+					graph.setColor(new Color(255, 0, 30));
+					graph.fillRect(x, y, (int)vieBarre, 20);
+
+					graph.setFont(graph.getFont().deriveFont(Font.BOLD, 22F));
+					graph.setColor(Color.white);
+					graph.drawString(ecran.monstre[ecran.carteActuelle][i].nom, x+ecran.tailleFinale*2, y-10);
+				}
+			}
+		}
+	}
+
 	public void dessinerIntro() {
 		
 		if (introNum == 0) {
@@ -1008,7 +1057,7 @@ public class UI {
 				charIndex = 0;
 				combinerTexte = "";
 
-				if (ecran.etatJeu == ecran.parler) {
+				if (ecran.etatJeu == ecran.parler || ecran.etatJeu == ecran.scenes) {
 					ecran.action.entree = false;
 					npc.dialogueIndex++;
 				}
@@ -1018,6 +1067,9 @@ public class UI {
 			npc.dialogueIndex = 0;
 			if (ecran.etatJeu == ecran.parler) {
 				ecran.etatJeu = ecran.jouer;
+			}
+			if (ecran.etatJeu == ecran.scenes) {
+				ecran.scene.scenePhase++;
 			}
 		}
 		

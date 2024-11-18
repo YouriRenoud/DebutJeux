@@ -769,7 +769,9 @@ public class Joueur extends Entite {
 		if (transparent == true) {
 			graph2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 		}
-		graph2.drawImage(image, modifEcranX, modifEcranY, null);
+		if (dessiner) {
+			graph2.drawImage(image, modifEcranX, modifEcranY, null);
+		}
 		graph2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 	}
