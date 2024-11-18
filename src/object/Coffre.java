@@ -9,13 +9,14 @@ import main.Ecran;
 public class Coffre extends Entite {
 	
 	Ecran ecran;
+	public static final String objnom = "Coffre";
 
 	public Coffre(Ecran ecran) {
 		super(ecran);
 		this.ecran = ecran;
 		
 		typeEntite = obstacleType;
-		nom = "Coffre";
+		nom = objnom;
 		arriere = initialiser("/items/CoffreFerme.png", ecran.tailleFinale, ecran.tailleFinale);
 		arriere1 = initialiser("/items/CoffreOuvert.png", ecran.tailleFinale, ecran.tailleFinale);
 

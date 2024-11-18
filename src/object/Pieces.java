@@ -8,6 +8,7 @@ import main.Ecran;
 
 public class Pieces extends Entite {
 	Ecran ecran;
+	public static final String objnom = "Piece de monnaie";
 
 	public Pieces(Ecran ecran, int tpe) {
 		super(ecran);
@@ -23,7 +24,7 @@ public class Pieces extends Entite {
 			valeur = 10;
 		}
 		
-		nom = "Piece de monnaie";
+		nom = objnom;
 		typeEntite = ramasserType;
 		arriere = initialiser("/items/PieceBronze.png", ecran.tailleFinale, ecran.tailleFinale);
 		arriere1 = initialiser("/items/PieceArgent.png", ecran.tailleFinale, ecran.tailleFinale);

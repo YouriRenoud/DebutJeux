@@ -66,6 +66,8 @@ public class GestionTerrain {
 		
 		// chargerCarte("/cartes/monde1.txt", 1);
 		chargerCarte("/cartes/interior01.txt", 1);
+		chargerCarte("/cartes/dongeonDebut.txt", 8);
+		chargerCarte("/cartes/dongeonBossFin.txt", 9);
 	}
 	
 	public void getImage() {

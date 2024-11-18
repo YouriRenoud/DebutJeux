@@ -307,6 +307,7 @@ public class UI {
 			ecran.joueur.carteY = ecran.tailleFinale * ecran.event.tempLign;
 			ecran.event.eventPrecedentX = ecran.joueur.carteX;
 			ecran.event.eventPrecedentY = ecran.joueur.carteY;
+			ecran.changerLieu();
 			//ecran.terrain.chargerCarte("/cartes/interior01.txt", 1);
 		}
 	}

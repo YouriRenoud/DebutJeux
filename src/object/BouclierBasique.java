@@ -5,9 +5,11 @@ import main.Ecran;
 
 public class BouclierBasique extends Entite {
 
+	public static final String objnom = "Bouclier de base";
+
 	public BouclierBasique(Ecran ecran) {
 		super(ecran);
-		nom = "Bouclier de base";
+		nom = objnom;
 		typeEntite = bouclierType;
 		arriere = initialiser("/items/BouclierBase.png", ecran.tailleFinale, ecran.tailleFinale);
 		defVal = 1;

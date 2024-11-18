@@ -19,6 +19,7 @@ public class GererEvent {
 		this.ecran = ecran;
 
 		eventMaster = new Entite(ecran);
+		setDialogues();
 		
 		rect = new EventRect[ecran.maxCartes][ecran.mondeColMax][ecran.mondeLignMax];
 		
@@ -72,8 +73,8 @@ public class GererEvent {
 		}
 		
 		if (eventPossible == true) {
-			if (touche(0, 27, 16, "droite") == true) {
-				piege(27,16,ecran.parler);
+			if (touche(0, 49, 52, "bas") == true) {
+				piege(49,52,ecran.parler);
 				eventPossible = false;
 			}
 			
@@ -92,12 +93,24 @@ public class GererEvent {
 			//}
 			
 			else if (touche(0, 49, 94, "toutes") == true) {
-				visiter(1, 12, 13);
+				visiter(1, 12, 13, ecran.maison);
 			}
 			
 			else if (touche(1, 12, 13, "toutes") == true) {
-				visiter(0, 49, 94);
+				visiter(0, 49, 94, ecran.dehors);
 			}
+
+			else if (touche(0, 1, 99, "toutes") == true) {
+				visiter(8, 49, 50, ecran.dongeon);
+			}
+
+			else if (touche(8, 47, 1, "toutes") == true) {
+				visiter(9, 49, 50, ecran.dongeon);
+			}
+
+			// else if (touche(9, 49, 50, "toutes") == true) {
+			// 	visiter(8, 49, 94);
+			// }
 			
 			else if (touche(1, 12, 8, "haut") == true) {
 				//ecran.etatJeu = ecran.marchander;
@@ -137,14 +150,14 @@ public class GererEvent {
 	public void parler(Entite e) {
 
 		if (ecran.action.entree) {
-			ecran.etatJeu = ecran.parler;
 			ecran.joueur.annulerAttaque = true;
 			e.parler();
 		}
 	}
 	
-	public void visiter(int carte, int col, int lign) {
+	public void visiter(int carte, int col, int lign, int lieu) {
 		
+		ecran.lieuSuivant = lieu;
 		ecran.etatJeu = ecran.transitionCartes;
 		tempCarte = carte;
 		tempCol = col;
@@ -162,7 +175,6 @@ public class GererEvent {
 	
 	public void teleporter(int etatJeu) {
 		
-		ecran.etatJeu = etatJeu;
 		eventMaster.commencerDialogue(eventMaster, 0);
 		ecran.joueur.carteX = ecran.tailleFinale*37;
 		ecran.joueur.carteY = ecran.tailleFinale*10;
@@ -170,8 +182,8 @@ public class GererEvent {
 	
 	public void piege(int col, int lign, int etatJeu) {
 		
-		ecran.etatJeu = etatJeu;
 		ecran.jouerSE(6);
+		System.out.println(ecran.action.entree);
 		eventMaster.commencerDialogue(eventMaster, 1);
 		ecran.joueur.vie -= 1;
 		rect[0][col][lign].eventFini = true;
@@ -180,7 +192,6 @@ public class GererEvent {
 	
 	public void soin(int col, int lign, int etatJeu) {
 		
-			ecran.etatJeu = etatJeu;
 			ecran.jouerSE(2);
 			ecran.joueur.annulerAttaque = true;
 			eventMaster.commencerDialogue(eventMaster, 2);

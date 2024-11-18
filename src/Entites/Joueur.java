@@ -18,6 +18,7 @@ import object.BouleDeFeu;
 import object.Cle;
 import object.EpeeNormale;
 import object.HacheEnPierre;
+import object.Lanterne;
 
 public class Joueur extends Entite {
 	
@@ -53,14 +54,15 @@ public class Joueur extends Entite {
 		inventaire.clear();
 		inventaire.add(armeActuelle);
 		inventaire.add(bouclierActuel);
+		inventaire.add(lumiereActuelle);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new EpeeNormale(ecran));
 	}	
 	
 	public void initialiser() {
 		
-		carteX = ecran.tailleFinale * 49;
-		carteY = ecran.tailleFinale * 49;
+		carteX = ecran.tailleFinale * 3;
+		carteY = ecran.tailleFinale * 97;
 		//carteX = ecran.tailleFinale * 12;
 		//carteY = ecran.tailleFinale * 12;
 		vitesseDefaut = 3;
@@ -80,7 +82,7 @@ public class Joueur extends Entite {
 		armeActuelle = new HacheEnPierre(ecran);
 		bouclierActuel = new BouclierBasique(ecran);
 		projectile = new BouleDeFeu(ecran);
-		lumiereActuelle = null;
+		lumiereActuelle = new Lanterne(ecran);
 		attaquer = getAttaque();
 		defendre = getDefense();
 
@@ -88,6 +90,7 @@ public class Joueur extends Entite {
 		this.getAttImage();
 		this.getProtegerImage();
 		this.setItems();
+		this.setDialogues();
 	}
 	
 	public void valeurDefaut() {
@@ -207,6 +210,25 @@ public class Joueur extends Entite {
 
 			attDroite1 = initialiser("/joueur/AxAttD2.png", ecran.tailleFinale*2, ecran.tailleFinale);
 		}
+
+		if (armeActuelle.typeEntite == piocheType) {
+			attAvant = initialiser("/joueur/piocheAvant.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			
+			attArriere = initialiser("/joueur/piocheArriere.png", ecran.tailleFinale, ecran.tailleFinale*2);
+
+			attGauche = initialiser("/joueur/piocheGauche.png", ecran.tailleFinale*2, ecran.tailleFinale);
+
+			attDroite = initialiser("/joueur/piocheDroite.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			
+			attAvant1 = initialiser("/joueur/piocheAvant1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			
+			attArriere1 = initialiser("/joueur/piocheArriere1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+
+			attGauche1 = initialiser("/joueur/piocheGauche1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+
+			attDroite1 = initialiser("/joueur/piocheDroite1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+		}
+
 	}
 	
 	public void getProtegerImage() {
@@ -478,6 +500,8 @@ public class Joueur extends Entite {
 				annulerAttaque = true;
 				ecran.mage[ecran.carteActuelle][index].parler();
 			}
+
+			ecran.mage[ecran.carteActuelle][index].deplacer(this.direction);
 		}
 		
 	}
@@ -503,8 +527,9 @@ public class Joueur extends Entite {
 			
 			genererParticules(ecran.iTerrain[ecran.carteActuelle][i], ecran.iTerrain[ecran.carteActuelle][i]);
 			
-			if (ecran.iTerrain[ecran.carteActuelle][i].vie <= 0) {
-				ecran.iTerrain[ecran.carteActuelle][i] = ecran.iTerrain[ecran.carteActuelle][i].getFormeDetruite();			
+			if (ecran.iTerrain[ecran.carteActuelle][i].vie <= 0) {				
+				ecran.iTerrain[ecran.carteActuelle][i].verifierDrop();
+				ecran.iTerrain[ecran.carteActuelle][i] = ecran.iTerrain[ecran.carteActuelle][i].getFormeDetruite();
 			}
 		}
 	}	
@@ -580,9 +605,10 @@ public class Joueur extends Entite {
 	public boolean itemRecuperable(Entite item) {
 
 		boolean obtainable = false;
+		Entite itemObtenu = ecran.generateur.getObject(item.nom, 0);
 
-		if (item.empillable) {
-			int index = chercherItemInventaire(item.nom);
+		if (itemObtenu.empillable) {
+			int index = chercherItemInventaire(itemObtenu.nom);
 
 			if (index != 999) {
 				inventaire.get(index).possedes++;
@@ -590,14 +616,14 @@ public class Joueur extends Entite {
 			}
 			else {
 				if (inventaire.size() < tailleInventaireMax) {
-					inventaire.add(item);
+					inventaire.add(itemObtenu);
 					obtainable = true;
 				}
 			}
 		}
 		else {
 			if (inventaire.size() < tailleInventaireMax) {
-				inventaire.add(item);
+				inventaire.add(itemObtenu);
 				obtainable = true;
 			}
 		}
@@ -610,7 +636,8 @@ public class Joueur extends Entite {
 		if (itemIndex < inventaire.size()) {
 			Entite itemSelectionne = inventaire.get(itemIndex);
 			
-			if (itemSelectionne.typeEntite == epeeType || itemSelectionne.typeEntite == hacheType) {
+			if (itemSelectionne.typeEntite == epeeType || itemSelectionne.typeEntite == hacheType
+			|| itemSelectionne.typeEntite == piocheType) {
 				armeActuelle = itemSelectionne;
 				attaquer = getAttaque();
 				getAttImage();

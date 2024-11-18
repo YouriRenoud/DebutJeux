@@ -16,7 +16,7 @@ public class ArbreCassable extends ElementInteractif {
 		carteX = ecran.tailleFinale*col;
 		carteY = ecran.tailleFinale*lign;
 		
-		vie = 1;
+		vie = 3;
 		direction = "haut";
 		
 		arriere = initialiser("/ElementInteractif/ArbreCassable.png", ecran.tailleFinale, ecran.tailleFinale);
@@ -57,4 +57,6 @@ public class ArbreCassable extends ElementInteractif {
 	public Color getParticuleCouleur() {
 		return new Color(65,50,30);
 	}
+
+	public void verifierDrop() {}
 }

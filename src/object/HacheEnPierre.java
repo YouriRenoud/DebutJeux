@@ -8,10 +8,12 @@ import main.Ecran;
 
 public class HacheEnPierre extends Entite {
 	
+	public static final String objnom = "Hache en pierre";
+
 	public HacheEnPierre(Ecran ecran) {
 		super(ecran);
 		
-		nom = "Hache en pierre";
+		nom = objnom;
 		typeEntite = hacheType;
 		arriere = initialiser("/items/HacheEnPierre.png", ecran.tailleFinale, ecran.tailleFinale);
 		attVal = 5;

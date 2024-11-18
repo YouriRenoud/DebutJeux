@@ -5,9 +5,11 @@ import main.Ecran;
 
 public class EpeeNormale extends Entite {
 
+	public static final String objnom = "Epée de base";
+
 	public EpeeNormale(Ecran ecran) {
 		super(ecran);
-		nom = "Epée de base";
+		nom = objnom;
 		typeEntite = epeeType;
 		arriere = initialiser("/items/EpeeBase.png", ecran.tailleFinale, ecran.tailleFinale);
 		attVal = 1;

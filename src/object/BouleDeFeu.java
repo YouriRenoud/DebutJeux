@@ -9,10 +9,12 @@ import main.Ecran;
 public class BouleDeFeu extends Projectiles {
 
 	Ecran ecran;
+	public static final String objnom = "Boule de feu";
+
 	public BouleDeFeu(Ecran ecran) {
 		super(ecran);
 		this.ecran = ecran;
-		nom = "Boule de feu";
+		nom = objnom;
 		vitesse = 7;
 		vieMax = 80;
 		vie = vieMax;

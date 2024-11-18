@@ -7,13 +7,14 @@ public class Coeur extends Entite {
 	
 	Ecran ecran;
 	int compteur = 0;
+	public static final String objnom = "Coeur";
 	
 	public Coeur(Ecran ecran) {
 		
 		super(ecran);
 		this.ecran = ecran;
 		typeEntite = ramasserType;
-		nom = "Coeur";
+		nom = objnom;
 		valeur = 2;
 		arriere = initialiser("/items/Coeur.png", ecran.tailleFinale, ecran.tailleFinale);
 		image = initialiser("/items/Coeur.png", ecran.tailleFinale, ecran.tailleFinale);

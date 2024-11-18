@@ -8,10 +8,12 @@ import main.Ecran;
 
 public class BouclierRenforce extends Entite {
 	
+	public static final String objnom = "Bouclier en bois renforcé";
+
 	public BouclierRenforce(Ecran ecran) {
 		super(ecran);
 		
-		nom = "Bouclier en bois renforcé";
+		nom = objnom;
 		typeEntite = bouclierType;
 		arriere = initialiser("/items/BouclierRenforce.png", ecran.tailleFinale, ecran.tailleFinale);		
 		defVal = 3;

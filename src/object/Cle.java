@@ -9,12 +9,14 @@ import main.Ecran;
 public class Cle extends Entite {
 	
 	Ecran ecran;
+	public static final String objnom = "Cle";
+
 	
 	public Cle(Ecran ecran) {
 		super(ecran);
 		this.ecran = ecran;
 
-		nom = "Cle";
+		nom = objnom;
 		typeEntite = utilitaireType;
 		arriere = initialiser("/items/Cle.png", ecran.tailleFinale, ecran.tailleFinale);
 		description = "[" + nom + "]\nOuvre certaines portes.";

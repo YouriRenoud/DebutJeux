@@ -1,5 +1,6 @@
 package main;
 
+import Entites.GrossePierre;
 import Entites.Mage;
 import Entites.Marchant;
 import monstres.Orc;
@@ -15,9 +16,13 @@ import object.Lanterne;
 import object.Lit;
 import object.Mana;
 import object.Pieces;
+import object.Pioche;
 import object.Porte;
+import object.PorteFer;
 import object.PotionSoin;
 import terrain.ArbreCassable;
+import terrain.MurCassable;
+import terrain.Plaque;
 
 public class GererObject {
 
@@ -55,6 +60,10 @@ public class GererObject {
 		ecran.obj[mapNum][i] = new HacheEnPierre(ecran);
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*36;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*13;
+		i++;
+		ecran.obj[mapNum][i] = new Pioche(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*55;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*49;
 		i++;
 		ecran.obj[mapNum][i] = new PotionSoin(ecran);
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*16;
@@ -100,6 +109,12 @@ public class GererObject {
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*51;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*50;
 		i++;
+
+
+		ecran.obj[8][i] = new PorteFer(ecran);
+		ecran.obj[8][i].carteX = ecran.tailleFinale*66;
+		ecran.obj[8][i].carteY = ecran.tailleFinale*48;
+		i++;
 	}
 	
 	public void setMage() {
@@ -121,6 +136,21 @@ public class GererObject {
 		ecran.mage[mapNum][i] = new Marchant(ecran);
 		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*12;
 		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*7;
+		i++;
+
+		mapNum = 8;
+		i = 0;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*46;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*60;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*46;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*68;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*46;
 		i++;
 	}
 	
@@ -237,6 +267,17 @@ public class GererObject {
 		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 18, 28);
 		i++;
 		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 18, 27);
+		i++;
+
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 49, 50);
+		i++;
+
+		mapNum = 8;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 62, 45);
+		i++;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 64, 45);
+		i++;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 66, 45);
 		i++;
 	}
 }

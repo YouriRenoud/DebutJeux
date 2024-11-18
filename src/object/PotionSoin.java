@@ -10,11 +10,13 @@ public class PotionSoin extends Entite {
 	
 	Ecran ecran;
 	int compteur = 0;
+	public static final String objnom = "Potion de soin";
+
 	public PotionSoin(Ecran ecran) {
 		super(ecran);
 		
 		this.ecran = ecran;
-		nom = "Potion de soin";
+		nom = objnom;
 		typeEntite = utilitaireType;
 		valeur = 2;
 		arriere = initialiser("/items/PotionSoin.png", ecran.tailleFinale, ecran.tailleFinale);

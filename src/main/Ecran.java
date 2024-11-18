@@ -76,7 +76,8 @@ public class Ecran extends JPanel implements Runnable {
 	public UI interfaceJoueur = new UI(this);
 
 	SauverChargement sauverConfiguration = new SauverChargement(this);
-	
+	public GenerateurEntite generateur = new GenerateurEntite(this);
+
 	//etats jeu
 	public int etatJeu;
 	public final int intro = 0;
@@ -90,6 +91,12 @@ public class Ecran extends JPanel implements Runnable {
 	public final int marchander = 8;
 	public final int dormir = 9;
 	public final int cartes = 10;
+
+	public int lieuActuel = 0;
+	public int lieuSuivant = 0;
+	public final int dehors = 0;
+	public final int maison = 1;
+	public final int dongeon = 2;
 	
 	public boolean pleinEcranOn = false;
 	
@@ -112,6 +119,7 @@ public class Ecran extends JPanel implements Runnable {
 		environnement.initialiser();
 		//jouerMusique(0);
 		etatJeu = intro;
+		lieuActuel = dehors;
 		
 		tempEcran = new BufferedImage(ecranWidth, ecranHeight, BufferedImage.TYPE_INT_ARGB);
 		graph2 = (Graphics2D)tempEcran.getGraphics();
@@ -429,6 +437,26 @@ public class Ecran extends JPanel implements Runnable {
 		graph2.dispose();
 	}
 	
+	public void changerLieu() {
+
+		if (lieuActuel != lieuSuivant) {
+			stopperMusique();
+			if (lieuSuivant == dehors) {
+				jouerMusique(0);
+			}
+			if (lieuSuivant == maison) {
+				jouerMusique(20);
+			}
+			if (lieuSuivant == dongeon) {
+				jouerMusique(21);
+				gerer.setMage();
+			}
+			gerer.setMonstre();
+
+		}		
+		lieuActuel = lieuSuivant;
+	}
+
 	public void jouerMusique(int i) {
 		musique.setFichier(i);
 		musique.play();

@@ -8,10 +8,12 @@ import main.Ecran;
 
 public class Chaussure extends Entite {
 	
+	public static final String objnom = "Chaussure";
+
 	public Chaussure(Ecran ecran) {
 		super(ecran);
 		
-		nom = "Chaussure";
+		nom = objnom;
 		arriere = initialiser("/items/Chaussures.png", ecran.tailleFinale, ecran.tailleFinale);
 		prix = 70;
 		description = "[" + nom + "]\nChaussure de course.\nVitesse + 1";

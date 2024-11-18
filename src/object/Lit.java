@@ -6,13 +6,14 @@ import main.Ecran;
 public class Lit extends Entite {
     
     Ecran ecran;
+    public static final String objnom = "Lit";
 
     public Lit(Ecran ecran) {
         super(ecran);
         this.ecran = ecran;
 
         typeEntite = utilitaireType;
-        nom = "Lit";
+        nom = objnom;
         arriere = initialiser("/items/Lit.png", ecran.tailleFinale, ecran.tailleFinale);
         description = "[Lit]\nUn lit pour passer la nuit.";
         prix = 300;

@@ -10,13 +10,14 @@ public class Mana extends Entite {
 	
 	Ecran ecran;
 	int compteur = 0;
+	public static final String objnom = "Crystal de mana";
 	
 	public Mana(Ecran ecran) {
 		
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Crystal de mana";
+		nom = objnom;
 		typeEntite = ramasserType;
 		valeur = 1;
 		arriere = initialiser("/items/CrystalMana.png", ecran.tailleFinale, ecran.tailleFinale);

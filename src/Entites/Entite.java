@@ -95,6 +95,7 @@ public class Entite {
 	public boolean desequilibre = false;
 	public Entite contenu;
 	public boolean ouvert = false;
+	public Entite entiteReliee;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -117,6 +118,7 @@ public class Entite {
 	public final int ramasserType = 7;
 	public final int obstacleType = 8;
 	public final int lumiereType = 9;
+	public final int piocheType = 10;
 	
 	public Entite(Ecran ecran) {
 		this.ecran = ecran;
@@ -145,6 +147,8 @@ public class Entite {
 	public void actions() {}
 	
 	public void attaqueReaction() {}
+
+	public void deplacer(String direction) {}
 	
 	public void resetCompteur() {
 		compteur = 0;

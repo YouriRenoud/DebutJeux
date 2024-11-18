@@ -6,11 +6,13 @@ import main.Ecran;
 public class Porte extends Entite {
 	
 	Ecran ecran;
+	public static final String objnom = "Porte";
+
 	public Porte(Ecran ecran) {
 		super(ecran);
 		this.ecran = ecran;
 
-		nom = "Porte";
+		nom = objnom;
 		arriere = initialiser("/items/PorteFermee.png", ecran.tailleFinale, ecran.tailleFinale);
 		collision1 = true;
 		

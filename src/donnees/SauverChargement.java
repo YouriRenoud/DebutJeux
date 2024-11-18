@@ -30,55 +30,6 @@ public class SauverChargement {
         this.ecran = ecran;
     }
 
-    public Entite getObject(String nom, int type) {
-        Entite obj = null;
-        switch(nom) {
-            case "Hache en pierre":
-                obj = new HacheEnPierre(ecran);
-                break;
-            case "Epée de base":
-                obj = new EpeeNormale(ecran);
-                break;
-            case "Cle":
-                obj = new Cle(ecran);
-                break;
-            case "Bouclier de base":
-                obj = new BouclierBasique(ecran);
-                break;
-            case "Bouclier en bois renforcé":
-                obj = new BouclierRenforce(ecran);
-                break;
-            case "Chaussure":
-                obj = new Chaussure(ecran);
-                break;
-            case "Lanterne":
-                obj = new Lanterne(ecran);
-                break;
-            case "Potion de soin":
-                obj = new PotionSoin(ecran);
-                break;
-            case "Lit":
-                obj = new Lit(ecran);
-                break;
-            case "Porte":
-                obj = new Porte(ecran);
-                break;
-            case "Coffre":
-                obj = new Coffre(ecran);
-                break;
-            case "Piece de monnaie":
-                obj = new Pieces(ecran, type);
-                break;
-            case "Coeur":
-                obj = new Coeur(ecran);
-                break;
-            case "Crystal de mana":
-                obj = new Mana(ecran);
-                break;
-        }
-        return obj;
-    }
-
     public void sauver() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("stockageDonnees.dst"));
@@ -158,7 +109,7 @@ public class SauverChargement {
 
             ecran.joueur.inventaire.clear();
             for (int i = 0; i < sd.nomItems.size(); i++) {
-                Entite obj = getObject(sd.nomItems.get(i), 0);
+                Entite obj = ecran.generateur.getObject(sd.nomItems.get(i), 0);
                 obj.possedes = sd.quantiteItems.get(i);
                 ecran.joueur.inventaire.add(obj);
             }
@@ -175,11 +126,11 @@ public class SauverChargement {
                         ecran.obj[i][j] = null;
                     }
                     else {
-                        ecran.obj[i][j] = getObject(sd.mondeObjNoms[i][j], sd.typeObj[i][j]);
+                        ecran.obj[i][j] = ecran.generateur.getObject(sd.mondeObjNoms[i][j], sd.typeObj[i][j]);
                         ecran.obj[i][j].carteX = sd.mondeObjX[i][j];
                         ecran.obj[i][j].carteY = sd.mondeObjY[i][j];
                         if (sd.mondeObjContenu[i][j] != null) {
-                            ecran.obj[i][j].contenu = getObject(sd.mondeObjContenu[i][j], sd.typeObj[i][j]);
+                            ecran.obj[i][j].contenu = ecran.generateur.getObject(sd.mondeObjContenu[i][j], sd.typeObj[i][j]);
                             ecran.obj[i][j].ouvert = sd.mondeObjOuverts[i][j];
                             if (ecran.obj[i][j].ouvert) {
                                 ecran.obj[i][j].arriere = ecran.obj[i][j].arriere1;

@@ -126,8 +126,13 @@ public class Lumieres {
     }
 
     public void afficher(Graphics2D g) {
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtreAlpha));
-        g.drawImage(assombrir, 0, 0, null);
+
+        if (ecran.lieuActuel == ecran.dehors) {
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtreAlpha));
+        }
+        if (ecran.lieuActuel == ecran.dehors || ecran.lieuActuel == ecran.dongeon) {
+            g.drawImage(assombrir, 0, 0, null);
+}
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
         String moment = "";
