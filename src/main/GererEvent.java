@@ -8,6 +8,7 @@ public class GererEvent {
 
 	Ecran ecran;
 	EventRect rect[][][];
+	Entite eventMaster;
 	
 	int eventPrecedentX, eventPrecedentY;
 	boolean eventPossible = true;
@@ -16,6 +17,8 @@ public class GererEvent {
 	
 	public GererEvent (Ecran ecran) {
 		this.ecran = ecran;
+
+		eventMaster = new Entite(ecran);
 		
 		rect = new EventRect[ecran.maxCartes][ecran.mondeColMax][ecran.mondeLignMax];
 		
@@ -51,6 +54,13 @@ public class GererEvent {
 		rect[1][12][8].rectDefautX = rect[1][12][8].x;
 		rect[1][12][8].rectDefautY = rect[1][12][8].y;
 	}
+
+	public void setDialogues() {
+
+		eventMaster.dialogue[0][0] = "Téléportation !";
+		eventMaster.dialogue[1][0] = "Vous tombez dans un piège";
+		eventMaster.dialogue[2][0] = "Vous recevez une bénédiction\n et la partie a été sauvée !";
+	}
 	
 	public void analyserEvent() {
 		
@@ -72,8 +82,8 @@ public class GererEvent {
 				eventPossible = false;
 			}
 			
-			else if (touche(0, 23, 6, "haut") == true) {
-				soin(23,6,ecran.parler);
+			else if (touche(0, 49, 39, "haut") == true) {
+				soin(49,39,ecran.parler);
 				eventPossible = false;
 			}
 			
@@ -153,7 +163,7 @@ public class GererEvent {
 	public void teleporter(int etatJeu) {
 		
 		ecran.etatJeu = etatJeu;
-		ecran.interfaceJoueur.dialogueCourant = "Téléportation !";
+		eventMaster.commencerDialogue(eventMaster, 0);
 		ecran.joueur.carteX = ecran.tailleFinale*37;
 		ecran.joueur.carteY = ecran.tailleFinale*10;
 	}
@@ -162,7 +172,7 @@ public class GererEvent {
 		
 		ecran.etatJeu = etatJeu;
 		ecran.jouerSE(6);
-		ecran.interfaceJoueur.dialogueCourant = "Vous tombez dans un piège";
+		eventMaster.commencerDialogue(eventMaster, 1);
 		ecran.joueur.vie -= 1;
 		rect[0][col][lign].eventFini = true;
 		
@@ -173,7 +183,7 @@ public class GererEvent {
 			ecran.etatJeu = etatJeu;
 			ecran.jouerSE(2);
 			ecran.joueur.annulerAttaque = true;
-			ecran.interfaceJoueur.dialogueCourant = "Vous recevez une bénédiction";
+			eventMaster.commencerDialogue(eventMaster, 2);
 			if (ecran.joueur.vie < ecran.joueur.vieMax) {
 				ecran.joueur.vie = ecran.joueur.vieMax;
 				ecran.gerer.setMonstre();
@@ -184,6 +194,7 @@ public class GererEvent {
 				rect[0][col][lign].eventFini = true;
 				ecran.joueur.mana = ecran.joueur.maxMana;
 			}
+			ecran.sauverConfiguration.sauver();
 
 	}
 }

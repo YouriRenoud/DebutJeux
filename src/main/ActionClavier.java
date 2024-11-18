@@ -122,12 +122,12 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_ENTER) {
 			if (ecran.interfaceJoueur.numCommande == 0) {
 				ecran.etatJeu = ecran.jouer;
-				ecran.reessayer();
+				ecran.resetJeu(false);
 				ecran.jouerMusique(0);
 			}
 			else if (ecran.interfaceJoueur.numCommande == 1) {
 				ecran.etatJeu = ecran.intro;
-				ecran.recommencer();
+				ecran.resetJeu(true);
 			}
 		}
 	}
@@ -205,7 +205,9 @@ public class ActionClavier implements KeyListener {
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 1) {
-					
+					ecran.sauverConfiguration.charger();
+					ecran.etatJeu = ecran.jouer;
+					ecran.jouerMusique(0);
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 2) {
@@ -334,7 +336,7 @@ public class ActionClavier implements KeyListener {
 	
 	public void etatParler (int touche) {
 		if (touche == KeyEvent.VK_ENTER) {
-			ecran.etatJeu = ecran.jouer;
+			entree = true;
 		}
 	}
 	

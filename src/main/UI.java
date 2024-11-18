@@ -28,6 +28,9 @@ public class UI {
 	public boolean messagePret = false;
 	public String message = "";
 	public int dureeMessage = 0;
+
+	public int charIndex = 0;
+	public String combinerTexte = "";
 	
 	ArrayList<String> messages = new ArrayList<>();
 	ArrayList<Integer> dureesMessages = new ArrayList<>();
@@ -147,6 +150,8 @@ public class UI {
 	}
 	
 	public void choixSelectionne() {
+
+		npc.dialogueSet = 0;
 		dessinerDialogue();
 		
 		int x = ecran.tailleFinale * 15;
@@ -179,8 +184,7 @@ public class UI {
 			graph.drawString(">", x-30, y);
 			if (ecran.action.entree) {
 				numCommande = 0;
-				ecran.etatJeu = ecran.parler;
-				dialogueCourant = "Reviens quand tu veux hehehe !";
+				npc.commencerDialogue(npc,1);
 			}
 		}
 	}
@@ -221,9 +225,7 @@ public class UI {
 				if (npc.inventaire.get(itemIndex).prix > ecran.joueur.argent) {
 					numCommande = 0;
 					sousEtats = 0;
-					ecran.etatJeu = ecran.parler;
-					dialogueCourant = ("Vous n'avez pas assez d'argent !");
-					dessinerDialogue();
+					npc.commencerDialogue(npc, 2);
 				}
 				else {
 					if (ecran.joueur.itemRecuperable(npc.inventaire.get(itemIndex))) {
@@ -231,8 +233,7 @@ public class UI {
 					}
 					else {
 						sousEtats = 0;
-						ecran.etatJeu = ecran.parler;
-						dialogueCourant = ("Votre inventaire est plein !");
+						npc.commencerDialogue(npc, 3);
 					}
 				}
 			}
@@ -277,9 +278,7 @@ public class UI {
 					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.bouclierActuel) {
 					numCommande = 0;
 					sousEtats = 0;
-					ecran.etatJeu = ecran.parler;
-					dialogueCourant = "Vous ne pouvez pas vendre\nvotre équipement actuel !";
-					dessinerDialogue();	
+					npc.commencerDialogue(npc, 4);
 				}
 				else {
 					if (ecran.joueur.inventaire.get(itemIndex).possedes > 1) {
@@ -550,6 +549,7 @@ public class UI {
 			if (ecran.action.entree) {
 				sousEtats = 0;
 				ecran.etatJeu = ecran.intro;
+				ecran.resetJeu(true);
 			}
 		}
 		
@@ -988,9 +988,40 @@ public class UI {
 		graph.setFont(graph.getFont().deriveFont(Font.PLAIN, 32F));
 		x += ecran.tailleFinale;
 		y += ecran.tailleFinale;
+
+		if (npc.dialogue[npc.dialogueSet][npc.dialogueIndex] != null) {
+			// dialogueCourant = npc.dialogue[npc.dialogueSet][npc.dialogueIndex];
+
+			char caracteres[] = npc.dialogue[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+
+			if (charIndex < caracteres.length) {
+				ecran.jouerSE(19);
+				String s = String.valueOf(caracteres[charIndex]);
+				combinerTexte = combinerTexte + s;
+				dialogueCourant = combinerTexte;
+				charIndex++;
+			}
+
+			if (ecran.action.entree) {
+
+				charIndex = 0;
+				combinerTexte = "";
+
+				if (ecran.etatJeu == ecran.parler) {
+					ecran.action.entree = false;
+					npc.dialogueIndex++;
+				}
+			}
+		}
+		else {
+			npc.dialogueIndex = 0;
+			if (ecran.etatJeu == ecran.parler) {
+				ecran.etatJeu = ecran.jouer;
+			}
+		}
 		
 		for (String ligne : dialogueCourant.split("\n")) {
-			graph.drawString(ligne, x, y);
+			graph.drawString(ligne, x-10, y);
 			y += 40;
 		}
 	}

@@ -12,6 +12,7 @@ import java.util.Comparator;
 
 import javax.swing.JPanel;
 
+import donnees.SauverChargement;
 import Entites.Entite;
 import Entites.Joueur;
 import Environnement.GererEnvironnement;
@@ -73,6 +74,8 @@ public class Ecran extends JPanel implements Runnable {
 	public Carte carte = new Carte(this);
 	
 	public UI interfaceJoueur = new UI(this);
+
+	SauverChargement sauverConfiguration = new SauverChargement(this);
 	
 	//etats jeu
 	public int etatJeu;
@@ -152,20 +155,19 @@ public class Ecran extends JPanel implements Runnable {
 		}
 	}
 	
-	public void reessayer() {
+	public void resetJeu(boolean recommencer) {
 		joueur.valeurDefaut();
-		joueur.retablirVieMana();
+		joueur.retablirStatuts();
+		joueur.resetCompteur();
 		gerer.setMonstre();
 		gerer.setMage();
-	}
-	
-	public void recommencer() {
-		joueur.initialiser();
-		joueur.setItems();
-		gerer.setObjects();
-		gerer.setMage();
-		gerer.setMonstre();
-		gerer.setElementInteractif();
+
+		if (recommencer) {
+			joueur.initialiser();
+			gerer.setObjects();
+			gerer.setElementInteractif();
+			environnement.lumieres.resetJour();
+		}
 	}
 	
 	public void miseAJour () {

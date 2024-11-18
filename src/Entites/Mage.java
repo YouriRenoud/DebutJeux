@@ -12,6 +12,8 @@ public class Mage extends Entite {
 		
 		direction = "bas";
 		vitesse = 1;
+
+		dialogueSet = -1;
 		
 		getImage();
 		setDialogues();
@@ -64,16 +66,34 @@ public class Mage extends Entite {
 	
 	public void setDialogues() {
 		
-		dialogue[0] = "Bonjour jeune entrepreneur !";
-		dialogue[1] = "Tu veux savoir comment créer\n ton entreprise ?";
-		dialogue[2] = "En 2024 c'est très facile.";
-		dialogue[3] = "Aller, achète ma formation \nen ligne";
-		dialogue[4] = "Promis c'est pas une arnaque !";
+		dialogue[0][0] = "Belle journée jeune héros !";
+		dialogue[0][1] = "Moi aussi j'ai parcouru le monde pour devenir\nun grand homme.";
+		dialogue[0][2] = "Et je suis un grand mage maintenant !";
+		dialogue[0][3] = "Mais je suis fatigué aujourd'hui.";
+		dialogue[0][4] = "C'est à ton tour de prendre la relève.";
+
+		dialogue[1][0] = "Quand tu es fatigué tu peux aller marcher\ndans l'eau,";
+		dialogue[1][1] = "ça te rendra ta force.";
+		dialogue[1][2] = "Cependant les monstres réapparaitront.";
+		dialogue[1][3] = "Je ne sais pas pourquoi... Mais c'est comme\nça.";
+		dialogue[1][4] = "Ne te fatigue pas trop !";
+		dialogue[1][5] = "Garde des forces, tu en auras besoin.";
+		dialogue[1][6] = "Bon courage reviens quand tu en saura plus.";
+
+		dialogue[2][0] = "Un grand secret ce cache dans ces contrées.";
+		dialogue[2][1] = "Je connais le chemin...";
+		dialogue[2][2] = "Mais je n'ai jamais trouvé la clé...";
 	}
 	
 	public void parler() {
-		super.parler();
-		enChemin = true;
+		regarderJoueur();
+		commencerDialogue(this, dialogueSet);
+		//enChemin = true;
+
+		dialogueSet++;
+		if (dialogue[dialogueSet][0] == null) {
+			dialogueSet = 0;
+		}
 	}
 	
 	public void getImage() {

@@ -9,13 +9,10 @@ import main.Ecran;
 public class Coffre extends Entite {
 	
 	Ecran ecran;
-	Entite contenu;
-	boolean ouvert = false;
 
-	public Coffre(Ecran ecran, Entite contenu) {
+	public Coffre(Ecran ecran) {
 		super(ecran);
 		this.ecran = ecran;
-		this.contenu = contenu;
 		
 		typeEntite = obstacleType;
 		nom = "Coffre";
@@ -32,27 +29,33 @@ public class Coffre extends Entite {
 		aireSolideDefautY = aireCollision.y;
 	}
 
-	public void interaction() {
+	public void initialiserContenu(Entite contenu) {
+		this.contenu = contenu;		
+		setDialogues();
+	}
 
-		ecran.etatJeu = ecran.parler;
+	public void setDialogues() {
+		dialogue[0][0] = "Vous avez ouvert le coffre et trouvé ceci : " + contenu.nom + " !" + "\nMais votre inventaire est plein.";
+		dialogue[1][0] = "Vous avez ouvert le coffre et trouvé ceci : " + contenu.nom + " !" + "\nEt vous avez récupéré " + contenu.nom + " !";
+		dialogue[2][0] = "Le coffre est vide.";
+	}
+
+	public void interaction() {
 
 		if (!ouvert) {
 			ecran.jouerSE(3);
-			StringBuilder sb = new StringBuilder();
-			sb.append("Vous avez ouvert le coffre et\ntrouvé ceci : " + contenu.nom + " !");
 
 			if (!ecran.joueur.itemRecuperable(contenu)) {
-				sb.append("\nVotre inventaire est plein.");
+				commencerDialogue(this, 0);
 			}
 			else {
-				sb.append("\nVous avez récupéré " + contenu.nom + " !");
+				commencerDialogue(this, 1);
 				arriere = arriere1;
 				ouvert = true;
 			}
-			ecran.interfaceJoueur.dialogueCourant = sb.toString();
 		}
 		else {
-			ecran.interfaceJoueur.dialogueCourant = "Le coffre est vide.";
+			commencerDialogue(this, 2);
 		}
 	}
 }

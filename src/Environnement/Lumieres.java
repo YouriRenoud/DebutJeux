@@ -120,6 +120,11 @@ public class Lumieres {
         }
     }
 
+    public void resetJour() {
+        momentJour = jour;
+        filtreAlpha = 0.0f;
+    }
+
     public void afficher(Graphics2D g) {
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtreAlpha));
         g.drawImage(assombrir, 0, 0, null);

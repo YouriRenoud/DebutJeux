@@ -9,6 +9,7 @@ import object.Chaussure;
 import object.Cle;
 import object.Coeur;
 import object.Coffre;
+import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
 import object.Lit;
@@ -71,19 +72,23 @@ public class GererObject {
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*85;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*38;
 		i++;
-		ecran.obj[mapNum][i] = new Coffre(ecran, new Chaussure(ecran));
+		ecran.obj[mapNum][i] = new Coffre(ecran);
+		ecran.obj[mapNum][i].initialiserContenu(new EpeeNormale(ecran));
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*92;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*66;
 		i++;
-		ecran.obj[mapNum][i] = new Coffre(ecran, new Lanterne(ecran));
+		ecran.obj[mapNum][i] = new Coffre(ecran);
+		ecran.obj[mapNum][i].initialiserContenu(new Pieces(ecran, 3));
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*18;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*98;
 		i++;
-		ecran.obj[mapNum][i] = new Coffre(ecran, new Lanterne(ecran));
+		ecran.obj[mapNum][i] = new Coffre(ecran);
+		ecran.obj[mapNum][i].initialiserContenu(new BouclierRenforce(ecran));
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*19;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*98;
 		i++;
-		ecran.obj[mapNum][i] = new Coffre(ecran, new Lanterne(ecran));
+		ecran.obj[mapNum][i] = new Coffre(ecran);
+		ecran.obj[mapNum][i].initialiserContenu(new Chaussure(ecran));
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*20;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*98;
 		i++;
@@ -132,9 +137,9 @@ public class GererObject {
 		ecran.monstre[mapNum][2] = new Slime(ecran);
 		ecran.monstre[mapNum][2].carteX = ecran.tailleFinale*51;
 		ecran.monstre[mapNum][2].carteY = ecran.tailleFinale*63;
-		ecran.monstre[mapNum][2] = new Orc(ecran);
-		ecran.monstre[mapNum][2].carteX = ecran.tailleFinale*50;
-		ecran.monstre[mapNum][2].carteY = ecran.tailleFinale*67;
+		ecran.monstre[mapNum][3] = new Slime(ecran);
+		ecran.monstre[mapNum][3].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][3].carteY = ecran.tailleFinale*67;
 	}
 	
 	public void setElementInteractif() {

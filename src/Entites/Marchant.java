@@ -25,11 +25,16 @@ public class Marchant extends Entite {
 	
 	public void setDialogues() {
 		
-		dialogue[0] = "Ho, ho, tu m'a trouvé, j'ai\ndes objets intéressants pour\ntoi !";
+		dialogue[0][0] = "Ho, ho, tu m'a trouvé, j'ai\ndes objets intéressants pour\ntoi !";
+		dialogue[1][0] = "Reviens quand tu veux hehehe !";
+		dialogue[2][0] = "Vous n'avez pas assez d'argent !";
+		dialogue[3][0] = "Votre inventaire est plein !";
+		dialogue[4][0] = "Vous ne pouvez pas vendre\nvotre équipement actuel !";
+
 	}
 	
 	public void parler() {
-		super.parler();
+		regarderJoueur();
 		ecran.etatJeu = ecran.marchander;
 		ecran.interfaceJoueur.npc = this;
 	}

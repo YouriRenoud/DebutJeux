@@ -21,11 +21,16 @@ public class Porte extends Entite {
 		aireCollision.height = 32;
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Il vous faut une clé pour ouvrir cette porte.";
+
 	}
 
 	public void interaction() {
-
-		ecran.etatJeu = ecran.parler;
-		ecran.interfaceJoueur.dialogueCourant = "Il vous faut une clé pour ouvrir cette porte.";
+		commencerDialogue(this, 0);
 	}
 }

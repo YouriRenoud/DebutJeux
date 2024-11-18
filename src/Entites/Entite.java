@@ -36,8 +36,9 @@ public class Entite {
 	public boolean collision0 = false;
 	public int attente = 0;
 	
-	String dialogue[] = new String[20];
-	int dialogueIndex = 0;
+	public String dialogue[][] = new String[20][20];
+	public int dialogueIndex = 0;
+	public int dialogueSet = 0;
 	
 	public int vieMax;
 	public int vie;
@@ -92,6 +93,8 @@ public class Entite {
 	public int parerCompteur = 0;
 	public int desequilibreCompteur = 0;
 	public boolean desequilibre = false;
+	public Entite contenu;
+	public boolean ouvert = false;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -126,6 +129,8 @@ public class Entite {
 
 	public void interaction() {}
 	
+	public void initialiserContenu(Entite contenu) {}
+
 	public void dropItem(Entite item) {
 		for (int i=0; i < ecran.obj[1].length; i++) {
 			if (ecran.obj[ecran.carteActuelle][i] == null) {
@@ -141,6 +146,19 @@ public class Entite {
 	
 	public void attaqueReaction() {}
 	
+	public void resetCompteur() {
+		compteur = 0;
+		tempsInvincible = 0;
+		tirPossible = 0;
+		mortCompteur = 0;
+		reculCompteur = 0;
+		vieBarreCompteur = 0;
+		parerCompteur = 0;
+		desequilibreCompteur = 0;
+		vieBarreCompteur = 0;
+		attente = 0;
+	}
+
 	public int getGaucheX() {
 		return carteX + aireCollision.x;
 	}
@@ -265,13 +283,7 @@ public class Entite {
 		ecran.listParticules.add(p4);
 	}
 	
-	public void parler() {
-
-		if (dialogue[dialogueIndex] == null) {
-			dialogueIndex = 0;
-		}
-		ecran.interfaceJoueur.dialogueCourant = dialogue[dialogueIndex];
-		dialogueIndex++;
+	public void regarderJoueur() {
 		
 		switch(ecran.joueur.direction) {
 		case "haut":
@@ -287,6 +299,15 @@ public class Entite {
 			direction = "gauche";
 			break;
 		}
+	}
+
+	public void parler() {}
+
+	public void commencerDialogue(Entite e, int setNum) {
+		
+		ecran.etatJeu = ecran.parler;
+		ecran.interfaceJoueur.npc = e;
+		dialogueSet = setNum;
 	}
 	
 	public void verifierCollision() {

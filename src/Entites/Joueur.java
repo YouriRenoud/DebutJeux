@@ -47,10 +47,6 @@ public class Joueur extends Entite {
 		aireSolideDefautY = aireCollision.y;
 		
 		this.initialiser();
-		this.getImage();
-		this.getAttImage();
-		this.getProtegerImage();
-		this.setItems();
 	}
 
 	public void setItems() {
@@ -84,8 +80,14 @@ public class Joueur extends Entite {
 		armeActuelle = new HacheEnPierre(ecran);
 		bouclierActuel = new BouclierBasique(ecran);
 		projectile = new BouleDeFeu(ecran);
+		lumiereActuelle = null;
 		attaquer = getAttaque();
 		defendre = getDefense();
+
+		this.getImage();
+		this.getAttImage();
+		this.getProtegerImage();
+		this.setItems();
 	}
 	
 	public void valeurDefaut() {
@@ -94,13 +96,51 @@ public class Joueur extends Entite {
 		direction = "bas";
 	}
 	
-	public void retablirVieMana() {
+	public void retablirStatuts() {
 		vie = vieMax;
 		mana = maxMana;
+		attaque = false;
+		recul = false;
+		vitesse = vitesseDefaut;
+		lumiereChangee = true;
 		invincible = false;
 		transparent = false;
+		proteger = false;
 	}
 	
+	public int getArmeSlot() {
+		int slot = 0;
+		for (int i = 0; i < inventaire.size(); i++) {
+			if (inventaire.get(i) == armeActuelle) {
+				slot = i;
+				break;
+			}
+		}
+		return slot;
+	}
+
+	public int getBouclierSlot() {
+		int slot = 0;
+		for (int i = 0; i < inventaire.size(); i++) {
+			if (inventaire.get(i) == bouclierActuel) {
+				slot = i;
+				break;
+			}
+		}
+		return slot;
+	}
+
+	public int getLumiereSlot() {
+		int slot = 0;
+		for (int i = 0; i < inventaire.size(); i++) {
+			if (inventaire.get(i) == lumiereActuelle) {
+				slot = i;
+				break;
+			}
+		}
+		return slot;
+	}
+
 	public int getAttaque() {
 		attArea = armeActuelle.attArea;
 		dureeAttFrame1 = armeActuelle.dureeAttFrame1;
@@ -193,6 +233,11 @@ public class Joueur extends Entite {
 		droite = im;
 
 		droite1 = im;	
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Tu es passé niveau : " + niveau + " te sens tu plus fort";
+
 	}
 
 	public void miseAJour() {
@@ -431,7 +476,6 @@ public class Joueur extends Entite {
 			
 			if(ecran.action.entree) {
 				annulerAttaque = true;
-				ecran.etatJeu = ecran.parler;
 				ecran.mage[ecran.carteActuelle][index].parler();
 			}
 		}
@@ -501,6 +545,7 @@ public class Joueur extends Entite {
 	}
 
 	public void verifierNiveau() {
+		this.setDialogues();
 		if (experience >= niveauSuivant) {
 			niveau ++;
 			experience -= niveauSuivant;
@@ -515,7 +560,7 @@ public class Joueur extends Entite {
 			
 			ecran.jouerSE(9);
 			ecran.etatJeu = ecran.parler;
-			ecran.interfaceJoueur.dialogueCourant = "Tu es passé niveau : " + niveau + " te sens tu plus fort";
+			commencerDialogue(this, 0);
 		}
 	}	
 	
