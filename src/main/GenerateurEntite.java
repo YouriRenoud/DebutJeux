@@ -7,6 +7,7 @@ import object.Chaussure;
 import object.Cle;
 import object.Coeur;
 import object.Coffre;
+import object.EpeeLegendaire;
 import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
@@ -78,6 +79,8 @@ public class GenerateurEntite {
             case PorteFer.objnom:
                 obj = new PorteFer(ecran);
                 break;
+            case EpeeLegendaire.objnom:
+                obj = new EpeeLegendaire(ecran);
         }
         return obj;
     }
