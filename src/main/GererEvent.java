@@ -127,7 +127,7 @@ public class GererEvent {
 			}
 		}
 	}
-	
+
 	public boolean touche(int carte, int col, int lign, String direction) {
 		
 		boolean touche = false;

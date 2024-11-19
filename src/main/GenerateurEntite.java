@@ -10,8 +10,11 @@ import object.Cle;
 import object.Coeur;
 import object.Coffre;
 import object.EpeeLegendaire;
+import object.EpeeLourde;
 import object.EpeeNormale;
+import object.Gourdin;
 import object.HacheEnPierre;
+import object.Lance;
 import object.Lanterne;
 import object.Lit;
 import object.Mana;
@@ -96,6 +99,15 @@ public class GenerateurEntite {
                 break;
             case PiedsNu.objnom:
                 obj = new PiedsNu(ecran);
+                break;
+            case Lance.objnom:
+                obj = new Lance(ecran);
+                break;
+            case Gourdin.objnom:
+                obj = new Gourdin(ecran);
+                break;
+            case EpeeLourde.objnom:
+                obj = new EpeeLourde(ecran);
                 break;
         }
         return obj;

@@ -651,11 +651,12 @@ public class Entite {
 			}
 
 			if (degats > 0) {
-				transparent = true;
+				ecran.joueur.invincible = true;
+				ecran.joueur.transparent = true;
 				recul(ecran.joueur, reculForce, this);
 			}
 
-			if (degats <= 0) {degats = 0;}
+			if (degats <= 0) {degats = 1;}
 			ecran.joueur.vie -= degats;
 			ecran.joueur.invincible = true;
 		}
@@ -798,7 +799,7 @@ public class Entite {
 		BufferedImage image = null;
 
 		if (surEcran()) { 
-			
+					//System.out.println(attaquer + " " + vie + " " + defendre);
 					int modifEcranX = getXEcran();
 					int modifEcranY = getYEcran();
 					

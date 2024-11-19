@@ -32,6 +32,8 @@ public class Joueur extends Entite {
 	public boolean annulerAttaque = false;
 
 	public boolean lumiereChangee = false;
+
+	public Boolean[] carteVisitee = new Boolean[ecran.maxCartes];
 		
 	public Joueur(Ecran ecran, ActionClavier action) {
 		
@@ -58,12 +60,13 @@ public class Joueur extends Entite {
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new EpeeNormale(ecran));
+		inventaire.add(new Lanterne(ecran));
 	}	
 	
 	public void initialiser() {
 		
-		carteX = ecran.tailleFinale * 49;
-		carteY = ecran.tailleFinale * 49;
+		carteX = ecran.tailleFinale * 3;
+		carteY = ecran.tailleFinale * 96;
 		//carteX = ecran.tailleFinale * 12;
 		//carteY = ecran.tailleFinale * 12;
 		vitesseDefaut = 3;

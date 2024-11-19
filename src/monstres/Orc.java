@@ -14,7 +14,7 @@ public class Orc extends Entite {
 
 	public Ecran ecran;
 
-	public Orc (Ecran ecran) {
+	public Orc (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
@@ -22,10 +22,10 @@ public class Orc extends Entite {
 		typeEntite = monstreType;
 		vitesseDefaut = 4;
 		vitesse = vitesseDefaut;
-		vieMax = 35;
+		vieMax = 35*carte;
 		vie = vieMax;
-		attaquer = 6;
-		defendre = 5;
+		attaquer = 6*carte;
+		defendre = 5*carte;
 		experience = 6;
 		magie = 0;
 		reculForce = 4;

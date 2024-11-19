@@ -12,7 +12,7 @@ import object.Pierre;
 public class Geant extends Entite {
 	public Ecran ecran;
 
-	public Geant (Ecran ecran) {
+	public Geant (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
@@ -20,10 +20,10 @@ public class Geant extends Entite {
 		typeEntite = monstreType;
 		vitesseDefaut = 1;
 		vitesse = vitesseDefaut;
-		vieMax = 30;
+		vieMax = 30*carte;
 		vie = vieMax;
-		attaquer = 2;
-		defendre = 10;
+		attaquer = 2*carte;
+		defendre = 10*carte;
 		experience = 12;
 		magie = 10;
 

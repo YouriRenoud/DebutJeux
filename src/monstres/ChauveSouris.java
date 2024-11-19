@@ -11,7 +11,7 @@ import object.Pieces;
 
 public class ChauveSouris extends Entite {
 	public Ecran ecran;
-	public ChauveSouris (Ecran ecran) {
+	public ChauveSouris (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
@@ -19,10 +19,10 @@ public class ChauveSouris extends Entite {
 		typeEntite = monstreType;
 		vitesseDefaut = 5;
 		vitesse = vitesseDefaut;
-		vieMax = 28;
+		vieMax = 28*carte;
 		vie = vieMax;
-		attaquer = 12;
-		defendre = 0;
+		attaquer = 4*carte;
+		defendre = 0*carte;
 		experience = 9;
 		magie = 0;
 		

@@ -12,7 +12,7 @@ import object.Pierre;
 
 public class Slime extends Entite {
 	public Ecran ecran;
-	public Slime (Ecran ecran) {
+	public Slime (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
@@ -20,10 +20,10 @@ public class Slime extends Entite {
 		typeEntite = monstreType;
 		vitesseDefaut = 2;
 		vitesse = vitesseDefaut;
-		vieMax = 20;
+		vieMax = 20*carte;
 		vie = vieMax;
-		attaquer = 3;
-		defendre = 0;
+		attaquer = 2*carte;
+		defendre = 0*carte;
 		experience = 2;
 		magie = 0;
 		
