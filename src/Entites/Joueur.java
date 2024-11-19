@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import main.ActionClavier;
 import main.Ecran;
 import object.BouclierBasique;
@@ -19,6 +17,8 @@ import object.Cle;
 import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
+import object.PiedsNu;
+import object.Poings;
 
 public class Joueur extends Entite {
 	
@@ -54,7 +54,8 @@ public class Joueur extends Entite {
 		inventaire.clear();
 		inventaire.add(armeActuelle);
 		inventaire.add(bouclierActuel);
-		inventaire.add(lumiereActuelle);
+		//inventaire.add(lumiereActuelle);
+		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new EpeeNormale(ecran));
 	}	
@@ -72,19 +73,21 @@ public class Joueur extends Entite {
 		vieMax = 10;
 		vie = vieMax;
 		niveau = 1;
-		force = 20;
+		force = 1;
 		agilite = 1;
 		experience = 0;
 		niveauSuivant = 5;
 		argent = 10;
 		maxMana = 6;
 		mana = maxMana;
-		armeActuelle = new HacheEnPierre(ecran);
+		armeActuelle = new Poings(ecran);
 		bouclierActuel = new BouclierBasique(ecran);
 		projectile = new BouleDeFeu(ecran);
-		lumiereActuelle = new Lanterne(ecran);
+		//lumiereActuelle = null;
+		chaussuresActuelles = new PiedsNu(ecran);
 		attaquer = getAttaque();
 		defendre = getDefense();
+		vitesse = getVitesse();
 
 		this.getImage();
 		this.getAttImage();
@@ -111,6 +114,17 @@ public class Joueur extends Entite {
 		invincible = false;
 		transparent = false;
 		proteger = false;
+	}
+
+	public int getChaussuresSlot() {
+		int slot = 0;
+		for (int i = 0; i < inventaire.size(); i++) {
+			if (inventaire.get(i) == chaussuresActuelles) {
+				slot = i;
+				break;
+			}
+		}
+		return slot;
 	}
 	
 	public int getArmeSlot() {
@@ -155,6 +169,10 @@ public class Joueur extends Entite {
 	
 	public int getDefense() {
 		return agilite*bouclierActuel.defVal;
+	}
+
+	public int getVitesse() {
+		return vitesseDefaut + chaussuresActuelles.vitesse;
 	}
 	
 	public void getImage() {
@@ -485,7 +503,6 @@ public class Joueur extends Entite {
 		
 		if (index != 999) {
 
-			System.out.println(invincible);
 			if (invincible == false && !ecran.monstre[ecran.carteActuelle][index].mort) {
 				ecran.jouerSE(6);
 				int degats = ecran.monstre[ecran.carteActuelle][index].attaquer - defendre;
@@ -575,9 +592,9 @@ public class Joueur extends Entite {
 	}
 
 	public void verifierNiveau() {
-		this.setDialogues();
 		if (experience >= niveauSuivant) {
-			niveau ++;
+			niveau ++;		
+			setDialogues();
 			experience -= niveauSuivant;
 			niveauSuivant *= 2;
 			vieMax += 2;
@@ -652,6 +669,12 @@ public class Joueur extends Entite {
 				bouclierActuel = itemSelectionne;
 				defendre = getDefense();
 			}
+
+			if (itemSelectionne.typeEntite == chaussureType) {
+				chaussuresActuelles = itemSelectionne;
+				vitesse = getVitesse();
+			}
+			else
 			
 			if (itemSelectionne.typeEntite == utilitaireType) {
 				itemSelectionne.utiliser(this, itemIndex);

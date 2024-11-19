@@ -14,7 +14,7 @@ public class Lanterne extends Entite {
 
         typeEntite = lumiereType;
         nom = objnom;
-        arriere = initialiser("/items/Lanterne.png", ecran.tailleFinale, ecran.tailleFinale);
+        arriere = initialiser("/items/lanterne.png", ecran.tailleFinale, ecran.tailleFinale);
         description = "[Lanterne]\nUne lanterne qui éclaire les\nténèbres.";
         prix = 150;
         rayonLumiere = 250;

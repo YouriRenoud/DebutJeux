@@ -14,6 +14,8 @@ import object.Cle;
 import object.Coeur;
 import object.Mana;
 import object.Pieces;
+import object.PiedsNu;
+import object.Poings;
 
 public class UI {
 	
@@ -276,10 +278,18 @@ public class UI {
 			if (ecran.action.entree) {
 
 				if (ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.armeActuelle
-					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.bouclierActuel) {
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.bouclierActuel
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.lumiereActuelle
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.chaussuresActuelles) {
 					numCommande = 0;
 					sousEtats = 0;
 					npc.commencerDialogue(npc, 4);
+				}
+				else if (ecran.joueur.inventaire.get(itemIndex).nom == Poings.objnom 
+				|| ecran.joueur.inventaire.get(itemIndex).nom == PiedsNu.objnom) {
+					numCommande = 0;
+					sousEtats = 0;
+					npc.commencerDialogue(npc, 5);
 				}
 				else {
 					if (ecran.joueur.inventaire.get(itemIndex).possedes > 1) {
@@ -610,7 +620,8 @@ public class UI {
 			//equiper curseur
 			if (e.inventaire.get(i) == e.bouclierActuel 
 					|| e.inventaire.get(i) == e.armeActuelle
-					|| e.inventaire.get(i) == e.lumiereActuelle) {
+					|| (e.inventaire.get(i) == e.lumiereActuelle && e.lumiereActuelle != null)
+					|| e.inventaire.get(i) == e.chaussuresActuelles) {
 				graph.setColor(new Color(240, 190, 90));
 				graph.fillRoundRect(emplacementX, emplacementY, ecran.tailleFinale, ecran.tailleFinale, 10, 10);
 			}

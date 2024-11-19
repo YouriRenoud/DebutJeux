@@ -20,7 +20,7 @@ public class Orc extends Entite {
 		
 		nom = "Orc";
 		typeEntite = monstreType;
-		vitesseDefaut = 1;
+		vitesseDefaut = 4;
 		vitesse = vitesseDefaut;
 		vieMax = 35;
 		vie = vieMax;

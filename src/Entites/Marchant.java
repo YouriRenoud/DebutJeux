@@ -30,6 +30,7 @@ public class Marchant extends Entite {
 		dialogue[2][0] = "Vous n'avez pas assez d'argent !";
 		dialogue[3][0] = "Votre inventaire est plein !";
 		dialogue[4][0] = "Vous ne pouvez pas vendre\nvotre équipement actuel !";
+		dialogue[5][0] = "Vous ne pouvez pas vendre une\npartie de votre corps !";
 
 	}
 	

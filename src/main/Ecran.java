@@ -41,7 +41,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
-	public int carteActuelle = 9;
+	public int carteActuelle = 0;
 	
 	// plein ecran
 	int ecranWidth = mondeLongueur;
@@ -482,17 +482,17 @@ public class Ecran extends JPanel implements Runnable {
 	}
 
 	public void jouerMusique(int i) {
-		musique.setFichier(i);
-		musique.play();
-		musique.loop();
+		//musique.setFichier(i);
+		//musique.play();
+		//musique.loop();
 	}
 	
 	public void stopperMusique() {
-		musique.stop();
+		//musique.stop();
 	}
 	
 	public void jouerSE(int i) {
-		son.setFichier(i);
-		son.play();
+		//son.setFichier(i);
+		//son.play();
 	}
 }

@@ -14,8 +14,10 @@ public class Chaussure extends Entite {
 		super(ecran);
 		
 		nom = objnom;
+		typeEntite = chaussureType;
 		arriere = initialiser("/items/Chaussures.png", ecran.tailleFinale, ecran.tailleFinale);
 		prix = 70;
+		vitesse = 1;
 		description = "[" + nom + "]\nChaussure de course.\nVitesse + 1";
 	}
 }

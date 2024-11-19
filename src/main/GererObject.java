@@ -6,6 +6,7 @@ import Entites.Marchant;
 import donnees.Progression;
 import monstres.ChauveSouris;
 import monstres.Demon;
+import monstres.Geant;
 import monstres.Orc;
 import monstres.Slime;
 import object.BouclierRenforce;
@@ -114,6 +115,10 @@ public class GererObject {
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*51;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*50;
 		i++;
+		ecran.obj[mapNum][i] = new Chaussure(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*45;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*49;
+		i++;
 
 
 		ecran.obj[8][i] = new PorteFer(ecran);
@@ -195,6 +200,33 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*63;
 		i++;
 		ecran.monstre[mapNum][i] = new Slime(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new Geant(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*30;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*49;
+		i++;
+
+		mapNum = 1;
+		i = 0;
+		ecran.monstre[mapNum][i] = new Orc(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new Orc(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new Orc(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new Geant(ecran);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new Geant(ecran);
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*50;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
 		i++;

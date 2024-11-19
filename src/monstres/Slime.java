@@ -25,8 +25,7 @@ public class Slime extends Entite {
 		attaquer = 3;
 		defendre = 0;
 		experience = 2;
-		magie = 8;
-		projectile = new Pierre(ecran);
+		magie = 0;
 		
 		aireCollision.x = 3;
 		aireCollision.y = 10;
@@ -54,14 +53,13 @@ public class Slime extends Entite {
 
 		if (enChemin) {
 
-			verifierChasse(ecran.joueur, 10, 100);
+			verifierChasse(ecran.joueur, 4, 30);
 
 			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
 
-			verifierTirer(200, 20);
 		}
 		else {
-			arreterChasse(ecran.joueur, 10, 100);
+			arreterChasse(ecran.joueur, 10, 150);
 
 			getRandomDirection(100);
 		}

@@ -2,6 +2,8 @@ package main;
 
 import Entites.Entite;
 import object.BouclierBasique;
+import object.BouclierDiamant;
+import object.BouclierFer;
 import object.BouclierRenforce;
 import object.Chaussure;
 import object.Cle;
@@ -14,7 +16,9 @@ import object.Lanterne;
 import object.Lit;
 import object.Mana;
 import object.Pieces;
+import object.PiedsNu;
 import object.Pioche;
+import object.Poings;
 import object.Porte;
 import object.PorteFer;
 import object.PotionSoin;
@@ -81,6 +85,18 @@ public class GenerateurEntite {
                 break;
             case EpeeLegendaire.objnom:
                 obj = new EpeeLegendaire(ecran);
+            case BouclierFer.objnom:
+                obj = new BouclierFer(ecran);
+                break;
+            case BouclierDiamant.objnom:
+                obj = new BouclierDiamant(ecran);
+                break;
+            case Poings.objnom:
+                obj = new Poings(ecran);
+                break;
+            case PiedsNu.objnom:
+                obj = new PiedsNu(ecran);
+                break;
         }
         return obj;
     }

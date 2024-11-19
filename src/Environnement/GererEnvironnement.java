@@ -22,6 +22,6 @@ public class GererEnvironnement {
     }
 
     public void afficher(Graphics2D graph) {
-        //lumieres.afficher(graph);
+        lumieres.afficher(graph);
     }
 }

@@ -65,7 +65,8 @@ public class Entite {
 	public Entite armeActuelle;
 	public Entite bouclierActuel;
 	public Entite lumiereActuelle;
-	
+	public Entite chaussuresActuelles;
+
 	public int magie;
 	
 	public ArrayList<Entite> inventaire = new ArrayList<>();
@@ -125,6 +126,7 @@ public class Entite {
 	public final int obstacleType = 8;
 	public final int lumiereType = 9;
 	public final int piocheType = 10;
+	public final int chaussureType = 11;
 	
 	public Entite(Ecran ecran) {
 		this.ecran = ecran;

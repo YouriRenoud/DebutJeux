@@ -15,7 +15,7 @@ public class ChauveSouris extends Entite {
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Slime";
+		nom = "Chauve Souris";
 		typeEntite = monstreType;
 		vitesseDefaut = 5;
 		vitesse = vitesseDefaut;
