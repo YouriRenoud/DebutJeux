@@ -364,7 +364,6 @@ public class Entite {
 					&& tirPossible <= intervalleTir) {
 				projectile.initialiser(carteX, carteY, direction, true, this);
 				//ecran.listProjectiles.add(projectile);
-				System.out.println("sljdf");
 
 				for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
 					if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
@@ -800,7 +799,6 @@ public class Entite {
 		BufferedImage image = null;
 
 		if (surEcran()) { 
-					//System.out.println(attaquer + " " + vie + " " + defendre);
 					int modifEcranX = getXEcran();
 					int modifEcranY = getYEcran();
 					

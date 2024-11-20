@@ -16,6 +16,12 @@ public class Projectiles extends Entite{
 		this.direction = direction;
 		this.vivant = vivant;
 		this.joueur = joueur;
+		if (joueur.nom == Joueur.objnom) {
+			this.attaquer = 1*joueur.magie;
+		}
+		else {
+			this.attaquer = 1*joueur.attaquer;
+		}
 		this.vie = this.vieMax;
 	}
 	
@@ -24,7 +30,7 @@ public class Projectiles extends Entite{
 		if (joueur == ecran.joueur) {
 			int monstreIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
 			if (monstreIndex != 999) {
-				ecran.joueur.blesserMonstre(this, monstreIndex, attaquer*(ecran.joueur.niveau)/2, reculForce);
+				ecran.joueur.blesserMonstre(this, monstreIndex, attaquer, reculForce);
 				genererParticules(joueur.projectile, ecran.monstre[ecran.carteActuelle][monstreIndex]);
 				vivant = false;
 			}

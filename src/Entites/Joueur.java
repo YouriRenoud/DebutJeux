@@ -27,6 +27,8 @@ public class Joueur extends Entite {
 	public final int ecranX;
 	public final int ecranY;
 
+	public static final String objnom = "Joueur";
+
 	public int classe;
 	
 	public boolean toucheEnfoncee;
@@ -42,7 +44,7 @@ public class Joueur extends Entite {
 		super(ecran);
 		
 		this.action = action;
-		
+		this.nom = objnom;
 		this.ecranX = ecran.ecranLongueur/2 - ecran.tailleFinale/2;
 		this.ecranY = ecran.ecranLargeur/2 - ecran.tailleFinale/2;
 		
@@ -465,7 +467,6 @@ public class Joueur extends Entite {
 		if (ecran.action.tirer == true && projectile.vivant == false
 				&& tirPossible == 60 && projectile.ressourcesSuffisantes(this)) {
 			projectile.initialiser(carteX, carteY, direction, true, this);
-			
 			projectile.utiliserRessource(this);
 			//ecran.listProjectiles.add(projectile);
 			for (int i = 0; i < ecran.listProjectiles[1].length; i++) {
@@ -638,11 +639,32 @@ public class Joueur extends Entite {
 			setDialogues();
 			experience -= niveauSuivant;
 			niveauSuivant *= 2;
-			vieMax += 2;
 			vie = vieMax;
 			mana = maxMana;
-			force++;
-			agilite++;
+
+			if (classe == 0) {
+				vieMax += 2;
+				force++;
+				agilite++;
+				magie++;
+			}
+			else if (classe == 1) {
+				vieMax += 1;
+				force += 2;
+				agilite++;
+			}
+			else if (classe == 2) {
+				vieMax += 1;
+				force++;
+				agilite++;
+				magie += 2;
+			}
+			else if (classe == 3) {
+				vieMax += 1;
+				force++;
+				magie += 2;
+			}
+			
 			attaquer = getAttaque();
 			defendre = getDefense();
 			

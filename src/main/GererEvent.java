@@ -192,7 +192,6 @@ public class GererEvent {
 	public void piege(int col, int lign, int etatJeu) {
 		
 		ecran.jouerSE(6);
-		System.out.println(ecran.action.entree);
 		eventMaster.commencerDialogue(eventMaster, 1);
 		ecran.joueur.vie -= 1;
 		rect[0][col][lign].eventFini = true;

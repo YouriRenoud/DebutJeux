@@ -18,7 +18,7 @@ public class BouleDeFeu extends Projectiles {
 		vitesse = 7;
 		vieMax = 80;
 		vie = vieMax;
-		attaquer = 3;
+		attaquer = 1;
 		coutUtilisation = 1;
 		vivant = false;
 		reculForce = 8;
