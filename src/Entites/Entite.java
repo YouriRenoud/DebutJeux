@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import main.Ecran;
 import main.UtilityTool;
+import object.BouleDeFeu;
 import object.Pieces;
 
 public class Entite {

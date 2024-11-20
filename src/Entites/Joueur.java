@@ -26,6 +26,8 @@ public class Joueur extends Entite {
 	
 	public final int ecranX;
 	public final int ecranY;
+
+	public int classe;
 	
 	public boolean toucheEnfoncee;
 	
@@ -48,8 +50,9 @@ public class Joueur extends Entite {
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
+
+		initialiser(0);
 		
-		this.initialiser();
 	}
 
 	public void setItems() {
@@ -63,31 +66,66 @@ public class Joueur extends Entite {
 		inventaire.add(new Lanterne(ecran));
 	}	
 	
-	public void initialiser() {
+	public void initialiser(int classe) {
 		
-		carteX = ecran.tailleFinale * 3;
-		carteY = ecran.tailleFinale * 96;
+		if (classe == 0) {
+			argent = 0;
+			vieMax = 12;
+			vie = vieMax;
+			niveau = 1;
+			force = 3;
+			agilite = 3;
+			maxMana = 0;
+			mana = maxMana;
+		}
+		else if (classe == 1) {
+			argent = 50;
+			vieMax = 7;
+			vie = vieMax;
+			niveau = 1;
+			force = 4;
+			agilite = 0;
+			maxMana = 3;
+			mana = maxMana;
+		}
+		else if (classe == 2) {
+			argent = 20;
+			vieMax = 8;
+			vie = vieMax;
+			niveau = 1;
+			force = 2;
+			agilite = 1;
+			maxMana = 16;
+			magie = 3;
+			mana = maxMana;
+		}
+		else if (classe == 3) {
+			argent = 10;
+			vieMax = 8;
+			vie = vieMax;
+			niveau = 1;
+			force = 1;
+			agilite = 1;
+			maxMana = 20;
+			magie = 20;
+			mana = maxMana;
+		}
+
+		carteX = ecran.tailleFinale * 49;
+		carteY = ecran.tailleFinale * 49;
 		//carteX = ecran.tailleFinale * 12;
 		//carteY = ecran.tailleFinale * 12;
 		vitesseDefaut = 3;
 		vitesse = vitesseDefaut;
 		direction = "bas";
-		
-		vieMax = 10;
-		vie = vieMax;
-		niveau = 1;
-		force = 1;
-		agilite = 1;
 		experience = 0;
 		niveauSuivant = 5;
-		argent = 10;
-		maxMana = 6;
-		mana = maxMana;
 		armeActuelle = new Poings(ecran);
 		bouclierActuel = new BouclierBasique(ecran);
 		projectile = new BouleDeFeu(ecran);
 		//lumiereActuelle = null;
 		chaussuresActuelles = new PiedsNu(ecran);
+
 		attaquer = getAttaque();
 		defendre = getDefense();
 		vitesse = getVitesse();
@@ -573,7 +611,7 @@ public class Joueur extends Entite {
 				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;
-				if (degats <= 0) {degats = 0;}
+				if (degats <= 0) {degats = 1;}
 				
 				ecran.interfaceJoueur.ajouterMessage(degats + " degats !");
 				ecran.monstre[ecran.carteActuelle][i].vie -= degats;

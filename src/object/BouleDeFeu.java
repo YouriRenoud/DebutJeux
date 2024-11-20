@@ -18,7 +18,7 @@ public class BouleDeFeu extends Projectiles {
 		vitesse = 7;
 		vieMax = 80;
 		vie = vieMax;
-		attaquer = 1;
+		attaquer = 3;
 		coutUtilisation = 1;
 		vivant = false;
 		reculForce = 8;
@@ -45,6 +45,7 @@ public class BouleDeFeu extends Projectiles {
 	}
 	
 	public void utiliserRessource(Entite joueur) {
+		this.attaquer = joueur.magie;
 		joueur.mana -= coutUtilisation;
 	}
 	

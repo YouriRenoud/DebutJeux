@@ -239,21 +239,26 @@ public class ActionClavier implements KeyListener {
 				
 				if (ecran.interfaceJoueur.numCommande == 0) {
 					ecran.etatJeu = ecran.jouer;
+					ecran.joueur.classe = 0;
+					ecran.joueur.initialiser(0);
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 1) {
 					ecran.etatJeu = ecran.jouer;
-
+					ecran.joueur.classe = 1;
+					ecran.joueur.initialiser(1);
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 2) {
 					ecran.etatJeu = ecran.jouer;
-
+					ecran.joueur.classe = 2;
+					ecran.joueur.initialiser(2);
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 3) {
 					ecran.etatJeu = ecran.jouer;
-
+					ecran.joueur.classe = 3;
+					ecran.joueur.initialiser(3);;
 				}
 				
 				if (ecran.interfaceJoueur.numCommande == 4) {
