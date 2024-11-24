@@ -24,7 +24,7 @@ public class Geant extends Entite {
 		vie = vieMax;
 		attaquer = 2*carte;
 		defendre = 10*carte;
-		experience = 12;
+		experience = 12*carte;
 		magie = 10;
 
         projectile = new Pierre(ecran);

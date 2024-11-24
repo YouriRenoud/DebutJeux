@@ -86,14 +86,14 @@ public class Lumieres {
         if (momentJour == jour) {
             jourCompteur++;
 
-            if (jourCompteur > 600) {
+            if (jourCompteur > 10800) {
                 momentJour = crepuscule;
                 jourCompteur = 0;
             }
         }
 
         if (momentJour == crepuscule) {
-            filtreAlpha += 0.001f;
+            filtreAlpha += 0.0001f;
 
             if (filtreAlpha >= 0.98f) {
                 momentJour = nuit;
@@ -104,14 +104,14 @@ public class Lumieres {
         if (momentJour == nuit) {
             jourCompteur++;
 
-            if (jourCompteur > 600) {
+            if (jourCompteur > 10800) {
                 momentJour = aube;
                 jourCompteur = 0;
             }
         }
 
         if (momentJour == aube) {
-            filtreAlpha -= 0.001f;
+            filtreAlpha -= 0.0001f;
 
             if (filtreAlpha <= 0.0f) {
                 momentJour = jour;

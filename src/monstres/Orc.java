@@ -20,13 +20,13 @@ public class Orc extends Entite {
 		
 		nom = "Orc";
 		typeEntite = monstreType;
-		vitesseDefaut = 4;
+		vitesseDefaut = 3;
 		vitesse = vitesseDefaut;
 		vieMax = 35*carte;
 		vie = vieMax;
 		attaquer = 6*carte;
 		defendre = 5*carte;
-		experience = 6;
+		experience = 6*carte;
 		magie = 0;
 		reculForce = 4;
         dureeAttFrame1 = 30;

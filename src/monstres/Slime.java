@@ -23,8 +23,8 @@ public class Slime extends Entite {
 		vieMax = 20*carte;
 		vie = vieMax;
 		attaquer = 2*carte;
-		defendre = 0*carte;
-		experience = 2;
+		defendre = 0+carte-1;
+		experience = 2*carte;
 		magie = 0;
 		
 		aireCollision.x = 3;

@@ -74,19 +74,27 @@ public class GererEvent {
 		}
 		
 		if (eventPossible == true) {
-			if (touche(0, 49, 52, "bas") == true) {
-				piege(49,52,ecran.parler);
+			if (touche(0, 45, 74, "bas") == true) {
+				piege(45,74,ecran.parler);
 				eventPossible = false;
 			}
 			
-			if (touche(0, 23, 18, "toutes") == true) {
-				piege(23,18,ecran.parler);
+			if (touche(0, 53, 71, "toutes") == true) {
+				piege(53,71,ecran.parler);
 				eventPossible = false;
 			}
 			
 			else if (touche(0, 49, 39, "haut") == true) {
 				soin(49,39,ecran.parler);
 				eventPossible = false;
+			}
+
+			else if (touche(0, 91, 26, "haut") == true) {
+				parler(ecran.mage[1][0]);
+			}
+
+			else if (touche(0, 96, 76, "haut") == true) {
+				visiter(3, 12, 13, ecran.dehors);
 			}
 			
 			//else if (touche(0, 10, 10, "haut") == true) {
@@ -102,7 +110,7 @@ public class GererEvent {
 			}
 
 			else if (touche(0, 1, 99, "toutes") == true) {
-				visiter(8, 49, 50, ecran.dongeon);
+				visiter(2, 49, 50, ecran.dehors);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

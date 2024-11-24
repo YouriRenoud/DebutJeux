@@ -29,7 +29,7 @@ public class Demon extends Entite {
 		vie = vieMax;
 		attaquer = 25*carte;
 		defendre = 20*carte;
-		experience = 600;
+		experience = 60*carte;
 		magie = 20;
 		reculForce = 10;
         dureeAttFrame1 = 25;

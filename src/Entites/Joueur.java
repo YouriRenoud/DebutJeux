@@ -64,8 +64,8 @@ public class Joueur extends Entite {
 		//inventaire.add(lumiereActuelle);
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
-		inventaire.add(new EpeeNormale(ecran));
-		inventaire.add(new Lanterne(ecran));
+		//inventaire.add(new EpeeNormale(ecran));
+		//inventaire.add(new Lanterne(ecran));
 	}	
 	
 	public void initialiser(int classe) {

@@ -23,7 +23,7 @@ public class ChauveSouris extends Entite {
 		vie = vieMax;
 		attaquer = 4*carte;
 		defendre = 0*carte;
-		experience = 9;
+		experience = 9*carte;
 		magie = 0;
 		
 		aireCollision.x = 6;
