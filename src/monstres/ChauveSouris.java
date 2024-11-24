@@ -6,6 +6,7 @@ import java.util.Random;
 import Entites.Entite;
 import main.Ecran;
 import object.Coeur;
+import object.Lit;
 import object.Mana;
 import object.Pieces;
 
@@ -69,18 +70,19 @@ public class ChauveSouris extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
-			dropItem(new Pieces(ecran, 1));
+			dropItem(new Pieces(ecran, 2));
 		}
 		if (i >= 50 && i < 80) {
 			dropItem(new Pieces(ecran, 2));
 			dropItem(new Coeur(ecran));
 		}
 		if (i >= 80 && i < 99) {
-			dropItem(new Pieces(ecran, 2));
+			dropItem(new Mana(ecran));
+			dropItem(new Mana(ecran));
 			dropItem(new Mana(ecran));
 		}
 		if (i == 99) {
-			dropItem(new Pieces(ecran, 3));
+			dropItem(new Lit(ecran));
 		}
 	}
 	

@@ -27,9 +27,15 @@ public class Joueur extends Entite {
 	public final int ecranX;
 	public final int ecranY;
 
+	public final int paladin = 0;
+	public final int assassin = 1;
+	public final int mage = 2;
+	public final int necromancien = 3;
+
 	public static final String objnom = "Joueur";
 
 	public int classe;
+	public String nomClasse = "";
 	
 	public boolean toucheEnfoncee;
 	
@@ -70,7 +76,7 @@ public class Joueur extends Entite {
 	
 	public void initialiser(int classe) {
 		
-		if (classe == 0) {
+		if (classe == paladin) {
 			argent = 0;
 			vieMax = 12;
 			vie = vieMax;
@@ -79,8 +85,10 @@ public class Joueur extends Entite {
 			agilite = 3;
 			maxMana = 0;
 			mana = maxMana;
+
+			nomClasse = "paladin";
 		}
-		else if (classe == 1) {
+		else if (classe == assassin) {
 			argent = 50;
 			vieMax = 7;
 			vie = vieMax;
@@ -89,8 +97,10 @@ public class Joueur extends Entite {
 			agilite = 0;
 			maxMana = 3;
 			mana = maxMana;
+
+			nomClasse = "assassin";
 		}
-		else if (classe == 2) {
+		else if (classe == mage) {
 			argent = 20;
 			vieMax = 8;
 			vie = vieMax;
@@ -100,8 +110,10 @@ public class Joueur extends Entite {
 			maxMana = 16;
 			magie = 3;
 			mana = maxMana;
+
+			nomClasse = "mage";
 		}
-		else if (classe == 3) {
+		else if (classe == necromancien) {
 			argent = 10;
 			vieMax = 8;
 			vie = vieMax;
@@ -111,6 +123,8 @@ public class Joueur extends Entite {
 			maxMana = 20;
 			magie = 20;
 			mana = maxMana;
+
+			nomClasse = "necromancien";
 		}
 
 		carteX = ecran.tailleFinale * 49;
@@ -219,86 +233,86 @@ public class Joueur extends Entite {
 	}
 	
 	public void getImage() {
-			avant = initialiser("/joueur/Avant.png", ecran.tailleFinale, ecran.tailleFinale);
+			avant = initialiser("/joueur/" + nomClasse + "/Avant.png", ecran.tailleFinale, ecran.tailleFinale);
 			
-			arriere = initialiser("/joueur/Arriere.png", ecran.tailleFinale, ecran.tailleFinale);
+			arriere = initialiser("/joueur/" + nomClasse + "/Arriere.png", ecran.tailleFinale, ecran.tailleFinale);
 
-			gauche = initialiser("/joueur/Gauche.png", ecran.tailleFinale, ecran.tailleFinale);
+			gauche = initialiser("/joueur/" + nomClasse + "/Gauche.png", ecran.tailleFinale, ecran.tailleFinale);
 
-			droite = initialiser("/joueur/Droite.png", ecran.tailleFinale, ecran.tailleFinale);
+			droite = initialiser("/joueur/" + nomClasse + "/Droite.png", ecran.tailleFinale, ecran.tailleFinale);
 			
-			avant1 = initialiser("/joueur/Avant1.png", ecran.tailleFinale, ecran.tailleFinale);
+			avant1 = initialiser("/joueur/" + nomClasse + "/Avant1.png", ecran.tailleFinale, ecran.tailleFinale);
 			
-			arriere1 = initialiser("/joueur/Arriere1.png", ecran.tailleFinale, ecran.tailleFinale);
+			arriere1 = initialiser("/joueur/" + nomClasse + "/Arriere1.png", ecran.tailleFinale, ecran.tailleFinale);
 
-			gauche1 = initialiser("/joueur/Gauche1.png", ecran.tailleFinale, ecran.tailleFinale);
+			gauche1 = initialiser("/joueur/" + nomClasse + "/Gauche1.png", ecran.tailleFinale, ecran.tailleFinale);
 
-			droite1 = initialiser("/joueur/Droite1.png", ecran.tailleFinale, ecran.tailleFinale);
+			droite1 = initialiser("/joueur/" + nomClasse + "/Droite1.png", ecran.tailleFinale, ecran.tailleFinale);
 	}
 	
 	public void getAttImage() {
 		
 		if (armeActuelle.typeEntite == epeeType) {
-			attAvant = initialiser("/joueur/AttAv1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant = initialiser("/joueur/" + nomClasse + "/AttAv1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere = initialiser("/joueur/AttAr1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere = initialiser("/joueur/" + nomClasse + "/AttAr1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche = initialiser("/joueur/AttG1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche = initialiser("/joueur/" + nomClasse + "/AttG1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite = initialiser("/joueur/AttD1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attDroite = initialiser("/joueur/" + nomClasse + "/AttD1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 			
-			attAvant1 = initialiser("/joueur/AttAv2.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant1 = initialiser("/joueur/" + nomClasse + "/AttAv2.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere1 = initialiser("/joueur/AttAr2.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere1 = initialiser("/joueur/" + nomClasse + "/AttAr2.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche1 = initialiser("/joueur/AttG2.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche1 = initialiser("/joueur/" + nomClasse + "/AttG2.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite1 = initialiser("/joueur/AttD2.png", ecran.tailleFinale*2, ecran.tailleFinale);	
+			attDroite1 = initialiser("/joueur/" + nomClasse + "/AttD2.png", ecran.tailleFinale*2, ecran.tailleFinale);	
 		}
 		
 		if (armeActuelle.typeEntite == hacheType) {
-			attAvant = initialiser("/joueur/AxAttAv1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant = initialiser("/joueur/" + nomClasse + "/AxAttAv1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere = initialiser("/joueur/AxAttAr1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere = initialiser("/joueur/" + nomClasse + "/AxAttAr1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche = initialiser("/joueur/AxAttG1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche = initialiser("/joueur/" + nomClasse + "/AxAttG1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite = initialiser("/joueur/AxAttD1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attDroite = initialiser("/joueur/" + nomClasse + "/AxAttD1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 			
-			attAvant1 = initialiser("/joueur/AxAttAv2.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant1 = initialiser("/joueur/" + nomClasse + "/AxAttAv2.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere1 = initialiser("/joueur/AxAttAr2.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere1 = initialiser("/joueur/" + nomClasse + "/AxAttAr2.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche1 = initialiser("/joueur/AxAttG2.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche1 = initialiser("/joueur/" + nomClasse + "/AxAttG2.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite1 = initialiser("/joueur/AxAttD2.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attDroite1 = initialiser("/joueur/" + nomClasse + "/AxAttD2.png", ecran.tailleFinale*2, ecran.tailleFinale);
 		}
 
 		if (armeActuelle.typeEntite == piocheType) {
-			attAvant = initialiser("/joueur/piocheAvant.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant = initialiser("/joueur/" + nomClasse + "/piocheAvant.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere = initialiser("/joueur/piocheArriere.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere = initialiser("/joueur/" + nomClasse + "/piocheArriere.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche = initialiser("/joueur/piocheGauche.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche = initialiser("/joueur/" + nomClasse + "/piocheGauche.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite = initialiser("/joueur/piocheDroite.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attDroite = initialiser("/joueur/" + nomClasse + "/piocheDroite.png", ecran.tailleFinale*2, ecran.tailleFinale);
 			
-			attAvant1 = initialiser("/joueur/piocheAvant1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attAvant1 = initialiser("/joueur/" + nomClasse + "/piocheAvant1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 			
-			attArriere1 = initialiser("/joueur/piocheArriere1.png", ecran.tailleFinale, ecran.tailleFinale*2);
+			attArriere1 = initialiser("/joueur/" + nomClasse + "/piocheArriere1.png", ecran.tailleFinale, ecran.tailleFinale*2);
 
-			attGauche1 = initialiser("/joueur/piocheGauche1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attGauche1 = initialiser("/joueur/" + nomClasse + "/piocheGauche1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 
-			attDroite1 = initialiser("/joueur/piocheDroite1.png", ecran.tailleFinale*2, ecran.tailleFinale);
+			attDroite1 = initialiser("/joueur/" + nomClasse + "/piocheDroite1.png", ecran.tailleFinale*2, ecran.tailleFinale);
 		}
 
 	}
 	
 	public void getProtegerImage() {
-		gardeBas = initialiser("/joueur/protegerAvant.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeHaut = initialiser("/joueur/protegerArriere.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeGauche = initialiser("/joueur/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeDroite = initialiser("/joueur/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeBas = initialiser("/joueur/" + nomClasse + "/protegerAvant.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeHaut = initialiser("/joueur/" + nomClasse + "/protegerArriere.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeGauche = initialiser("/joueur/" + nomClasse + "/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeDroite = initialiser("/joueur/" + nomClasse + "/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
 
 	}
 
@@ -548,7 +562,7 @@ public class Joueur extends Entite {
 			if (invincible == false && !ecran.monstre[ecran.carteActuelle][index].mort) {
 				ecran.jouerSE(6);
 				int degats = ecran.monstre[ecran.carteActuelle][index].attaquer - defendre;
-				if (degats <= 0) {degats = 0;}
+				if (degats <= 0) {degats = 1;}
 				vie -= degats;
 				invincible = true;
 				transparent = true;

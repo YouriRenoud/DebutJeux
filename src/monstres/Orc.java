@@ -5,7 +5,9 @@ import java.util.Random;
 
 import Entites.Entite;
 import main.Ecran;
+import object.Cle;
 import object.Coeur;
+import object.Lance;
 import object.Mana;
 import object.Pieces;
 import object.Pierre;
@@ -93,17 +95,20 @@ public class Orc extends Entite {
 		
 		if (i < 50) {
 			dropItem(new Pieces(ecran, 1));
+			dropItem(new Coeur(ecran));
+			dropItem(new Mana(ecran));
 		}
 		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 2));
+			dropItem(new Pieces(ecran, 3));
 			dropItem(new Coeur(ecran));
 		}
 		if (i >= 80 && i < 99) {
 			dropItem(new Pieces(ecran, 2));
+			dropItem(new Cle(ecran));
 			dropItem(new Mana(ecran));
 		}
 		if (i == 99) {
-			dropItem(new Pieces(ecran, 3));
+			dropItem(new Lance(ecran));
 		}
 	}
 	

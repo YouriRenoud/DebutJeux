@@ -55,6 +55,13 @@ public class GererEvent {
 		rect[1][12][8].height = 50;
 		rect[1][12][8].rectDefautX = rect[1][12][8].x;
 		rect[1][12][8].rectDefautY = rect[1][12][8].y;
+
+		rect[0][91][26].x = 0;
+		rect[0][91][26].y = 0;
+		rect[0][91][26].width = 28;
+		rect[0][91][26].height = 50;
+		rect[0][91][26].rectDefautX = rect[0][91][26].x;
+		rect[0][91][26].rectDefautY = rect[0][91][26].y;
 	}
 
 	public void setDialogues() {
@@ -201,9 +208,8 @@ public class GererEvent {
 		
 		ecran.jouerSE(6);
 		eventMaster.commencerDialogue(eventMaster, 1);
-		ecran.joueur.vie -= 1;
-		rect[0][col][lign].eventFini = true;
-		
+		ecran.joueur.vie -= ecran.carteActuelle+1;
+		rect[ecran.carteActuelle][col][lign].eventFini = true;
 	}
 	
 	public void soin(int col, int lign, int etatJeu) {
@@ -214,11 +220,11 @@ public class GererEvent {
 			if (ecran.joueur.vie < ecran.joueur.vieMax) {
 				ecran.joueur.vie = ecran.joueur.vieMax;
 				ecran.gerer.setMonstre();
-				rect[0][col][lign].eventFini = true;
+				rect[ecran.carteActuelle][col][lign].eventFini = true;
 			}
 			if (ecran.joueur.mana < ecran.joueur.maxMana) {
 				ecran.gerer.setMonstre();
-				rect[0][col][lign].eventFini = true;
+				rect[ecran.carteActuelle][col][lign].eventFini = true;
 				ecran.joueur.mana = ecran.joueur.maxMana;
 			}
 			ecran.sauverConfiguration.sauver();
