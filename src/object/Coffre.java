@@ -36,8 +36,8 @@ public class Coffre extends Entite {
 	}
 
 	public void setDialogues() {
-		dialogue[0][0] = "Vous avez ouvert le coffre et trouvé ceci : " + contenu.nom + " !" + "\nMais votre inventaire est plein.";
-		dialogue[1][0] = "Vous avez ouvert le coffre et trouvé ceci : " + contenu.nom + " !" + "\nEt vous avez récupéré " + contenu.nom + " !";
+		dialogue[0][0] = "Vous avez ouvert le coffre et trouvé ceci :\n" + contenu.nom + " !" + "\nMais votre inventaire est plein.";
+		dialogue[1][0] = "Vous avez ouvert le coffre et trouvé ceci :\n" + contenu.nom + " !" + "\nEt vous avez récupéré " + contenu.nom + " !";
 		dialogue[2][0] = "Le coffre est vide.";
 	}
 
