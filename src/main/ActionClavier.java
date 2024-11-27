@@ -131,6 +131,7 @@ public class ActionClavier implements KeyListener {
 			}
 			else if (ecran.interfaceJoueur.numCommande == 1) {
 				ecran.etatJeu = ecran.intro;
+				ecran.interfaceJoueur.numCommande = 0;
 				ecran.resetJeu(true);
 			}
 		}

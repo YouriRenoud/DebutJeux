@@ -32,12 +32,12 @@ public class Main {
 	}
 
 	public void setIcon() {
-        java.net.URL imgURL = getClass().getClassLoader().getResource("joueur/Avant1.png");
+        java.net.URL imgURL = getClass().getClassLoader().getResource("joueur/paladin/Avant1.png");
         if (imgURL != null) {
             ImageIcon icon = new ImageIcon(imgURL);
             affichage.setIconImage(icon.getImage());
         } else {
-            System.err.println("Erreur : L'image /joueur/Avant1.png est introuvable");
+            System.err.println("Erreur : L'image /joueur/paladin/Avant1.png est introuvable");
         }
     }
 }
