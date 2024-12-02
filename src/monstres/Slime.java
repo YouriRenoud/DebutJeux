@@ -69,17 +69,24 @@ public class Slime extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
+			System.out.println("Drop");
 			dropItem(new Pieces(ecran, 1));
 		}
 		if (i >= 50 && i < 80) {
+			System.out.println("Drop");
+
 			dropItem(new Pieces(ecran, 2));
 			dropItem(new Coeur(ecran));
 		}
 		if (i >= 80 && i < 99) {
+			System.out.println("Drop");
+
 			dropItem(new Pieces(ecran, 2));
 			dropItem(new Mana(ecran));
 		}
 		if (i == 99) {
+			System.out.println("Drop");
+
 			dropItem(new Pieces(ecran, 3));
 		}
 	}

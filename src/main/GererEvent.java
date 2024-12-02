@@ -69,6 +69,7 @@ public class GererEvent {
 		eventMaster.dialogue[0][0] = "Téléportation !";
 		eventMaster.dialogue[1][0] = "Vous tombez dans un piège";
 		eventMaster.dialogue[2][0] = "Vous recevez une bénédiction\n et la partie a été sauvée !";
+		eventMaster.dialogue[3][0] = "Vous devez éliminer plus de monstres\n avant de continuer";
 	}
 	
 	public void analyserEvent() {
@@ -116,8 +117,25 @@ public class GererEvent {
 				visiter(0, 49, 94, ecran.dehors);
 			}
 
-			else if (touche(0, 1, 99, "toutes") == true) {
-				visiter(2, 49, 50, ecran.dehors);
+			else if (touche(0, 1, 99, "bas") == true) {
+				if (ecran.joueur.monstresElimines()) {
+					visiter(2, 27, 79, ecran.dehors);
+				}
+				else {
+					eventMaster.commencerDialogue(eventMaster, 3);
+				}
+			}
+
+			else if (touche(2, 27, 79, "toutes") == true) {
+				visiter(0, 1, 99, ecran.dehors);
+			}
+
+			else if (touche(2, 73, 98, "bas") == true) {
+				visiter(2, 87, 17, ecran.dehors);
+			}
+
+			else if (touche(2, 87, 17, "bas") == true) {
+				visiter(2, 73, 98, ecran.dehors);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

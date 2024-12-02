@@ -70,13 +70,15 @@ public class Joueur extends Entite {
 		//inventaire.add(lumiereActuelle);
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
-		//inventaire.add(new EpeeNormale(ecran));
+		inventaire.add(new HacheEnPierre(ecran));
 		//inventaire.add(new Lanterne(ecran));
 	}	
 	
 	public void initialiser(int classe) {
 		
 		if (classe == paladin) {
+
+			vitesseDefaut = 3;
 			argent = 0;
 			vieMax = 12;
 			vie = vieMax;
@@ -89,6 +91,8 @@ public class Joueur extends Entite {
 			nomClasse = "paladin";
 		}
 		else if (classe == assassin) {
+
+			vitesseDefaut = 4;
 			argent = 50;
 			vieMax = 7;
 			vie = vieMax;
@@ -101,6 +105,8 @@ public class Joueur extends Entite {
 			nomClasse = "assassin";
 		}
 		else if (classe == mage) {
+
+			vitesseDefaut = 3;
 			argent = 20;
 			vieMax = 8;
 			vie = vieMax;
@@ -114,14 +120,16 @@ public class Joueur extends Entite {
 			nomClasse = "mage";
 		}
 		else if (classe == necromancien) {
+			
+			vitesseDefaut = 2;
 			argent = 10;
 			vieMax = 8;
 			vie = vieMax;
 			niveau = 1;
 			force = 1;
-			agilite = 1;
+			agilite = 0;
 			maxMana = 20;
-			magie = 20;
+			magie = 12;
 			mana = maxMana;
 
 			nomClasse = "necromancien";
@@ -129,9 +137,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		//carteX = ecran.tailleFinale * 12;
-		//carteY = ecran.tailleFinale * 12;
-		vitesseDefaut = 3;
+		carteX = ecran.tailleFinale * 19;
+		carteY = ecran.tailleFinale * 88;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

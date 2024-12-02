@@ -16,7 +16,7 @@ public class HacheEnPierre extends Entite {
 		nom = objnom;
 		typeEntite = hacheType;
 		arriere = initialiser("/items/HacheEnPierre.png", ecran.tailleFinale, ecran.tailleFinale);
-		attVal = 5;
+		attVal = 3;
 		attArea.width = 35;
 		attArea.height = 22;
 		description = "[" + nom + "]\nArme de barbares,\nPeut couper des arbres.\nDégats = " + attVal;

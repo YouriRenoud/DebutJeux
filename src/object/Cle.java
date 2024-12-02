@@ -20,7 +20,7 @@ public class Cle extends Entite {
 		typeEntite = utilitaireType;
 		arriere = initialiser("/items/Cle.png", ecran.tailleFinale, ecran.tailleFinale);
 		description = "[" + nom + "]\nOuvre certaines portes.";
-		prix = 10;
+		prix = 100;
 		empillable = true;
 
 		setDialogues();
