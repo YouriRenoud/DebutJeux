@@ -26,7 +26,8 @@ public class Orc extends Entite {
 		vitesse = vitesseDefaut;
 		vieMax = 35*carte;
 		vie = vieMax;
-		attaquer = 6*carte;
+		attaquer = 3*carte;
+		attVal = 6*carte;
 		defendre = 5*carte;
 		experience = 6*carte;
 		magie = 0;
@@ -74,13 +75,13 @@ public class Orc extends Entite {
 
 		if (enChemin) {
 
-			verifierChasse(ecran.joueur, 10, 100);
+			verifierChasse(ecran.joueur, 8, 100);
 
 			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
 
 		}
 		else {
-			arreterChasse(ecran.joueur, 10, 100);
+			arreterChasse(ecran.joueur, 8, 100);
 
 			getRandomDirection(150);
 		}
@@ -94,28 +95,29 @@ public class Orc extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
-			dropItem(new Pieces(ecran, 1));
-			dropItem(new Coeur(ecran));
-			dropItem(new Mana(ecran));
+			drop.add(new Coeur(ecran));
+			drop.add(new Mana(ecran));
+			drop.add(new Pieces(ecran, 1));
 		}
 		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 3));
-			dropItem(new Coeur(ecran));
+			drop.add(new Coeur(ecran));
+			drop.add(new Pieces(ecran, 3));
 		}
 		if (i >= 80 && i < 99) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Cle(ecran));
-			dropItem(new Mana(ecran));
+			drop.add(new Cle(ecran));
+			drop.add(new Mana(ecran));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i == 99) {
-			dropItem(new Lance(ecran));
+			drop.add(new Lance(ecran));
 		}
+		dropItem();
 	}
 	
 	public void attaqueReaction() {
 		attente = 0;
-		//direction = ecran.joueur.direction;
-		enChemin = true;
+		enChemin = false;
+		direction = ecran.joueur.direction;
 	}
 
 }

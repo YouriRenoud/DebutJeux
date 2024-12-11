@@ -57,7 +57,7 @@ public class Geant extends Entite {
 
 		if (enChemin) {
 
-			verifierChasse(ecran.joueur, 20, 50);
+			verifierChasse(ecran.joueur, 15, 40);
 
 			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
 
@@ -66,7 +66,7 @@ public class Geant extends Entite {
 
 		}
 		else {
-			arreterChasse(ecran.joueur, 25, 100);
+			arreterChasse(ecran.joueur, 20, 100);
 
 			getRandomDirection(150);
 		}
@@ -76,20 +76,21 @@ public class Geant extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
-			dropItem(new Coeur(ecran));
-			dropItem(new Coeur(ecran));
-			dropItem(new Coeur(ecran));	
+			drop.add(new Coeur(ecran));
+			drop.add(new Coeur(ecran));
+			drop.add(new Coeur(ecran));	
 		}
 		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 2));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i >= 80 && i < 99) {
-			dropItem(new BouclierRenforce(ecran));
-			dropItem(new Mana(ecran));
+			drop.add(new BouclierRenforce(ecran));
+			drop.add(new Mana(ecran));
 		}
 		if (i == 99) {
-			dropItem(new EpeeLourde(ecran));
+			drop.add(new EpeeLourde(ecran));
 		}
+		dropItem();
 	}
 	
 	public void attaqueReaction() {

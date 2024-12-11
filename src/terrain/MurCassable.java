@@ -66,18 +66,19 @@ public class MurCassable extends ElementInteractif {
 	    int i = new Random().nextInt(100)+1;
 		
 	    if (i < 50) {
-			dropItem(new Pieces(ecran, 1));
+			drop.add(new Pieces(ecran, 1));
 		}
 		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Coeur(ecran));
+			drop.add(new Pieces(ecran, 2));
+			drop.add(new Coeur(ecran));
 		}
 		if (i >= 80 && i < 99) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Mana(ecran));
+			drop.add(new Pieces(ecran, 2));
+			drop.add(new Mana(ecran));
 		}
 		if (i == 99) {
-			dropItem(new Pieces(ecran, 3));
+			drop.add(new Pieces(ecran, 3));
 		}
+		dropItem();
 	}
 }

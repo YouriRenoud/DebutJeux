@@ -59,7 +59,7 @@ public class Slime extends Entite {
 
 		}
 		else {
-			arreterChasse(ecran.joueur, 10, 150);
+			arreterChasse(ecran.joueur, 10, 50);
 
 			getRandomDirection(100);
 		}
@@ -69,32 +69,27 @@ public class Slime extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
-			System.out.println("Drop");
-			dropItem(new Pieces(ecran, 1));
+			drop.add(new Pieces(ecran, 1));
 		}
 		if (i >= 50 && i < 80) {
-			System.out.println("Drop");
-
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Coeur(ecran));
+			drop.add(new Coeur(ecran));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i >= 80 && i < 99) {
-			System.out.println("Drop");
-
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Mana(ecran));
+			drop.add(new Mana(ecran));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i == 99) {
-			System.out.println("Drop");
-
-			dropItem(new Pieces(ecran, 3));
+			drop.add(new Pieces(ecran, 3));
 		}
+
+		dropItem();
 	}
 	
 	public void attaqueReaction() {
 		attente = 0;
-		//direction = ecran.joueur.direction;
-		enChemin = true;
+		direction = ecran.joueur.direction;
+		//enChemin = true;
 	}
 
 }

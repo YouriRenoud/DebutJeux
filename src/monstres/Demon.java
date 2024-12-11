@@ -149,8 +149,6 @@ public class Demon extends Entite {
                 ecran.obj[ecran.carteActuelle][i] = null;
                 ecran.jouerSE(24);            }
         }
-		
-		dropItem(new Pieces(ecran, 1));
 	}
 	
 	public void attaqueReaction() {

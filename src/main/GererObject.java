@@ -7,6 +7,7 @@ import donnees.Progression;
 import monstres.ChauveSouris;
 import monstres.Demon;
 import monstres.Geant;
+import monstres.Golem;
 import monstres.Orc;
 import monstres.Slime;
 import object.BouclierRenforce;
@@ -166,6 +167,17 @@ public class GererObject {
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*53;
 		i++;
 
+		mapNum = 3;
+		i = 0;
+		ecran.obj[mapNum][i] = new PorteFer(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*11;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*17;
+		i++;
+		ecran.obj[mapNum][i] = new PorteFer(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*75;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*46;
+		i++;
+
 		mapNum = 8;
 		i = 0;
 		ecran.obj[mapNum][i] = new PorteFer(ecran);
@@ -225,6 +237,21 @@ public class GererObject {
 		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*51;
 		i++;
 
+		mapNum = 3;
+		i = 0;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*33;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*71;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*83;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*93;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+
 		mapNum = 8;
 		i = 0;
 		ecran.mage[mapNum][i] = new GrossePierre(ecran);
@@ -245,6 +272,10 @@ public class GererObject {
 		
 		int mapNum = 0;
 		int i = 0;
+		ecran.monstre[mapNum][i] = new Golem(ecran, 1);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*53;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*49;
+		i++;
 		ecran.monstre[mapNum][i] = new Slime(ecran, 1);
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*47;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*63;
@@ -444,6 +475,58 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*48;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*44;
 		i++;
+
+		mapNum = 3;
+		i = 0;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*7;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*86;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*61;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*36;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*43;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*47;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*61;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*53;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*76;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*70;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*73;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*89;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*81;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*91;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*81;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*84;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*62;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*85;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*95;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*68;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*84;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*65;
+		i++;
+		ecran.monstre[mapNum][i] = new ChauveSouris(ecran, 3);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*86;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*23;
+		i++;
+
 
 		mapNum = 8;
 		i = 0;
@@ -660,6 +743,32 @@ public class GererObject {
 		i++;
 		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 32, 37);
 		i++;
+
+		mapNum = 3;
+		i = 0;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 15, 84);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 15, 85);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 81, 24);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 81, 25);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 22, 29);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 22, 30);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 23, 29);
+		i++;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 23, 30);
+		i++;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 32, 82);
+		i++;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 62, 92);
+		i++;
+		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 55, 4);
+		i++;
+
 
 		mapNum = 8;
 		i = 0;

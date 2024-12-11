@@ -54,7 +54,7 @@ public class ChauveSouris extends Entite {
         enChemin = false;
 		if (enChemin) {
 
-			verifierChasse(ecran.joueur, 10, 100);
+			//verifierChasse(ecran.joueur, 10, 100);
 
 			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
 
@@ -62,7 +62,7 @@ public class ChauveSouris extends Entite {
 		else {
 			//arreterChasse(ecran.joueur, 10, 100);
 
-			getRandomDirection(70);
+			getRandomDirection(60);
 		}
 	}
 	
@@ -70,26 +70,27 @@ public class ChauveSouris extends Entite {
 		int i = new Random().nextInt(100)+1;
 		
 		if (i < 50) {
-			dropItem(new Pieces(ecran, 2));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i >= 50 && i < 80) {
-			dropItem(new Pieces(ecran, 2));
-			dropItem(new Coeur(ecran));
+			drop.add(new Coeur(ecran));
+			drop.add(new Pieces(ecran, 2));
 		}
 		if (i >= 80 && i < 99) {
-			dropItem(new Mana(ecran));
-			dropItem(new Mana(ecran));
-			dropItem(new Mana(ecran));
+			drop.add(new Mana(ecran));
+			drop.add(new Mana(ecran));
+			drop.add(new Mana(ecran));
 		}
 		if (i == 99) {
-			dropItem(new Lit(ecran));
+			drop.add(new Lit(ecran));
 		}
+		dropItem();
 	}
 	
 	public void attaqueReaction() {
 		attente = 0;
-		//direction = ecran.joueur.direction;
-		enChemin = true;
+		direction = ecran.joueur.direction;
+		//enChemin = true;
 	}
 
 }

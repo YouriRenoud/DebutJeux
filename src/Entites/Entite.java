@@ -70,6 +70,7 @@ public class Entite {
 
 	public int magie;
 	
+	public ArrayList<Entite> drop = new ArrayList<>();
 	public ArrayList<Entite> inventaire = new ArrayList<>();
 	public final int tailleInventaireMax = 20;
 	
@@ -90,6 +91,7 @@ public class Entite {
 	public boolean empillable = false;
 	public int possedes = 1;
 	public Entite attaquant;
+	public boolean enAttaque = false;
 	public String reculDirection;
 	public boolean proteger = false;
 	public int parerCompteur = 0;
@@ -142,14 +144,18 @@ public class Entite {
 	
 	public void initialiserContenu(Entite contenu) {}
 
-	public void dropItem(Entite item) {
-		for (int i=0; i < ecran.obj[1].length; i++) {
-			if (ecran.obj[ecran.carteActuelle][i] == null) {
-				ecran.obj[ecran.carteActuelle][i] = item;
-				ecran.obj[ecran.carteActuelle][i].carteX = carteX;
-				ecran.obj[ecran.carteActuelle][i].carteY = carteY;
-				break;
+	public void dropItem() {
+		int j = 0;
+		while (j < drop.size() && drop.get(j) != null) {
+			for (int i=0; i < ecran.obj[1].length; i++) {
+				if (ecran.obj[ecran.carteActuelle][i] == null) {
+					ecran.obj[ecran.carteActuelle][i] = drop.get(j);
+					ecran.obj[ecran.carteActuelle][i].carteX = carteX+j;
+					ecran.obj[ecran.carteActuelle][i].carteY = carteY+j;
+					break;
+				}
 			}
+			j++;
 		}
 	}
 	
@@ -439,6 +445,7 @@ public class Entite {
 			int i = new Random().nextInt(rate);
 			if (i == 0) {
 				attaque = true;
+				enAttaque = true;
 				tirPossible = 0;
 				compteur = 0;
 				marcher = 0;
@@ -475,7 +482,13 @@ public class Entite {
 			
 			if (typeEntite == monstreType) {
 				if (ecran.collisions.analyserJoueur(this)) {
-					degatJoueur(attaquer);
+					if (enAttaque) {
+						degatJoueur(attVal);
+
+					}
+					else {
+						degatJoueur(attaquer);
+					}
 				}
 			}
 			else {
@@ -499,6 +512,7 @@ public class Entite {
 			marcher = 1;
 			compteur = 0;
 			attaque = false;
+			enAttaque = false;
 		}
 	}
 
