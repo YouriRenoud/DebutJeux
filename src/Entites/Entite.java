@@ -364,10 +364,27 @@ public class Entite {
 
 	public void verifierTirer(int rate, int intervalleTir) {
 		int i = new Random().nextInt(rate);
-		if (i <= 1 ) {				
+		if (i <= 1 ) {
 
-			if (projectile.ressourcesSuffisantes(this)
-					&& tirPossible <= intervalleTir) {
+			if (tirPossible <= intervalleTir) {
+				if (this instanceof Joueur) {
+					if (projectile.ressourcesSuffisantes(this)) {
+						projectile.initialiser(carteX, carteY, direction, true, this);
+						//ecran.listProjectiles.add(projectile);
+		
+						for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
+							if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
+								ecran.listProjectiles[ecran.carteActuelle][j] = projectile;
+								break;
+							}
+						}
+						ecran.jouerSE(11);
+						projectile.utiliserRessource(this);
+						tirPossible = 0;
+					}
+				}
+			}
+			else {
 				projectile.initialiser(carteX, carteY, direction, true, this);
 				//ecran.listProjectiles.add(projectile);
 

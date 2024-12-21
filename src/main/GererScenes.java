@@ -21,7 +21,8 @@ public class GererScenes {
 
     public final int NA = 0;
     public final int roiDemon = 1;
-    public final int finJeu = 2;
+    public final int roiSquelette = 2;
+    public final int finJeu = 3;
 
     public GererScenes(Ecran ecran) {
         this.ecran = ecran;
@@ -43,9 +44,92 @@ public class GererScenes {
             case roiDemon:
                 roiDemonScene();
                 break;
+            case roiSquelette:
+                roiSqueletteScene();
+                break;
             case finJeu:
                 finJeuScene();
                 break;
+        }
+    }
+
+    public void roiSqueletteScene() {
+        if (scenePhase == 0) {
+            ecran.bossCombat = true;
+
+            for (int i = 0; i < ecran.obj[1].length; i++) {
+
+                if (ecran.obj[ecran.carteActuelle][i] == null) {
+                    ecran.obj[ecran.carteActuelle][i] = new PorteFer(ecran);
+                    ecran.obj[ecran.carteActuelle][i].carteX = ecran.tailleFinale*11;
+                    ecran.obj[ecran.carteActuelle][i].carteY = ecran.tailleFinale*18;
+                    ecran.obj[ecran.carteActuelle][i].temp = true;
+                    ecran.jouerSE(23);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < ecran.mage[1].length; i++) {
+                if (ecran.mage[ecran.carteActuelle][i] == null) {
+                    ecran.mage[ecran.carteActuelle][i] = new JoueurDebile(ecran);
+                    ecran.mage[ecran.carteActuelle][i].carteX = ecran.joueur.carteX;
+                    ecran.mage[ecran.carteActuelle][i].carteY = ecran.joueur.carteY;
+                    ecran.mage[ecran.carteActuelle][i].direction = ecran.joueur.direction;
+                    break;
+                }
+            }
+            ecran.joueur.dessiner = false;
+
+            scenePhase++;
+        }
+
+        if (scenePhase == 1) {
+
+            ecran.joueur.carteY -= 2;
+
+            if (ecran.joueur.carteY < ecran.tailleFinale*30) {
+                scenePhase++;
+            }
+        }
+
+        if (scenePhase == 2) {
+
+            for (int i = 0; i < ecran.monstre[1].length; i++) {
+
+                if (ecran.monstre[ecran.carteActuelle][i] != null && ecran.monstre[ecran.carteActuelle][i].boss) {
+                    ecran.monstre[ecran.carteActuelle][i].endormi = false;
+                    ecran.interfaceJoueur.npc = ecran.monstre[ecran.carteActuelle][i];
+                    scenePhase++;
+                    break;
+                }
+            }
+        }
+
+        if (scenePhase == 3) {
+
+            ecran.interfaceJoueur.dessinerDialogue();
+        }
+
+        if (scenePhase == 4) {
+
+            for (int i = 0; i < ecran.mage[1].length; i++) {
+
+                if (ecran.mage[ecran.carteActuelle][i] != null && ecran.mage[ecran.carteActuelle][i].nom.equals(JoueurDebile.objnom)) {
+                    ecran.joueur.carteX = ecran.mage[ecran.carteActuelle][i].carteX;
+                    ecran.joueur.carteY = ecran.mage[ecran.carteActuelle][i].carteY;
+                    ecran.mage[ecran.carteActuelle][i] = null;
+                    break;
+                }
+            }
+
+            ecran.joueur.dessiner = true;
+
+            scenePhase = 0;
+            sceneNum = NA;
+            ecran.etatJeu = ecran.jouer;
+
+            ecran.stopperMusique();
+            ecran.jouerMusique(25);
         }
     }
 

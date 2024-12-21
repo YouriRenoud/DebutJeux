@@ -138,6 +138,10 @@ public class GererEvent {
 				visiter(2, 73, 98, ecran.dehors);
 			}
 
+			else if (touche(3, 11, 17, "toutes")) {
+				roisSquelette();
+			}
+
 			else if (touche(8, 47, 1, "toutes") == true) {
 				visiter(9, 49, 50, ecran.dongeon);
 			}
@@ -254,6 +258,14 @@ public class GererEvent {
 		if (!ecran.bossCombat && !Progression.roiDemonBattu) {
 			ecran.etatJeu = ecran.scenes;
 			ecran.scene.sceneNum = ecran.scene.roiDemon;
+		}
+	}
+
+	public void roisSquelette() {
+		
+		if (!ecran.bossCombat && !Progression.roiSqueletteBattu) {
+			ecran.etatJeu = ecran.scenes;
+			ecran.scene.sceneNum = ecran.scene.roiSquelette;
 		}
 	}
 }

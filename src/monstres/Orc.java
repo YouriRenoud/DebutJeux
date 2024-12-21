@@ -57,7 +57,6 @@ public class Orc extends Entite {
 		gauche1 = initialiser("/Monsters/orcGauche1.png", ecran.tailleFinale, ecran.tailleFinale);
 		droite = initialiser("/Monsters/orcDroite.png", ecran.tailleFinale, ecran.tailleFinale);
 		droite1 = initialiser("/Monsters/orcDroite1.png", ecran.tailleFinale, ecran.tailleFinale);
-
 	}
 
     public void getAttImage() {
