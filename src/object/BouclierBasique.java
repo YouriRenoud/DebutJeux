@@ -15,5 +15,7 @@ public class BouclierBasique extends Entite {
 		defVal = 1;
 		description = "[" + nom + "]\nFait main en bois.\nDéfense = " + defVal;
 		prix = 5;
+		prixForge = 10;
+		nbForgeReussi = 0;
 	}
 }

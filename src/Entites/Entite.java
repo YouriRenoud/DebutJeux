@@ -86,6 +86,9 @@ public class Entite {
 	public int rayonLumiere;
 	public String description = "";
 	public int prix;
+	public int prixForge;
+	public int nbForgeReussi;
+	public final int nbForgeMax = 5;
 	public int dureeAttFrame1;
 	public int dureeAttFrame2;
 	public boolean empillable = false;

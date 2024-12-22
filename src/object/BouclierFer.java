@@ -16,6 +16,7 @@ public class BouclierFer extends Entite {
 		defVal = 5;
 		description = "[" + nom + "]\nUne vraie défense solide.\nDéfense = " + defVal;
 		prix = 75;
-
+		prixForge = 30;
+		nbForgeReussi = 0;
 	}
 }

@@ -16,6 +16,7 @@ public class BouclierRenforce extends Entite {
 		defVal = 3;
 		description = "[" + nom + "]\nDéjà mieux que le bois.\nDéfense = " + defVal;
 		prix = 35;
-
+		prixForge = 20;
+		nbForgeReussi = 0;
 	}
 }

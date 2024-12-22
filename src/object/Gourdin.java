@@ -17,6 +17,8 @@ public class Gourdin extends Entite {
 		attArea.height = 30;
 		description = "[" + nom + "]\nPour la destruction\nAttaque = " + attVal;
 		prix = 220;
+		prixForge = 60;
+		nbForgeReussi = 0;
 		reculForce = 12;
 		dureeAttFrame1 = 40;
 		dureeAttFrame2 = 70;

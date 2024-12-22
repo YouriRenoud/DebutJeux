@@ -18,6 +18,8 @@ public class Sceptre extends Entite {
 		attArea.height = 48;
 		description = "[" + nom + "]\nLa plus grande force magique.\nAttaque = " + attVal;
 		prix = 20000;
+		prixForge = 800;
+		nbForgeReussi = 0;
 		reculForce = 5;
 		dureeAttFrame1 = 20;
 		dureeAttFrame2 = 40;

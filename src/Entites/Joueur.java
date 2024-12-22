@@ -71,7 +71,7 @@ public class Joueur extends Entite {
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new HacheEnPierre(ecran));
-		//inventaire.add(new Lanterne(ecran));
+		inventaire.add(new Lanterne(ecran));
 	}	
 	
 	public void initialiser(int classe) {
@@ -137,8 +137,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 50;
-		carteY = ecran.tailleFinale * 3;
+		carteX = ecran.tailleFinale * 49;
+		carteY = ecran.tailleFinale * 49;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

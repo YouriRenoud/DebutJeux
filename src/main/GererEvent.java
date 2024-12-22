@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import Entites.Entite;
 import donnees.Progression;
+import object.BottesHermes;
 
 public class GererEvent {
 
@@ -157,6 +158,15 @@ public class GererEvent {
 
 			else if (touche(3, 27, 1, "toutes")) {
 				visiter(4, 55, 96, ecran.dehors);
+			}
+
+			else if (touche(4, 3, 91, "toutes")) {
+				for (int i = 0; i < ecran.obj[1].length; i++) {
+					if (ecran.obj[ecran.carteActuelle][i] != null) {
+						ecran.obj[ecran.carteActuelle][i] = new BottesHermes(ecran);
+						break;
+					}
+				}
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

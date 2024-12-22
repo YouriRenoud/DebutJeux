@@ -28,6 +28,7 @@ public class Demon extends Entite {
 		vieMax = 250*carte;
 		vie = vieMax;
 		attaquer = 25*carte;
+        attVal = 35*carte;
 		defendre = 20*carte;
 		experience = 60*carte;
 		magie = 20;
@@ -130,7 +131,7 @@ public class Demon extends Entite {
 		}
 
         if (!attaque) {
-            verifierAttaque(30, ecran.tailleFinale*10, ecran.tailleFinale*5);
+            verifierAttaque(45, ecran.tailleFinale*10, ecran.tailleFinale*5);
         }
 	}
 	
@@ -147,7 +148,8 @@ public class Demon extends Entite {
 
             if (ecran.obj[ecran.carteActuelle][i] != null && ecran.obj[ecran.carteActuelle][i].nom.equals(PorteFer.objnom)) {
                 ecran.obj[ecran.carteActuelle][i] = null;
-                ecran.jouerSE(24);            }
+                ecran.jouerSE(24);
+            }
         }
 	}
 	

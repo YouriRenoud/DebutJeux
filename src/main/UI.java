@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Entites.Entite;
 import Entites.Joueur;
@@ -117,6 +118,137 @@ public class UI {
 		if(ecran.etatJeu == ecran.dormir) {
 			dessinerDormir();
 		}
+		if(ecran.etatJeu == ecran.forger) {
+			dessinerForger();
+		}
+	}
+
+	public void dessinerForger() {
+		switch (sousEtats) {
+			case 0: choixForge(); break;
+			case 1: itemForge(); break;
+			case 2: forgeEnCours(); break;
+		}
+		ecran.action.entree = false;
+	}
+
+	public void choixForge() {
+		npc.dialogueSet = 0;
+		dessinerDialogue();
+		
+		int x = ecran.tailleFinale * 15;
+		int y = ecran.tailleFinale * 4;
+		int width = ecran.tailleFinale * 3;
+		int height = (int)(ecran.tailleFinale*3.5);
+		
+		dessinerFenetre(x-30, y, width+30, height);
+		
+		x += ecran.tailleFinale - 35;
+		y += ecran.tailleFinale;
+		graph.drawString("Forger", x, y);
+		if (numCommande == 0) {
+			graph.drawString(">", x-30, y);
+			if (ecran.action.entree) {
+				sousEtats = 1;
+			}
+		}
+		y += ecran.tailleFinale;
+		graph.drawString("Partir", x, y);
+		if (numCommande == 1) {
+			graph.drawString(">", x-30, y);
+			if (ecran.action.entree) {
+				numCommande = 0;
+				npc.commencerDialogue(npc,1);
+			}
+		}
+	}
+
+	public void itemForge() {
+		dessinerInventaire(ecran.joueur, false);
+		dessinerInventaire(npc, true);
+
+		int x = ecran.tailleFinale * 2;
+		int y = ecran.tailleFinale * 9;
+		int width = ecran.tailleFinale * 6;
+		int height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("[ECHAP] retour", x + 24, y + 55);
+
+		x = ecran.tailleFinale * 12;
+		y = ecran.tailleFinale * 9;
+		width = ecran.tailleFinale * 6;
+		height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("Votre argent: " + ecran.joueur.argent, x + 24, y + 55);
+
+		int itemIndex = getItemIndexSelectionne(emplacementCol, emplacementLign);
+		if (itemIndex < ecran.joueur.inventaire.size()) {
+			x = (int)(ecran.tailleFinale * 15.5);
+			y = (int)(ecran.tailleFinale * 5.5);
+			width = (int)(ecran.tailleFinale * 2.5);
+			height = ecran.tailleFinale;
+			dessinerFenetre(x, y, width, height);
+			graph.drawImage(piece, x + 10, y + 6, 32, 32, null);
+
+			int prix = ecran.joueur.inventaire.get(itemIndex).prixForge;
+			String texte = "x " + (int)(prix*0.8);
+			x = alignerDroite(texte, ecran.tailleFinale*18 - 10);
+			graph.drawString(texte, x, y+31);
+
+			if (ecran.action.entree) {
+
+				if (ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.armeActuelle
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.bouclierActuel
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.lumiereActuelle
+					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.chaussuresActuelles) {
+					numCommande = 0;
+					sousEtats = 0;
+					npc.commencerDialogue(npc, 6);
+				}
+				else if (ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.inventaire.get(itemIndex).epeeType
+				&& ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.inventaire.get(itemIndex).bouclierType) {
+					numCommande = 0;
+					sousEtats = 0;
+					npc.commencerDialogue(npc, 4);
+				}
+				else if (ecran.joueur.inventaire.get(itemIndex).nom == Poings.objnom 
+				|| ecran.joueur.inventaire.get(itemIndex).nom == PiedsNu.objnom) {
+					numCommande = 0;
+					sousEtats = 0;
+					npc.commencerDialogue(npc, 5);
+				}
+				else if (ecran.joueur.inventaire.get(itemIndex).nbForgeReussi >= ecran.joueur.inventaire.get(itemIndex).nbForgeMax) {
+					numCommande = 0;
+					sousEtats = 0;
+					npc.commencerDialogue(npc, 7);
+				}
+				else {
+					ecran.joueur.inventaire.remove(itemIndex);
+					npc.inventaire.add(ecran.joueur.inventaire.get(itemIndex));
+					ecran.joueur.argent -= prix;
+					sousEtats = 2;
+				}
+			}
+		}
+	}
+
+	public void forgeEnCours() {
+		int x = ecran.tailleFinale * 15;
+		int y = ecran.tailleFinale * 4;
+		int width = ecran.tailleFinale * 3;
+		int height = (int)(ecran.tailleFinale*3.5);
+		
+		dessinerFenetre(x-30, y, width+30, height);
+		
+		x += ecran.tailleFinale - 35;
+		y += ecran.tailleFinale;
+		graph.drawString("Forger", x, y);
+		y += ecran.tailleFinale;
+		graph.drawString("En cours...", x, y);
+
+		Entite itemForge = npc.inventaire.get(npc.inventaire.size()-1);
+		float essai = (float)1/(itemForge.nbForgeReussi*(5/4));
+		int decision = new Random().nextInt(100);
 	}
 
 	public void dessinerDormir() {

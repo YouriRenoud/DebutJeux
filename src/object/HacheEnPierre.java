@@ -21,6 +21,8 @@ public class HacheEnPierre extends Entite {
 		attArea.height = 22;
 		description = "[" + nom + "]\nArme de barbares,\nPeut couper des arbres.\nDégats = " + attVal;
 		prix = 50;
+		prixForge = 30;
+		nbForgeReussi = 0;
 		reculForce = 3;
 		dureeAttFrame1 = 10;
 		dureeAttFrame2 = 30;

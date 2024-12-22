@@ -1,6 +1,7 @@
 package main;
 
 import Entites.Entite;
+import object.BottesHermes;
 import object.BouclierBasique;
 import object.BouclierDiamant;
 import object.BouclierFer;
@@ -9,6 +10,7 @@ import object.Chaussure;
 import object.Cle;
 import object.Coeur;
 import object.Coffre;
+import object.Emeraude;
 import object.EpeeLegendaire;
 import object.EpeeLourde;
 import object.EpeeNormale;
@@ -25,6 +27,7 @@ import object.Poings;
 import object.Porte;
 import object.PorteFer;
 import object.PotionSoin;
+import object.Sceptre;
 
 public class GenerateurEntite {
     
@@ -108,6 +111,15 @@ public class GenerateurEntite {
                 break;
             case EpeeLourde.objnom:
                 obj = new EpeeLourde(ecran);
+                break;
+            case BottesHermes.objnom:
+                obj = new BottesHermes(ecran);
+                break;
+            case Emeraude.objnom:
+                obj = new Emeraude(ecran);
+                break;
+            case Sceptre.objnom:
+                obj = new Sceptre(ecran);
                 break;
         }
         return obj;

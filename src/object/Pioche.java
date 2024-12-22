@@ -21,6 +21,8 @@ public class Pioche extends Entite {
 		attArea.height = 35;
 		description = "[" + nom + "]\nArme de barbares,\nPeut casser certains murs.\nDégats = " + attVal;
 		prix = 500;
+		prixForge = 20;
+		nbForgeReussi = 0;
 		reculForce = 3;
 		dureeAttFrame1 = 10;
 		dureeAttFrame2 = 20;

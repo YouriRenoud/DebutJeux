@@ -17,6 +17,8 @@ public class Lance extends Entite {
 		attArea.height = 30;
 		description = "[" + nom + "]\nPour garder l'ennemi\nà distance\nAttaque = " + attVal;
 		prix = 150;
+		prixForge = 45;
+		nbForgeReussi = 0;
 		reculForce = 3;
 		dureeAttFrame1 = 10;
 		dureeAttFrame2 = 30;

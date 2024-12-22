@@ -16,6 +16,7 @@ public class BouclierDiamant extends Entite {
 		defVal = 8;
 		description = "[" + nom + "]\nLa protection ultime.\nDéfense = " + defVal;
 		prix = 200;
-
+		prixForge = 50;
+		nbForgeReussi = 0;
 	}
 }

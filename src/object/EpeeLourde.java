@@ -17,6 +17,8 @@ public class EpeeLourde extends Entite {
 		attArea.height = 44;
 		description = "[" + nom + "]\nDe gros dégats implique\nune faible vitesse.\nAttaque = " + attVal;
 		prix = 180;
+		prixForge = 50;
+		nbForgeReussi = 0;
 		reculForce = 12;
 		dureeAttFrame1 = 30;
 		dureeAttFrame2 = 70;

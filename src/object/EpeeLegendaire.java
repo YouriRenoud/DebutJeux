@@ -17,6 +17,8 @@ public class EpeeLegendaire extends Entite {
 		attArea.height = 48;
 		description = "[" + nom + "]\nLa meilleure épée.\nAttaque = " + attVal;
 		prix = 50000;
+		prixForge = 1000;
+		nbForgeReussi = 0;
 		reculForce = 20;
 		dureeAttFrame1 = 5;
 		dureeAttFrame2 = 20;

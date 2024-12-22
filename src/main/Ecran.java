@@ -41,7 +41,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
-	public int carteActuelle = 2;
+	public int carteActuelle = 4;
 	
 	// plein ecran
 	int ecranWidth = mondeLongueur;
@@ -64,8 +64,8 @@ public class Ecran extends JPanel implements Runnable {
 	public Son musique = new Son();
 	
 	public Joueur joueur = new Joueur(this, action);
-	public Entite obj[][] = new Entite[maxCartes][20];
-	public Entite mage[][] = new Entite[maxCartes][10];
+	public Entite obj[][] = new Entite[maxCartes][60];
+	public Entite mage[][] = new Entite[maxCartes][31];
 	public Entite monstre[][] = new Entite[maxCartes][30];
 	ArrayList<Entite> listEntite = new ArrayList<>();
 	public Entite listProjectiles[][] = new Entite[maxCartes][50];
@@ -93,6 +93,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int dormir = 9;
 	public final int cartes = 10;
 	public final int scenes = 11;
+	public final int forger = 12;
 
 	public int lieuActuel = 0;
 	public int lieuSuivant = 0;
