@@ -269,6 +269,41 @@ public class GererObject {
 		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
 		i++;
 
+		mapNum = 4;
+		i = 0;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.mage[mapNum][i] = new GrossePierre(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*69;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+
 		mapNum = 8;
 		i = 0;
 		ecran.mage[mapNum][i] = new GrossePierre(ecran);
@@ -575,6 +610,10 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*10;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*7;
 		i++;
+
+		mapNum = 4;
+		i = 0;
+
 
 
 		mapNum = 8;

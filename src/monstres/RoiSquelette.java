@@ -12,6 +12,7 @@ import object.Mana;
 import object.Pieces;
 import object.Pierre;
 import object.PorteFer;
+import object.Sceptre;
 
 public class RoiSquelette extends Entite {
 
@@ -56,18 +57,6 @@ public class RoiSquelette extends Entite {
 	public void getImage() {
 
         int i = 5;
-
-        if (enrage) {
-            avant = initialiser("/Monsters/demonEnrageAvant.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            avant1 = initialiser("/Monsters/demonEnrageAvant1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            arriere = initialiser("/Monsters/demonEnrageArriere.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            arriere1 = initialiser("/Monsters/demonEnrageArriere1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            gauche = initialiser("/Monsters/demonEnrageGauche.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            gauche1 = initialiser("/Monsters/demonEnrageGauche1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            droite = initialiser("/Monsters/demonEnrageDroite.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-            droite1 = initialiser("/Monsters/demonEnrageDroite1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-        }
-        else {
             avant = initialiser("/Monsters/RoiSqueletteAvant.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
             avant1 = initialiser("/Monsters/RoiSqueletteAvant1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
             arriere = initialiser("/Monsters/RoiSqueletteArriere.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
@@ -76,7 +65,6 @@ public class RoiSquelette extends Entite {
             gauche1 = initialiser("/Monsters/RoiSqueletteGauche1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
             droite = initialiser("/Monsters/RoiSqueletteDroite.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
             droite1 = initialiser("/Monsters/RoiSqueletteDroite1.png", ecran.tailleFinale*i, ecran.tailleFinale*i);
-        }
 	}
 	
     public void setDialogues() {
@@ -96,7 +84,7 @@ public class RoiSquelette extends Entite {
 
 		if (getTerrainDistance(ecran.joueur) < 15) {
             bougerSelonJoueur(60);
-            verifierTirer(100, 60);
+            verifierTirer(100, 38);
             //System.out.println("Bouger selon joueur");
 		}
 		else {
@@ -121,6 +109,8 @@ public class RoiSquelette extends Entite {
                 ecran.jouerSE(24);
             }
         }
+
+        drop.add(new Sceptre(ecran));
 	}
 	
 	public void attaqueReaction() {

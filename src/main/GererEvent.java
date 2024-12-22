@@ -138,8 +138,25 @@ public class GererEvent {
 				visiter(2, 73, 98, ecran.dehors);
 			}
 
+			else if (touche(2, 49, 0, "haut")) {
+				if (ecran.joueur.monstresElimines()) {
+					visiter(3, 54, 63, ecran.dongeon);
+				}
+				else {
+					eventMaster.commencerDialogue(eventMaster, 3);
+				}
+			}
+
+			else if (touche(3, 54, 63, "bas")) {
+				visiter(2, 49, 0, ecran.dehors);
+			}
+
 			else if (touche(3, 11, 17, "toutes")) {
 				roisSquelette();
+			}
+
+			else if (touche(3, 27, 1, "toutes")) {
+				visiter(4, 55, 96, ecran.dehors);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {
