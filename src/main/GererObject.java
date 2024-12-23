@@ -3,6 +3,7 @@ package main;
 import Entites.Forgeron;
 import Entites.GrossePierre;
 import Entites.Mage;
+import Entites.Maire;
 import Entites.Marchant;
 import Entites.Villageois;
 import donnees.Progression;
@@ -396,6 +397,10 @@ public class GererObject {
 		ecran.mage[mapNum][i] = new Forgeron(ecran);
 		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*8;
 		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*24;
+		i++;
+		ecran.mage[mapNum][i] = new Maire(ecran);
+		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*58;
+		ecran.mage[mapNum][i].carteY = ecran.tailleFinale*21;
 		i++;
 		ecran.mage[mapNum][i] = new Villageois(ecran);
 		ecran.mage[mapNum][i].carteX = ecran.tailleFinale*8;

@@ -79,7 +79,7 @@ public class Joueur extends Entite {
 		if (classe == paladin) {
 
 			vitesseDefaut = 3;
-			argent = 100000;
+			argent = 10;
 			vieMax = 12;
 			vie = vieMax;
 			niveau = 1;
@@ -137,8 +137,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 8;
-		carteY = ecran.tailleFinale * 26;
+		carteX = ecran.tailleFinale * 56;
+		carteY = ecran.tailleFinale * 21;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

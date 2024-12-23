@@ -106,6 +106,9 @@ public class Entite {
 	public boolean enrage = false;
 	public boolean boss = false;
 	public boolean endormi = false;
+	public boolean[] quetes;
+	public int queteEnCours = 0;
+	public String directionActuelle;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;

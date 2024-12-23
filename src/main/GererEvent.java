@@ -3,6 +3,7 @@ package main;
 import java.awt.Rectangle;
 
 import Entites.Entite;
+import Entites.Maire;
 import donnees.Progression;
 import object.BottesHermes;
 
@@ -178,6 +179,20 @@ public class GererEvent {
 
 			else if (touche(4, 8, 25, "haut")) {
 				parler(ecran.mage[4][0]);
+			}
+
+			else if (touche(4, 54, 10, "toutes")) {
+				if (ecran.joueur.queteEnCours == 0) {
+					for (int i=0; i < ecran.mage[1].length; i++) {
+						if (ecran.mage[ecran.carteActuelle][i] != null
+						&& ecran.mage[ecran.carteActuelle][i] instanceof Maire) {
+							ecran.mage[ecran.carteActuelle][i].quetes[ecran.joueur.queteEnCours] = true;
+							ecran.joueur.queteEnCours++;
+							ecran.jouerSE(27);
+							break;
+						}
+					}
+				}
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

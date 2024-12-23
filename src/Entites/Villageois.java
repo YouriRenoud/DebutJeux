@@ -69,20 +69,41 @@ public class Villageois extends Entite {
 	}
 	
 	public void getImage() {
-		avant = initialiser("/mage/villageoisAvant.png", ecran.tailleFinale, ecran.tailleFinale);
+
+        int choix = new Random().nextInt(2);
+        if (choix == 0) {
+            avant = initialiser("/mage/villageoisAvant.png", ecran.tailleFinale, ecran.tailleFinale);
 		
-		arriere = initialiser("/mage/villageoisArriere.png", ecran.tailleFinale, ecran.tailleFinale);
-
-		gauche = initialiser("/mage/villageoisGauche.png", ecran.tailleFinale, ecran.tailleFinale);
-
-		droite = initialiser("/mage/villageoisDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+            arriere = initialiser("/mage/villageoisArriere.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            gauche = initialiser("/mage/villageoisGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            droite = initialiser("/mage/villageoisDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+            
+            avant1 = initialiser("/mage/villageoisAvant1.png", ecran.tailleFinale, ecran.tailleFinale);
+            
+            arriere1 = initialiser("/mage/villageoisArriere1.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            gauche1 = initialiser("/mage/villageoisGauche1.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            droite1 = initialiser("/mage/villageoisDroite1.png", ecran.tailleFinale, ecran.tailleFinale);
+        }
+        else {
+            avant = initialiser("/mage/villageoiseAvant.png", ecran.tailleFinale, ecran.tailleFinale);
 		
-		avant1 = initialiser("/mage/villageoisAvant1.png", ecran.tailleFinale, ecran.tailleFinale);
-		
-		arriere1 = initialiser("/mage/villageoisArriere1.png", ecran.tailleFinale, ecran.tailleFinale);
-
-		gauche1 = initialiser("/mage/villageoisGauche1.png", ecran.tailleFinale, ecran.tailleFinale);
-
-		droite1 = initialiser("/mage/villageoisDroite1.png", ecran.tailleFinale, ecran.tailleFinale);
+            arriere = initialiser("/mage/villageoiseArriere.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            gauche = initialiser("/mage/villageoiseGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            droite = initialiser("/mage/villageoiseDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+            
+            avant1 = initialiser("/mage/villageoiseAvant1.png", ecran.tailleFinale, ecran.tailleFinale);
+            
+            arriere1 = initialiser("/mage/villageoiseArriere1.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            gauche1 = initialiser("/mage/villageoiseGauche1.png", ecran.tailleFinale, ecran.tailleFinale);
+    
+            droite1 = initialiser("/mage/villageoiseDroite1.png", ecran.tailleFinale, ecran.tailleFinale);
+        }
 	}
 }

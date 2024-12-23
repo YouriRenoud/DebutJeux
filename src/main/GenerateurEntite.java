@@ -8,6 +8,7 @@ import object.BouclierFer;
 import object.BouclierRenforce;
 import object.Chaussure;
 import object.Cle;
+import object.CleSpeciale;
 import object.Coeur;
 import object.Coffre;
 import object.Emeraude;
@@ -26,6 +27,7 @@ import object.Pioche;
 import object.Poings;
 import object.Porte;
 import object.PorteFer;
+import object.PorteSpeciale;
 import object.PotionSoin;
 import object.Sceptre;
 
@@ -120,6 +122,12 @@ public class GenerateurEntite {
                 break;
             case Sceptre.objnom:
                 obj = new Sceptre(ecran);
+                break;
+            case PorteSpeciale.objnom:
+                obj = new PorteSpeciale(ecran);
+                break;
+            case CleSpeciale.objnom:
+                obj = new CleSpeciale(ecran);
                 break;
         }
         return obj;
