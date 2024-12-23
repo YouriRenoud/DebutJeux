@@ -125,11 +125,17 @@ public class UI {
 
 	public void dessinerForger() {
 		switch (sousEtats) {
-			case 0: choixForge(); break;
-			case 1: itemForge(); break;
-			case 2: forgeEnCours(); break;
+			case 0: presentation(); break;
+			case 1: choixForge(); break;
+			case 2: itemForge(); break;
+			case 3: forgeEnCours(); break;
 		}
 		ecran.action.entree = false;
+	}
+
+	public void presentation() {
+		npc.commencerDialogue(npc, 0);
+		sousEtats = 1;
 	}
 
 	public void choixForge() {
@@ -149,7 +155,7 @@ public class UI {
 		if (numCommande == 0) {
 			graph.drawString(">", x-30, y);
 			if (ecran.action.entree) {
-				sousEtats = 1;
+				sousEtats = 2;
 			}
 		}
 		y += ecran.tailleFinale;
@@ -164,8 +170,8 @@ public class UI {
 	}
 
 	public void itemForge() {
-		dessinerInventaire(ecran.joueur, false);
-		dessinerInventaire(npc, true);
+		dessinerInventaire(ecran.joueur, true);
+		dessinerInventaire(npc, false);
 
 		int x = ecran.tailleFinale * 2;
 		int y = ecran.tailleFinale * 9;
@@ -191,7 +197,7 @@ public class UI {
 			graph.drawImage(piece, x + 10, y + 6, 32, 32, null);
 
 			int prix = ecran.joueur.inventaire.get(itemIndex).prixForge;
-			String texte = "x " + (int)(prix*0.8);
+			String texte = "x " + prix;
 			x = alignerDroite(texte, ecran.tailleFinale*18 - 10);
 			graph.drawString(texte, x, y+31);
 
@@ -202,37 +208,44 @@ public class UI {
 					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.lumiereActuelle
 					|| ecran.joueur.inventaire.get(itemIndex) == ecran.joueur.chaussuresActuelles) {
 					numCommande = 0;
-					sousEtats = 0;
+					sousEtats = 1;
 					npc.commencerDialogue(npc, 6);
 				}
-				else if (ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.inventaire.get(itemIndex).epeeType
-				&& ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.inventaire.get(itemIndex).bouclierType) {
+				else if (ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.epeeType
+				&& ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.bouclierType) {
 					numCommande = 0;
-					sousEtats = 0;
+					sousEtats = 1;
 					npc.commencerDialogue(npc, 4);
 				}
 				else if (ecran.joueur.inventaire.get(itemIndex).nom == Poings.objnom 
 				|| ecran.joueur.inventaire.get(itemIndex).nom == PiedsNu.objnom) {
 					numCommande = 0;
-					sousEtats = 0;
+					sousEtats = 1;
 					npc.commencerDialogue(npc, 5);
+				}
+				else if (ecran.joueur.argent < prix) {
+					numCommande = 0;
+					sousEtats = 1;
+					npc.commencerDialogue(npc, 2);
 				}
 				else if (ecran.joueur.inventaire.get(itemIndex).nbForgeReussi >= ecran.joueur.inventaire.get(itemIndex).nbForgeMax) {
 					numCommande = 0;
-					sousEtats = 0;
+					sousEtats = 1;
 					npc.commencerDialogue(npc, 7);
 				}
 				else {
-					ecran.joueur.inventaire.remove(itemIndex);
 					npc.inventaire.add(ecran.joueur.inventaire.get(itemIndex));
+					ecran.joueur.inventaire.remove(itemIndex);
 					ecran.joueur.argent -= prix;
-					sousEtats = 2;
+					sousEtats = 3;
 				}
 			}
 		}
 	}
 
 	public void forgeEnCours() {
+		dessinerInventaire(ecran.joueur, false);
+		dessinerInventaire(npc, true);
 		int x = ecran.tailleFinale * 15;
 		int y = ecran.tailleFinale * 4;
 		int width = ecran.tailleFinale * 3;
@@ -249,6 +262,40 @@ public class UI {
 		Entite itemForge = npc.inventaire.get(npc.inventaire.size()-1);
 		float essai = (float)1/(itemForge.nbForgeReussi*(5/4));
 		int decision = new Random().nextInt(100);
+
+		int attente = 0;
+		while (attente < 6) {
+			attente++;
+			ecran.jouerSE(26);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (decision < (int)(essai*100)) {
+			itemForge.nbForgeReussi++;
+			itemForge.prixForge *= 2;
+			if (itemForge.typeEntite == itemForge.epeeType) {
+				itemForge.attVal += 2;
+				itemForge.miseAJourDescriptionArme();
+			}
+			else if (itemForge.typeEntite == itemForge.bouclierType) {
+				itemForge.defVal += 2;
+				itemForge.miseAJourDescriptionBouclier();
+			}
+			ecran.joueur.inventaire.add(itemForge);
+			npc.inventaire.remove(itemForge);
+			npc.commencerDialogue(npc, 8);
+		}
+		else {
+			npc.inventaire.remove(itemForge);
+			ecran.joueur.inventaire.add(itemForge);
+			npc.commencerDialogue(npc, 9);
+		}
+		sousEtats = 1;
+		numCommande = 0;
 	}
 
 	public void dessinerDormir() {

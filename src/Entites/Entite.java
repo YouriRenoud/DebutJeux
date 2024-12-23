@@ -147,6 +147,16 @@ public class Entite {
 	
 	public void initialiserContenu(Entite contenu) {}
 
+	public void miseAJourDescriptionArme() {
+		String[] texte = description.split("=");
+		description = texte[0] + "= " + attVal;
+	}
+
+	public void miseAJourDescriptionBouclier() {
+		String[] texte = description.split("=");
+		description = texte[0] + "= " + defVal;
+	}
+
 	public void dropItem() {
 		int j = 0;
 		while (j < drop.size() && drop.get(j) != null) {

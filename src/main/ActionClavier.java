@@ -57,8 +57,53 @@ public class ActionClavier implements KeyListener {
 		else if (ecran.etatJeu == ecran.cartes) {
 			etatCarte(touche);
 		}
+
+		else if (ecran.etatJeu == ecran.forger) {
+			etatForgeron(touche);
+		}
 	}
 	
+	public void etatForgeron(int touche) {
+				
+		if (touche == KeyEvent.VK_ENTER) {
+			entree = true;
+		}
+		
+		if (ecran.interfaceJoueur.sousEtats == 1) {
+			if (touche == KeyEvent.VK_UP) {
+				ecran.interfaceJoueur.numCommande--;
+				if (ecran.interfaceJoueur.numCommande < 0) {
+					ecran.interfaceJoueur.numCommande = 2;
+				}
+				ecran.jouerSE(10);
+			}
+			
+			if (touche == KeyEvent.VK_DOWN) {
+				ecran.interfaceJoueur.numCommande++;
+				if (ecran.interfaceJoueur.numCommande > 1) {
+					ecran.interfaceJoueur.numCommande = 0;
+				}
+				ecran.jouerSE(10);
+			}
+		}
+
+		if (ecran.interfaceJoueur.sousEtats == 2) {
+			joueurInventaire(touche);
+			if (touche == KeyEvent.VK_ESCAPE) {
+				ecran.interfaceJoueur.sousEtats = 1;
+			}
+		}
+
+		if (ecran.interfaceJoueur.sousEtats == 3) {
+			npcInventaire(touche);
+			if (touche == KeyEvent.VK_ESCAPE) {
+				ecran.interfaceJoueur.sousEtats = 1;
+			}
+		}
+
+		
+	}
+
 	public void etatCarte(int touche) {
 		if (touche == KeyEvent.VK_M) {
 			ecran.etatJeu = ecran.jouer;

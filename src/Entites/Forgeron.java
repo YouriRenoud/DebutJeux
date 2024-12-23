@@ -37,6 +37,8 @@ public class Forgeron extends Entite {
 		dialogue[5][0] = "Vous ne pouvez pas forger une\npartie de votre corps !";
         dialogue[6][0] = "Vous ne pouvez pas forger\nvotre équipement actuel !";
         dialogue[7][0] = "Cet objet ne peux pas être\nforgé plus de fois !";
+        dialogue[8][0] = "La forge est un succés, votre\néquipement deviens plus fort !";
+        dialogue[9][0] = "Malheureusement la forge a\néchouée, vous récupérez votre objet !";
 	}
 	
 	public void parler() {

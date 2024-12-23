@@ -63,6 +63,13 @@ public class GererEvent {
 		rect[0][91][26].height = 50;
 		rect[0][91][26].rectDefautX = rect[0][91][26].x;
 		rect[0][91][26].rectDefautY = rect[0][91][26].y;
+
+		rect[4][8][25].x = 0;
+		rect[4][8][25].y = 0;
+		rect[4][8][25].width = 28;
+		rect[4][8][25].height = 50;
+		rect[4][8][25].rectDefautX = rect[0][8][25].x;
+		rect[4][8][25].rectDefautY = rect[0][8][25].y;
 	}
 
 	public void setDialogues() {
@@ -167,6 +174,10 @@ public class GererEvent {
 						break;
 					}
 				}
+			}
+
+			else if (touche(4, 8, 25, "haut")) {
+				parler(ecran.mage[4][0]);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {
