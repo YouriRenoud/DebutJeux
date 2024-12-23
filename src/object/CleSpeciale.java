@@ -35,7 +35,7 @@ public class CleSpeciale extends Entite {
 	public void utiliser(Entite e, int i) {
 
 		int objIndex = getDetecte(e, ecran.obj, PorteSpeciale.objnom);
-
+		objIndex = getDetecte(e, ecran.obj, Porte.objnom);
 		if (objIndex != 999) {
 			commencerDialogue(this, 0);
 			ecran.jouerSE(3);

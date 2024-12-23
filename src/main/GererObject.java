@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import Entites.Forgeron;
 import Entites.GrossePierre;
 import Entites.Mage;
@@ -18,6 +20,7 @@ import object.BouclierFer;
 import object.BouclierRenforce;
 import object.Chaussure;
 import object.Cle;
+import object.CleSpeciale;
 import object.Coeur;
 import object.Coffre;
 import object.Emeraude;
@@ -33,6 +36,7 @@ import object.Pieces;
 import object.Pioche;
 import object.Porte;
 import object.PorteFer;
+import object.PorteSpeciale;
 import object.PotionSoin;
 import terrain.ArbreCassable;
 import terrain.MurCassable;
@@ -41,6 +45,7 @@ import terrain.Plaque;
 public class GererObject {
 
 	Ecran ecran;
+	public int numVague = 9;
 	
 	public GererObject(Ecran ecran) {
 		this.ecran = ecran;
@@ -315,7 +320,15 @@ public class GererObject {
 		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*34;
 		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*73;
 		i++;
-		
+		ecran.obj[mapNum][i] = new PorteSpeciale(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*54;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*15;
+		i++;
+		ecran.obj[mapNum][i] = new PorteSpeciale(ecran);
+		ecran.obj[mapNum][i].carteX = ecran.tailleFinale*55;
+		ecran.obj[mapNum][i].carteY = ecran.tailleFinale*15;
+		i++;
+
 
 
 		mapNum = 8;
@@ -817,7 +830,39 @@ public class GererObject {
 		mapNum = 4;
 		i = 0;
 
-
+		mapNum = 5;
+		i = 0;
+		int choix;
+		int retour = 0;
+		int sautLigne = 0;
+		for (int j = 0; j < numVague*3; j++) {
+			choix = new Random().nextInt(3);
+			if (choix == 0) {
+				ecran.monstre[mapNum][i] = new Slime(ecran, 5);
+				ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*(45+2*retour);
+				ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+				i++;
+				retour++;
+			}
+			else if (choix == 1) {
+				ecran.monstre[mapNum][i] = new Geant(ecran, 5);
+				ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*(45+2*retour);
+				ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+				i++;
+				retour++;
+			}
+			else {
+				ecran.monstre[mapNum][i] = new Orc(ecran, 5);
+				ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*(45+2*retour);
+				ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+				i++;
+				retour++;
+			}
+			if (retour == 7) {
+				retour = 0;
+				sautLigne++;
+			}
+		}
 
 		mapNum = 8;
 		i = 0;
@@ -1061,6 +1106,30 @@ public class GererObject {
 		i++;
 
 
+		mapNum = 4;
+		i = 0;
+		ecran.iTerrain[mapNum][i] = new MurCassable(ecran, 81, 22);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 81, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 82, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 83, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 84, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 85, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 86, 21);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 84, 20);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 84, 19);
+		i++;
+		ecran.iTerrain[mapNum][i] = new ArbreCassable(ecran, 84, 18);
+		i++;
+
+
 		mapNum = 8;
 		i = 0;
 
@@ -1070,5 +1139,55 @@ public class GererObject {
 		i++;
 		ecran.iTerrain[mapNum][i] = new Plaque(ecran, 66, 45);
 		i++;
+	}
+
+	public void setMonstreCarte(int carte) {
+		int i = 0;
+		if (numVague >= 10) {
+			if (ecran.joueur.queteEnCours == 1) {
+				for (int j=0; i < ecran.mage[1].length; j++) {
+					if (ecran.mage[4][j] != null
+					&& ecran.mage[4][j] instanceof Maire) {
+						ecran.mage[4][j].quetes[ecran.joueur.queteEnCours] = true;
+						ecran.jouerSE(27);
+						break;
+					}
+				}
+			}
+			numVague = 0;
+		}
+		else {
+			int choix;
+			int retour = 0;
+			int sautLigne = 0;
+			for (int j = 0; j < numVague*3; j++) {
+				choix = new Random().nextInt(3);
+				if (choix == 0) {
+					ecran.monstre[carte][i] = new Slime(ecran, 5);
+					ecran.monstre[carte][i].carteX = ecran.tailleFinale*(45+2*retour);
+					ecran.monstre[carte][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+					i++;
+					retour++;
+				}
+				else if (choix == 1) {
+					ecran.monstre[carte][i] = new Geant(ecran, 5);
+					ecran.monstre[carte][i].carteX = ecran.tailleFinale*(45+2*retour);
+					ecran.monstre[carte][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+					i++;
+					retour++;
+				}
+				else {
+					ecran.monstre[carte][i] = new Orc(ecran, 5);
+					ecran.monstre[carte][i].carteX = ecran.tailleFinale*(45+2*retour);
+					ecran.monstre[carte][i].carteY = ecran.tailleFinale*(74+2*sautLigne);
+					i++;
+					retour++;
+				}
+				if (retour == 7) {
+					retour = 0;
+					sautLigne++;
+				}
+			}
+		}
 	}
 }

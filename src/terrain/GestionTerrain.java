@@ -69,6 +69,7 @@ public class GestionTerrain {
 		chargerCarte("/cartes/monde2.txt", 2);
 		chargerCarte("/cartes/grotte.txt", 3);
 		chargerCarte("/cartes/village.txt", 4);
+		chargerCarte("/cartes/entrainement.txt", 5);
 		chargerCarte("/cartes/dongeonDebut.txt", 8);
 		chargerCarte("/cartes/dongeonBossFin.txt", 9);
 	}

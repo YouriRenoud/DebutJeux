@@ -18,6 +18,7 @@ import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
 import object.PiedsNu;
+import object.Pioche;
 import object.Poings;
 
 public class Joueur extends Entite {
@@ -71,6 +72,7 @@ public class Joueur extends Entite {
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new HacheEnPierre(ecran));
+		inventaire.add(new Pioche(ecran));
 		inventaire.add(new Lanterne(ecran));
 	}
 	
@@ -83,7 +85,7 @@ public class Joueur extends Entite {
 			vieMax = 12;
 			vie = vieMax;
 			niveau = 1;
-			force = 3;
+			force = 300;
 			agilite = 3;
 			maxMana = 0;
 			mana = maxMana;
@@ -137,8 +139,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 56;
-		carteY = ecran.tailleFinale * 21;
+		carteX = ecran.tailleFinale * 81;
+		carteY = ecran.tailleFinale * 24;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

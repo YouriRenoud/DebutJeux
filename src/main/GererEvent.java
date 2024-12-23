@@ -6,6 +6,8 @@ import Entites.Entite;
 import Entites.Maire;
 import donnees.Progression;
 import object.BottesHermes;
+import object.CleSpeciale;
+import object.PorteSpeciale;
 
 public class GererEvent {
 
@@ -16,6 +18,8 @@ public class GererEvent {
 	int eventPrecedentX, eventPrecedentY;
 	boolean eventPossible = true;
 	
+	boolean cleGeneree = false;
+
 	int tempCarte, tempCol, tempLign;
 	
 	public GererEvent (Ecran ecran) {
@@ -127,7 +131,7 @@ public class GererEvent {
 			}
 
 			else if (touche(0, 1, 99, "bas") == true) {
-				if (ecran.joueur.monstresElimines()) {
+				if (ecran.joueur.monstresElimines(2)) {
 					visiter(2, 27, 79, ecran.dehors);
 				}
 				else {
@@ -148,7 +152,7 @@ public class GererEvent {
 			}
 
 			else if (touche(2, 49, 0, "haut")) {
-				if (ecran.joueur.monstresElimines()) {
+				if (ecran.joueur.monstresElimines(2)) {
 					visiter(3, 54, 63, ecran.dongeon);
 				}
 				else {
@@ -193,6 +197,28 @@ public class GererEvent {
 						}
 					}
 				}
+			}
+
+			else if (touche(4, 94, 94, "toutes")) {
+				if (ecran.joueur.queteEnCours == 0 && !cleGeneree) {
+					for (int i=0; i < ecran.obj[1].length; i++) {
+						if (ecran.obj[ecran.carteActuelle][i] == null) {
+							ecran.obj[ecran.carteActuelle][i] = new CleSpeciale(ecran);
+							ecran.obj[ecran.carteActuelle][i].carteX = ecran.tailleFinale*94;
+							ecran.obj[ecran.carteActuelle][i].carteY = ecran.tailleFinale*94;
+							cleGeneree = true;
+							break;
+						}
+					}
+				}
+			}
+
+			else if (touche(4, 84, 17, "haut")) {
+				visiter(5, 51, 86, ecran.dehors);
+			}
+
+			else if (touche(5, 51, 86, "toutes")) {
+				visiter(4, 55, 96, ecran.dehors);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

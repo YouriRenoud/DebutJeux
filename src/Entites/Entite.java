@@ -841,14 +841,14 @@ public class Entite {
 		&& carteY - ecran.tailleFinale < ecran.joueur.carteY + ecran.joueur.ecranY;
 	}
 
-	public boolean monstresElimines() {
+	public boolean monstresElimines(int val) {
 		boolean elimine = true;
 		int nbVivant = 0;
 		for (int i=0; i < ecran.monstre[1].length; i++) {
 			if (ecran.monstre[ecran.carteActuelle][i] != null) {
 				nbVivant++;
 			}
-			if (nbVivant > 2) {
+			if (nbVivant > val) {
 				elimine = false;
 				break;
 			}

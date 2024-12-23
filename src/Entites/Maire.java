@@ -55,7 +55,12 @@ public class Maire extends Entite {
 		dialogue[0][4] = "Retrouve déjà la clé de la pièce\n derrière moi.";
         dialogue[0][5] = "Cherche dans les grandes maisons à\n droite du village !";
 
-		dialogue[1][0] = "Quand tu es fatigué tu peux aller marcher\ndans l'eau,";
+		dialogue[1][0] = "Maintenant que le vieil homme est avec toi,\ntu pourras peut-etre réussir ?";
+        dialogue[1][1] = "Cependant avec ta force actuelle, le roi démon\nne te laissera aucune chance.";
+        dialogue[1][2] = "Je te conseille de trouver un moyen de\nrenforcer tes capacités.";
+        dialogue[1][3] = "Survis aux 10 vagues dans la zone d'entrainement\navant de revenir.";
+        dialogue[1][4] = "Cherche vers la maison seul à droite du village.";
+        dialogue[1][5] = "Attention l'entrée est bien cachée.";
 
         dialogue[10][0] = "Occupe toi d'abord de ce que je\nt'ai demandé !";
 	}

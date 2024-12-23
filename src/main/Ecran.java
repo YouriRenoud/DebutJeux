@@ -237,6 +237,13 @@ public class Ecran extends JPanel implements Runnable {
 				}
 			}
 
+			if (carteActuelle == 5) {
+				if (joueur.monstresElimines(0)) {
+					gerer.numVague++;
+					gerer.setMonstreCarte(5);
+				}
+			}
+
 			environnement.miseAJour();
 		}
 		
