@@ -60,13 +60,12 @@ public class Forgeron extends Entite {
 	public void parler() {
 		regarderJoueur();
 		if (ecran.joueur.queteEnCours == 3) {
-			commencerDialogue(this, 9);
+			commencerDialogue(this, 10);
 			ecran.joueur.queteEnCours++;
 		}
 		else if (ecran.joueur.queteEnCours == 4) {
-			commencerDialogue(this, 10);
-			int  ferIndice = 0;
-			int nbPossedes = 0;
+			int ferIndice = -1;
+			int nbPossedes = -1;
 			for (int i = 0; i < ecran.joueur.inventaire.size(); i++) {
 				if (ecran.joueur.inventaire.get(i) != null && ecran.joueur.inventaire.get(i).nom.equals(Fer.objnom)) {
 					ferIndice = i;
@@ -74,11 +73,14 @@ public class Forgeron extends Entite {
 					break;
 				}
 			}
-			if (nbPossedes < 10) {
-				commencerDialogue(this, 12);
+			if (nbPossedes < 0) {
+				commencerDialogue(this, 11);
+			}
+			else if (nbPossedes < 10) {
+				commencerDialogue(this, 13);
 			}
 			else {
-				commencerDialogue(this, 11);
+				commencerDialogue(this, 12);
 				if (nbPossedes == 10) {
 					ecran.joueur.inventaire.remove(ferIndice);
 				}

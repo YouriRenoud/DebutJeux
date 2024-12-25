@@ -218,17 +218,29 @@ public class GererEvent {
 			}
 
 			else if (touche(4, 61, 6, "droite")) {
-				visiter(6, 50, 49, ecran.dongeon);
+				if (ecran.joueur.queteEnCours >= 4) {
+					visiter(6, 50, 49, ecran.dongeon);
+				}
 			}
 
 			else if (touche(4, 55, 50, "toutes")) {
-				if (ecran.joueur.queteEnCours == 4) {
+				if (ecran.joueur.queteEnCours >= 5) {
 					visiter(7, 1, 98, ecran.dehors);
 				}
 			}
 
 			else if (touche(7, 98, 1, "toutes")) {
 				visiter(4, 55, 50, ecran.dehors);
+				if (ecran.joueur.queteEnCours == 5) {
+					for (int i=0; i < ecran.mage[1].length; i++) {
+						if (ecran.mage[4][i] != null
+						&& ecran.mage[4][i] instanceof Maire) {
+							ecran.mage[4][i].quetes[ecran.joueur.queteEnCours-1] = true;
+							ecran.jouerSE(27);
+							break;
+						}
+					}
+				}
 			}
 
 			else if (touche(5, 51, 86, "toutes")) {

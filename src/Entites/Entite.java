@@ -117,6 +117,12 @@ public class Entite {
 	public boolean invincible = false;
 	public boolean transparent = false;
 	public int tempsInvincible = 0;
+	public boolean delaiSuppression = false;
+	public int compteurSuppression = 0;
+
+	public boolean lancerCompteur = false;
+	public final int tempsDispo = 8000;
+	public int compteARebour = tempsDispo;
 
 	public boolean enChemin = false;
 

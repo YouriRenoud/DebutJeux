@@ -28,7 +28,7 @@ public class PorteFer extends Entite {
 	}
 
 	public void setDialogues() {
-		dialogue[0][0] = "Il vous faut une clé pour ouvrir cette porte.\nMais pas n'importe laquelle...";
+		dialogue[0][0] = "Cette porte ne s'ouvre pas avec une clé.";
 
 	}
 

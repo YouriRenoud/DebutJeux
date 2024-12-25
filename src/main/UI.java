@@ -129,6 +129,7 @@ public class UI {
 			case 1: choixForge(); break;
 			case 2: itemForge(); break;
 			case 3: forgeEnCours(); break;
+			case 4: itemRenforce(); break;
 		}
 		ecran.action.entree = false;
 	}
@@ -159,6 +160,16 @@ public class UI {
 			}
 		}
 		y += ecran.tailleFinale;
+		if (ecran.joueur.queteEnCours >= 5) {
+			graph.drawString("Renforcer", x, y);
+			if (numCommande == 0) {
+				graph.drawString(">", x-30, y);
+				if (ecran.action.entree) {
+					sousEtats = 4;
+				}
+			}
+			y += ecran.tailleFinale;
+		}
 		graph.drawString("Partir", x, y);
 		if (numCommande == 1) {
 			graph.drawString(">", x-30, y);
@@ -167,6 +178,10 @@ public class UI {
 				npc.commencerDialogue(npc,1);
 			}
 		}
+	}
+
+	public void itemRenforce() {
+		
 	}
 
 	public void itemForge() {

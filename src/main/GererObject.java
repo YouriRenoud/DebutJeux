@@ -1818,7 +1818,6 @@ public class GererObject {
 					if (ecran.mage[4][j] != null
 					&& ecran.mage[4][j] instanceof Maire) {
 						ecran.mage[4][j].quetes[ecran.joueur.queteEnCours-1] = true;
-						ecran.jouerSE(27);
 						break;
 					}
 				}
@@ -1829,6 +1828,7 @@ public class GererObject {
 						ecran.obj[5][j] = null;
 					}
 				}
+				ecran.jouerSE(27);
 				numVague = 0;
 				delaiVague = 0;
 			}

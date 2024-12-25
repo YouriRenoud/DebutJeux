@@ -41,25 +41,42 @@ public class Mage extends Entite {
 			aireSolideDefautX = aireCollision.x;
 			aireSolideDefautY = aireCollision.y;
 
-			attente++;
-		
-			if (attente == 100) {
-				Random alea = new Random();
-				int i = alea.nextInt(100) + 1;
-				
-				if (i <= 25) {
-					direction = "haut";
+			if (ecran.carteActuelle == 7) {
+				if (delaiSuppression) {
+					compteurSuppression++;
+					if (compteurSuppression >= 120) {
+						delaiSuppression = false;
+						compteurSuppression = 0;
+						for (int i = 0; i < ecran.mage[1].length; i++) {
+							if (ecran.mage[ecran.carteActuelle][i] != null 
+							&& ecran.mage[ecran.carteActuelle][i].equals(this)) {
+								ecran.mage[ecran.carteActuelle][i] = null;
+								break;
+							}
+						}
+					}
 				}
-				if (i > 25 && i <= 50) {
-					direction = "bas";
+			}
+			else {
+				attente++;
+				if (attente == 100) {
+					Random alea = new Random();
+					int i = alea.nextInt(100) + 1;
+					
+					if (i <= 25) {
+						direction = "haut";
+					}
+					if (i > 25 && i <= 50) {
+						direction = "bas";
+					}
+					if (i > 50 && i <= 75) {
+						direction = "gauche";
+					}
+					if (i > 75) {
+						direction = "droite";
+					}
+					attente = 0;
 				}
-				if (i > 50 && i <= 75) {
-					direction = "gauche";
-				}
-				if (i > 75) {
-					direction = "droite";
-				}
-				attente = 0;
 			}
 		}
 	}
@@ -93,11 +110,13 @@ public class Mage extends Entite {
 	public void parler() {
 		regarderJoueur();
 		if (ecran.carteActuelle == 7) {
-			commencerDialogue(this, 2);
+			commencerDialogue(this, 3);
+			ecran.joueur.lancerCompteur = true;
+			delaiSuppression = true;
 		}
 		else {
 			commencerDialogue(this, dialogueSet);
-			//enChemin = true;
+			enChemin = true;
 	
 			dialogueSet++;
 			if (dialogue[dialogueSet][0] == null) {

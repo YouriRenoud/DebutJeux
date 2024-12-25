@@ -28,7 +28,7 @@ public class PorteSpeciale extends Entite {
 	}
 
 	public void setDialogues() {
-		dialogue[0][0] = "Il vous faut une clé spéciale pour ouvrir\ncette porte.";
+		dialogue[0][0] = "Il vous faut une clé pour ouvrir cette porte.\nMais pas n'importe laquelle...";
 
 	}
 

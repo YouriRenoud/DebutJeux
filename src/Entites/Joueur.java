@@ -39,9 +39,9 @@ public class Joueur extends Entite {
 	public String nomClasse = "";
 	
 	public boolean toucheEnfoncee;
-	
-	public boolean annulerAttaque = false;
+	public boolean retour = false;
 
+	public boolean annulerAttaque = false;
 	public boolean lumiereChangee = false;
 
 	public Boolean[] carteVisitee = new Boolean[ecran.maxCartes];
@@ -59,7 +59,7 @@ public class Joueur extends Entite {
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
-
+		queteEnCours = 4;
 		initialiser(0);
 		
 	}
@@ -141,8 +141,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 50;
-		carteY = ecran.tailleFinale * 81;
+		carteX = ecran.tailleFinale * 61;
+		carteY = ecran.tailleFinale * 6;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;
@@ -348,6 +348,7 @@ public class Joueur extends Entite {
 	public void setDialogues() {
 		dialogue[0][0] = "Tu es passé niveau : " + niveau + " te sens tu plus fort";
 
+		dialogue[1][0] = "Le temps est écoulé, essai encore !";
 	}
 
 	public void miseAJour() {
@@ -532,6 +533,13 @@ public class Joueur extends Entite {
 				ecran.interfaceJoueur.numCommande = -1;
 				ecran.stopperMusique();
 				ecran.jouerSE(13);
+			}
+		}
+
+		if (ecran.carteActuelle == 7) {
+			if (retour) {
+				ecran.event.visiter(4, 55, 50, ecran.dehors);
+				retour = false;
 			}
 		}
 	}
@@ -826,7 +834,7 @@ public class Joueur extends Entite {
 				}
 				if (marcher == 2) {
 					image = avant1;
-				}	
+				}
 			}
 			if (proteger) {
 				image = gardeBas;
@@ -848,7 +856,7 @@ public class Joueur extends Entite {
 				}
 				if (marcher == 2) {
 					image = gauche1;
-				}	
+				}
 			}
 			if (proteger) {
 				image = gardeGauche;
@@ -869,12 +877,27 @@ public class Joueur extends Entite {
 				}
 				if (marcher == 2) {
 					image = droite1;
-				}	
+				}
 			}
 			if (proteger) {
 				image = gardeDroite;
 			}
 			break;
+		}
+
+		if (ecran.carteActuelle == 7) {
+			if (lancerCompteur) {
+				compteARebour--;
+				if (compteARebour <= 0) {
+					lancerCompteur = false;
+					retour = true;
+					compteARebour = tempsDispo;
+					commencerDialogue(this, 1);
+				}
+				graph2.setColor(Color.WHITE);
+				graph2.setFont(graph2.getFont().deriveFont(28f));
+				graph2.drawString("Temps restant : " + (int)(compteARebour/70) + " secondes", 600, 20);
+			}
 		}
 		
 		if (transparent == true) {

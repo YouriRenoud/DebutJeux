@@ -146,6 +146,6 @@ public class Lumieres {
 
         g.setColor(Color.WHITE);
         g.setFont(g.getFont().deriveFont(40f));
-        g.drawString(moment, 700, 500);
+        g.drawString(moment, 720, 540);
     }
 }

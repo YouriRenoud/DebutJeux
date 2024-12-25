@@ -41,7 +41,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
-	public int carteActuelle = 6;
+	public int carteActuelle = 4;
 	
 	// plein ecran
 	int ecranWidth = mondeLongueur;
@@ -354,7 +354,8 @@ public class Ecran extends JPanel implements Runnable {
 		super.paintComponent(graph);
 		long drawStart = 0;
 		Graphics2D graph2 = (Graphics2D) graph;
-		
+		graph.setColor(Color.BLACK);
+		graph.fillRect(0, 0, getWidth(), getHeight());
 		
 		if (etatJeu == intro) {
 			interfaceJoueur.afficher(graph2);
@@ -424,7 +425,7 @@ public class Ecran extends JPanel implements Runnable {
 
 			carte.dessinerMiniCarte(graph2);
 
-			interfaceJoueur.afficher(graph2);			
+			interfaceJoueur.afficher(graph2);
 
 			scene.afficher(graph2);
 
