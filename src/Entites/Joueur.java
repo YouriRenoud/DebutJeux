@@ -71,6 +71,8 @@ public class Joueur extends Entite {
 		inventaire.add(new EpeeNormale(ecran));
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
+		inventaire.add(new Cle(ecran));
+		inventaire.add(new Cle(ecran));
 		inventaire.add(new HacheEnPierre(ecran));
 		inventaire.add(new Pioche(ecran));
 		inventaire.add(new Lanterne(ecran));
@@ -139,8 +141,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 81;
-		carteY = ecran.tailleFinale * 24;
+		carteX = ecran.tailleFinale * 8;
+		carteY = ecran.tailleFinale * 26;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

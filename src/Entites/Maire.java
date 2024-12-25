@@ -59,8 +59,12 @@ public class Maire extends Entite {
         dialogue[1][1] = "Cependant avec ta force actuelle, le roi démon\nne te laissera aucune chance.";
         dialogue[1][2] = "Je te conseille de trouver un moyen de\nrenforcer tes capacités.";
         dialogue[1][3] = "Survis aux 10 vagues dans la zone d'entrainement\navant de revenir.";
-        dialogue[1][4] = "Cherche vers la maison seul à droite du village.";
+        dialogue[1][4] = "Cherche vers la maison seule à droite du village.";
         dialogue[1][5] = "Attention l'entrée est bien cachée.";
+
+        dialogue[2][0] = "Bien maintenant tu es assez fort pour\npasser à la suite !";
+        dialogue[2][1] = "Le dongeon du roi démon est bien caché,\ntrouve le généraux appelé roi des ténèbres.";
+        dialogue[2][2] = "Retourne voir le forgeron il a surement des informations !";
 
         dialogue[10][0] = "Occupe toi d'abord de ce que je\nt'ai demandé !";
 	}

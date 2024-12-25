@@ -217,6 +217,10 @@ public class GererEvent {
 				visiter(5, 51, 86, ecran.dehors);
 			}
 
+			else if (touche(4, 61, 6, "droite")) {
+				visiter(6, 61, 6, ecran.dongeon);
+			}
+
 			else if (touche(5, 51, 86, "toutes")) {
 				visiter(4, 55, 96, ecran.dehors);
 			}

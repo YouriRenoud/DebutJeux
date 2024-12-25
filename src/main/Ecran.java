@@ -71,7 +71,7 @@ public class Ecran extends JPanel implements Runnable {
 	public Entite listProjectiles[][] = new Entite[maxCartes][50];
 	//public ArrayList<Entite> listProjectiles = new ArrayList<>();
 	public ArrayList<Entite> listParticules = new ArrayList<>();
-	public ElementInteractif iTerrain[][] = new ElementInteractif[maxCartes][100];
+	public ElementInteractif iTerrain[][] = new ElementInteractif[maxCartes][220];
 	public Carte carte = new Carte(this);
 	
 	public UI interfaceJoueur = new UI(this);
