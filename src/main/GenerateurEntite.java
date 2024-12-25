@@ -15,6 +15,7 @@ import object.Emeraude;
 import object.EpeeLegendaire;
 import object.EpeeLourde;
 import object.EpeeNormale;
+import object.Fer;
 import object.Gourdin;
 import object.HacheEnPierre;
 import object.Lance;
@@ -128,6 +129,9 @@ public class GenerateurEntite {
                 break;
             case CleSpeciale.objnom:
                 obj = new CleSpeciale(ecran);
+                break;
+            case Fer.objnom:
+                obj = new Fer(ecran);
                 break;
         }
         return obj;

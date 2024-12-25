@@ -83,16 +83,26 @@ public class Mage extends Entite {
 		dialogue[2][0] = "Un grand secret ce cache dans ces contrées.";
 		dialogue[2][1] = "Je connais le chemin...";
 		dialogue[2][2] = "Mais je n'ai jamais trouvé la clé...";
+
+		dialogue[3][0] = "Cette épreuve est destinée à vérifier si tu es\ndigne de te présenter devant le roi démon !";
+		dialogue[3][1] = "Tu dois atteindre la fin de cette rivière avant la\nfin du temps.";
+		dialogue[3][2] = "Sans quoi la porte du dongeon du roi ne s'ouvrira pas.";
+		dialogue[3][3] = "Bonne chance !";
 	}
 	
 	public void parler() {
 		regarderJoueur();
-		commencerDialogue(this, dialogueSet);
-		//enChemin = true;
-
-		dialogueSet++;
-		if (dialogue[dialogueSet][0] == null) {
-			dialogueSet = 0;
+		if (ecran.carteActuelle == 7) {
+			commencerDialogue(this, 2);
+		}
+		else {
+			commencerDialogue(this, dialogueSet);
+			//enChemin = true;
+	
+			dialogueSet++;
+			if (dialogue[dialogueSet][0] == null) {
+				dialogueSet = 0;
+			}
 		}
 	}
 	

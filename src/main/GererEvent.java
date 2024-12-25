@@ -218,11 +218,25 @@ public class GererEvent {
 			}
 
 			else if (touche(4, 61, 6, "droite")) {
-				visiter(6, 61, 6, ecran.dongeon);
+				visiter(6, 50, 49, ecran.dongeon);
+			}
+
+			else if (touche(4, 55, 50, "toutes")) {
+				if (ecran.joueur.queteEnCours == 4) {
+					visiter(7, 1, 98, ecran.dehors);
+				}
+			}
+
+			else if (touche(7, 98, 1, "toutes")) {
+				visiter(4, 55, 50, ecran.dehors);
 			}
 
 			else if (touche(5, 51, 86, "toutes")) {
 				visiter(4, 55, 96, ecran.dehors);
+			}
+
+			else if (touche(6, 50, 49, "toutes")) {
+				visiter(4, 61, 6, ecran.dehors);
 			}
 
 			else if (touche(8, 47, 1, "toutes") == true) {

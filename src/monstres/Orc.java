@@ -82,7 +82,7 @@ public class Orc extends Entite {
 		else {
 			arreterChasse(ecran.joueur, 8, 100);
 
-			getRandomDirection(150);
+			getRandomDirection(80);
 		}
 
         if (!attaque) {

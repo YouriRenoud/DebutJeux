@@ -6,6 +6,7 @@ import java.util.Random;
 import Entites.Entite;
 import main.Ecran;
 import object.Coeur;
+import object.Fer;
 import object.Mana;
 import object.Pieces;
 
@@ -65,19 +66,33 @@ public class MurCassable extends ElementInteractif {
     public void verifierDrop() {
 	    int i = new Random().nextInt(100)+1;
 		
-	    if (i < 50) {
-			drop.add(new Pieces(ecran, 1));
+		if (ecran.carteActuelle == 6) {
+			if (i < 75) {
+				drop.add(new Pieces(ecran, 1));
+			}
+			if (i >= 75 && i < 90) {
+				drop.add(new Fer(ecran));
+			}
+			if (i >= 90 && i < 99) {
+				drop.add(new Fer(ecran));
+				drop.add(new Fer(ecran));
+			}
 		}
-		if (i >= 50 && i < 80) {
-			drop.add(new Pieces(ecran, 2));
-			drop.add(new Coeur(ecran));
-		}
-		if (i >= 80 && i < 99) {
-			drop.add(new Pieces(ecran, 2));
-			drop.add(new Mana(ecran));
-		}
-		if (i == 99) {
-			drop.add(new Pieces(ecran, 3));
+		else {
+			if (i < 50) {
+				drop.add(new Pieces(ecran, 1));
+			}
+			if (i >= 50 && i < 80) {
+				drop.add(new Pieces(ecran, 2));
+				drop.add(new Coeur(ecran));
+			}
+			if (i >= 80 && i < 99) {
+				drop.add(new Pieces(ecran, 2));
+				drop.add(new Mana(ecran));
+			}
+			if (i == 99) {
+				drop.add(new Pieces(ecran, 3));
+			}
 		}
 		dropItem();
 	}

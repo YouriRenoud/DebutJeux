@@ -18,7 +18,7 @@ public class Fer extends Entite {
 
 		nom = objnom;
 		typeEntite = utilitaireType;
-		arriere = initialiser("/items/Cle.png", ecran.tailleFinale, ecran.tailleFinale);
+		arriere = initialiser("/items/Fer.png", ecran.tailleFinale, ecran.tailleFinale);
 		description = "[" + nom + "]\nUn matériau solide.";
 		prix = 30;
 		empillable = true;
