@@ -13,6 +13,7 @@ import Entites.Entite;
 import Entites.Joueur;
 import object.Cle;
 import object.Coeur;
+import object.Fer;
 import object.Mana;
 import object.Pieces;
 import object.PiedsNu;
@@ -27,6 +28,7 @@ public class UI {
 	BufferedImage coeurPlein, coeurMoitie, coeurVide, crystalPlein, crystalVide, piece;
 	
 	public Entite npc;
+	public Entite item = null;
 	
 	public boolean messagePret = false;
 	public String message = "";
@@ -162,26 +164,118 @@ public class UI {
 		y += ecran.tailleFinale;
 		if (ecran.joueur.queteEnCours >= 5) {
 			graph.drawString("Renforcer", x, y);
-			if (numCommande == 0) {
+			if (numCommande == 1) {
 				graph.drawString(">", x-30, y);
 				if (ecran.action.entree) {
 					sousEtats = 4;
 				}
 			}
 			y += ecran.tailleFinale;
+			graph.drawString("Partir", x, y);
+			if (numCommande == 2) {
+				graph.drawString(">", x-30, y);
+				if (ecran.action.entree) {
+					numCommande = 0;
+					npc.commencerDialogue(npc,1);
+				}
+			}
 		}
-		graph.drawString("Partir", x, y);
-		if (numCommande == 1) {
-			graph.drawString(">", x-30, y);
-			if (ecran.action.entree) {
-				numCommande = 0;
-				npc.commencerDialogue(npc,1);
+		else {
+			graph.drawString("Partir", x, y);
+			if (numCommande == 1) {
+				graph.drawString(">", x-30, y);
+				if (ecran.action.entree) {
+					numCommande = 0;
+					npc.commencerDialogue(npc,1);
+				}
 			}
 		}
 	}
 
 	public void itemRenforce() {
-		
+		dessinerInventaire(ecran.joueur, true);
+		dessinerInventaire(npc, false);
+
+		int x = ecran.tailleFinale * 2;
+		int y = ecran.tailleFinale * 9;
+		int width = ecran.tailleFinale * 6;
+		int height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("[ECHAP] retour", x + 24, y + 55);
+
+		x = ecran.tailleFinale * 12;
+		y = ecran.tailleFinale * 9;
+		width = ecran.tailleFinale * 6;
+		height = ecran.tailleFinale * 2;
+		dessinerFenetre(x, y, width, height);
+		graph.drawString("Vos minerais: " + ecran.joueur.minerais, x + 24, y + 55);
+
+		int itemIndex = getItemIndexSelectionne(emplacementCol, emplacementLign);
+		if (itemIndex < ecran.joueur.inventaire.size()) {
+			x = (int)(ecran.tailleFinale * 5.5);
+			y = (int)(ecran.tailleFinale * 5.5);
+			width = (int)(ecran.tailleFinale * 2.5);
+			height = ecran.tailleFinale;
+			dessinerFenetre(x, y, width, height);
+			graph.drawImage(piece, x + 10, y + 6, 32, 32, null);
+
+			int prix = (ecran.joueur.inventaire.get(itemIndex).attVal+ecran.joueur.inventaire.get(itemIndex).defVal)*2;
+			String texte = "minerais : " + prix;
+			x = longueurCentree(texte) - 132;
+			graph.drawString(texte, x-10, y+30);
+
+			if (ecran.action.entree || item != null) {
+				System.out.println("item != null");
+				if (prix > ecran.joueur.minerais && item == null) {
+					numCommande = 0;
+					sousEtats = 1;
+					npc.commencerDialogue(npc, 15);
+				}
+				else {
+					if ((ecran.joueur.inventaire.get(itemIndex).typeEntite == ecran.joueur.epeeType
+					|| ecran.joueur.inventaire.get(itemIndex).typeEntite == ecran.joueur.bouclierType)
+					&& item == null) {
+						item = ecran.joueur.inventaire.get(itemIndex);
+						npc.inventaire.add(item);
+						ecran.joueur.inventaire.remove(itemIndex);
+						itemIndex = getItemIndexSelectionne(emplacementCol, emplacementLign);
+					}
+					else if ((ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.epeeType
+					&& ecran.joueur.inventaire.get(itemIndex).typeEntite != ecran.joueur.bouclierType)
+					&& item == null) {
+						npc.commencerDialogue(npc, 17);
+					}
+					else if (ecran.action.entree && item != null) {
+						if (ecran.joueur.inventaire.get(itemIndex).typeEntite == item.typeEntite) {
+							for (int j = 0; j < ecran.joueur.inventaire.size(); j++) {
+								if (ecran.joueur.inventaire.get(j) instanceof Fer) {
+									ecran.joueur.inventaire.get(j).possedes -= prix;
+									break;
+								}
+							}
+							if (item.typeEntite == item.epeeType) {
+								item.attVal += (int)(ecran.joueur.inventaire.get(itemIndex).attVal/2);
+								item.miseAJourDescriptionArme();
+							}
+							else if (item.typeEntite == item.bouclierType) {
+								item.attVal += (int)(ecran.joueur.inventaire.get(itemIndex).defVal/2);
+								item.miseAJourDescriptionBouclier();
+							}
+							ecran.joueur.inventaire.remove(itemIndex);
+							ecran.joueur.inventaire.add(item);
+							npc.inventaire.remove(item);
+							item = null;
+							sousEtats = 1;
+							numCommande = 1;
+							npc.commencerDialogue(npc, 16);
+						}
+						else {
+							npc.commencerDialogue(npc, 14);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public void itemForge() {
@@ -837,6 +931,10 @@ public class UI {
 
 				graph.setColor(Color.white);
 				graph.drawString(possede, possedeX-3, possedeY-3);
+			}
+
+			if (e == ecran.joueur && e.inventaire.get(i) instanceof Fer) {
+				ecran.joueur.minerais = e.inventaire.get(i).possedes;
 			}
 
 			emplacementX += emplacementTaille;

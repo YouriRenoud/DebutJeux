@@ -40,6 +40,10 @@ public class Forgeron extends Entite {
         dialogue[7][0] = "Cet objet ne peux pas être\nforgé plus de fois !";
         dialogue[8][0] = "La forge est un succés, votre\néquipement deviens plus fort !";
         dialogue[9][0] = "Malheureusement la forge a\néchouée, vous récupérez votre objet !";
+		dialogue[14][0] = "Choisissez un deuxième objet du même type\nque le premier pour le renforcer !";
+		dialogue[15][0] = "Vous n'avez pas assez de minerais pour\nrenforcer cet équipement !";
+		dialogue[16][0] = "Votre équipement ce renforce !";
+		dialogue[17][0] = "Ce type d'équipement ne ce renforce pas !";
 
 		dialogue[10][0] = "Ho ho tu as été parlé au maire !";
 		dialogue[10][1] = "Il t'a dis que je t'aiderai ?";

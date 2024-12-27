@@ -14,6 +14,7 @@ import main.Ecran;
 import object.BouclierBasique;
 import object.BouleDeFeu;
 import object.Cle;
+import object.EpeeLourde;
 import object.EpeeNormale;
 import object.HacheEnPierre;
 import object.Lanterne;
@@ -59,7 +60,8 @@ public class Joueur extends Entite {
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
-		queteEnCours = 4;
+		queteEnCours = 5;
+		minerais = 30;
 		initialiser(0);
 		
 	}
@@ -68,7 +70,8 @@ public class Joueur extends Entite {
 		inventaire.clear();
 		inventaire.add(armeActuelle);
 		inventaire.add(bouclierActuel);
-		inventaire.add(new EpeeNormale(ecran));
+		inventaire.add(new EpeeLourde(ecran));
+		inventaire.add(new EpeeLourde(ecran));
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new Cle(ecran));
 		inventaire.add(new Cle(ecran));
@@ -141,8 +144,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 61;
-		carteY = ecran.tailleFinale * 6;
+		carteX = ecran.tailleFinale * 8;
+		carteY = ecran.tailleFinale * 26;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

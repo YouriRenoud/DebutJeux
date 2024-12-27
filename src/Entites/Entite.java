@@ -61,6 +61,7 @@ public class Entite {
 	public int experience;
 	public int niveauSuivant;
 	public int argent;
+	public int minerais;
 	public int maxMana;
 	public int mana;
 	public Entite armeActuelle;

@@ -70,20 +70,39 @@ public class ActionClavier implements KeyListener {
 		}
 		
 		if (ecran.interfaceJoueur.sousEtats == 1) {
-			if (touche == KeyEvent.VK_UP) {
-				ecran.interfaceJoueur.numCommande--;
-				if (ecran.interfaceJoueur.numCommande < 0) {
-					ecran.interfaceJoueur.numCommande = 2;
+			if (ecran.joueur.queteEnCours >= 5) {
+				if (touche == KeyEvent.VK_UP) {
+					ecran.interfaceJoueur.numCommande--;
+					if (ecran.interfaceJoueur.numCommande < 0) {
+						ecran.interfaceJoueur.numCommande = 2;
+					}
+					ecran.jouerSE(10);
 				}
-				ecran.jouerSE(10);
+				
+				if (touche == KeyEvent.VK_DOWN) {
+					ecran.interfaceJoueur.numCommande++;
+					if (ecran.interfaceJoueur.numCommande > 2) {
+						ecran.interfaceJoueur.numCommande = 0;
+					}
+					ecran.jouerSE(10);
+				}
 			}
-			
-			if (touche == KeyEvent.VK_DOWN) {
-				ecran.interfaceJoueur.numCommande++;
-				if (ecran.interfaceJoueur.numCommande > 1) {
-					ecran.interfaceJoueur.numCommande = 0;
+			else {
+				if (touche == KeyEvent.VK_UP) {
+					ecran.interfaceJoueur.numCommande--;
+					if (ecran.interfaceJoueur.numCommande < 0) {
+						ecran.interfaceJoueur.numCommande = 2;
+					}
+					ecran.jouerSE(10);
 				}
-				ecran.jouerSE(10);
+				
+				if (touche == KeyEvent.VK_DOWN) {
+					ecran.interfaceJoueur.numCommande++;
+					if (ecran.interfaceJoueur.numCommande > 1) {
+						ecran.interfaceJoueur.numCommande = 0;
+					}
+					ecran.jouerSE(10);
+				}
 			}
 		}
 
@@ -96,6 +115,13 @@ public class ActionClavier implements KeyListener {
 
 		if (ecran.interfaceJoueur.sousEtats == 3) {
 			npcInventaire(touche);
+			if (touche == KeyEvent.VK_ESCAPE) {
+				ecran.interfaceJoueur.sousEtats = 1;
+			}
+		}
+
+		if (ecran.interfaceJoueur.sousEtats == 4) {
+			joueurInventaire(touche);
 			if (touche == KeyEvent.VK_ESCAPE) {
 				ecran.interfaceJoueur.sousEtats = 1;
 			}
