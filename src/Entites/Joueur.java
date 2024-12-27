@@ -90,7 +90,8 @@ public class Joueur extends Entite {
 			vieMax = 12;
 			vie = vieMax;
 			niveau = 1;
-			force = 300;
+			//force = 3;
+			force = 11;
 			agilite = 3;
 			maxMana = 0;
 			mana = maxMana;

@@ -8,6 +8,7 @@ import donnees.Progression;
 import object.BottesHermes;
 import object.CleSpeciale;
 import object.PorteSpeciale;
+import terrain.ArbreCassable;
 
 public class GererEvent {
 
@@ -248,6 +249,18 @@ public class GererEvent {
 				}
 			}
 
+			else if (touche(7, 19, 87, "toutes")) {
+				arbre(19, 87, ecran.jouer);
+			}
+
+			else if (touche(7, 30, 75, "toutes")) {
+				arbre(30, 75, ecran.jouer);
+			}
+
+			else if (touche(7, 32, 77, "toutes")) {
+				arbre(32, 77, ecran.jouer);
+			}
+
 			else if (touche(5, 51, 86, "toutes")) {
 				visiter(4, 55, 96, ecran.dehors);
 			}
@@ -340,6 +353,17 @@ public class GererEvent {
 		ecran.joueur.carteY = ecran.tailleFinale*10;
 	}
 	
+	public void arbre (int col, int lign, int etatJeu) {
+		ecran.jouerSE(6);
+		for (int i = 0; i < ecran.iTerrain[1].length; i++) {
+			if (ecran.iTerrain[ecran.carteActuelle][i] == null) {
+				ecran.iTerrain[ecran.carteActuelle][i] = new ArbreCassable(ecran, col, lign);
+				break;
+			}
+		}
+		rect[ecran.carteActuelle][col][lign].eventFini = true;
+	}
+
 	public void piege(int col, int lign, int etatJeu) {
 		
 		ecran.jouerSE(6);

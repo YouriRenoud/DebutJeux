@@ -124,7 +124,7 @@ public class Entite {
 	public int compteurSuppression = 0;
 
 	public boolean lancerCompteur = false;
-	public final int tempsDispo = 30000;
+	public final int tempsDispo = 27000;
 	public int compteARebour = tempsDispo;
 
 	public boolean enChemin = false;
