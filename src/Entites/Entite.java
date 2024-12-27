@@ -76,6 +76,8 @@ public class Entite {
 	public final int tailleInventaireMax = 20;
 	
 	public Projectiles projectile;
+	public boolean projectileLance = false;
+	public int projectileLanceCompteur = 0;
 	public int coutUtilisation;
 	public int tirPossible = 0;
 	
@@ -122,7 +124,7 @@ public class Entite {
 	public int compteurSuppression = 0;
 
 	public boolean lancerCompteur = false;
-	public final int tempsDispo = 8000;
+	public final int tempsDispo = 30000;
 	public int compteARebour = tempsDispo;
 
 	public boolean enChemin = false;
@@ -393,7 +395,6 @@ public class Entite {
 				if (this instanceof Joueur) {
 					if (projectile.ressourcesSuffisantes(this)) {
 						projectile.initialiser(carteX, carteY, direction, true, this);
-						//ecran.listProjectiles.add(projectile);
 		
 						for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
 							if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
@@ -406,20 +407,19 @@ public class Entite {
 						tirPossible = 0;
 					}
 				}
-			}
-			else {
-				projectile.initialiser(carteX, carteY, direction, true, this);
-				//ecran.listProjectiles.add(projectile);
-
-				for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
-					if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
-						ecran.listProjectiles[ecran.carteActuelle][j] = projectile;
-						break;
+				else {
+					projectile.initialiser(carteX, carteY, direction, true, this);
+					for (int j = 0; j < ecran.listProjectiles[1].length; j++) {
+						if (ecran.listProjectiles[ecran.carteActuelle][j] == null) {
+							ecran.listProjectiles[ecran.carteActuelle][j] = projectile;
+							break;
+						}
 					}
+					projectileLance = true;
+					ecran.jouerSE(11);
+					projectile.utiliserRessource(this);
+					tirPossible = 0;
 				}
-				ecran.jouerSE(11);
-				projectile.utiliserRessource(this);
-				tirPossible = 0;
 			}
 		}
 	}

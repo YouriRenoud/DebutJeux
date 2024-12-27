@@ -16,6 +16,7 @@ import monstres.Golem;
 import monstres.RoiSquelette;
 import monstres.Orc;
 import monstres.Slime;
+import monstres.SlimeBleue;
 import monstres.Squelette;
 import object.BouclierFer;
 import object.BouclierRenforce;
@@ -944,6 +945,50 @@ public class GererObject {
 		ecran.monstre[mapNum][i] = new Squelette(ecran, 6);
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*52;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*95;
+		i++;
+
+
+		mapNum = 7;
+		i = 0;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*16;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*89;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*28;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*77;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*39;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*67;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*64;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*49;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*77;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*34;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*94;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*90;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*10;
+		i++;
+		ecran.monstre[mapNum][i] = new SlimeBleue(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*96;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*4;
+		i++;
+		ecran.monstre[mapNum][i] = new Orc(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*58;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*51;
+		i++;
+		ecran.monstre[mapNum][i] = new Orc(ecran, 7);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*68;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*49;
 		i++;
 
 

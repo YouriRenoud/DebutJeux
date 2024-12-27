@@ -144,8 +144,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 8;
-		carteY = ecran.tailleFinale * 26;
+		carteX = ecran.tailleFinale * 1;
+		carteY = ecran.tailleFinale * 98;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;

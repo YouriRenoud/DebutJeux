@@ -197,6 +197,9 @@ public class GererEvent {
 						}
 					}
 				}
+				else {
+					eventMaster.commencerDialogue(eventMaster, 3);
+				}
 			}
 
 			else if (touche(4, 94, 94, "toutes")) {
@@ -230,14 +233,16 @@ public class GererEvent {
 			}
 
 			else if (touche(7, 98, 1, "toutes")) {
-				visiter(4, 55, 50, ecran.dehors);
-				if (ecran.joueur.queteEnCours == 5) {
-					for (int i=0; i < ecran.mage[1].length; i++) {
-						if (ecran.mage[4][i] != null
-						&& ecran.mage[4][i] instanceof Maire) {
-							ecran.mage[4][i].quetes[ecran.joueur.queteEnCours-1] = true;
-							ecran.jouerSE(27);
-							break;
+				if (ecran.joueur.monstresElimines(5)) {
+					visiter(4, 55, 50, ecran.dehors);
+					if (ecran.joueur.queteEnCours == 5) {
+						for (int i=0; i < ecran.mage[1].length; i++) {
+							if (ecran.mage[4][i] != null
+							&& ecran.mage[4][i] instanceof Maire) {
+								ecran.mage[4][i].quetes[ecran.joueur.queteEnCours-1] = true;
+								ecran.jouerSE(27);
+								break;
+							}
 						}
 					}
 				}

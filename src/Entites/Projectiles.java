@@ -5,7 +5,7 @@ import main.Ecran;
 public class Projectiles extends Entite{
 
 	Entite joueur;
-	boolean intelligent = false;
+	public boolean intelligent = false;
 	public Projectiles(Ecran ecran) {
 		super(ecran);
 		joueur = ecran.joueur;
@@ -45,15 +45,15 @@ public class Projectiles extends Entite{
 			}
 		}
 		if (!intelligent) {
-			switch(direction) {
-				case "bas": this.carteY += vitesse; break;
-				case "haut": this.carteY -= vitesse; break;
-				case "gauche": this.carteX -= vitesse; break;
-				case "droite": this.carteX += vitesse; break;
-				}
 		}
 		else {
 			chercherChemin(getColArrivee(ecran.joueur), getLignArrivee(ecran.joueur));
+		}
+		switch(direction) {
+			case "bas": this.carteY += this.vitesse; break;
+			case "haut": this.carteY -= this.vitesse; break;
+			case "gauche": this.carteX -= this.vitesse; break;
+			case "droite": this.carteX += this.vitesse; break;
 		}
 		
 		vie--;
