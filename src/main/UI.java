@@ -937,6 +937,11 @@ public class UI {
 				ecran.joueur.minerais = e.inventaire.get(i).possedes;
 			}
 
+			if (e == ecran.joueur && e.inventaire.get(i).typeEntite == e.inventaire.get(i).ramasserType) {
+				e.inventaire.get(i).utiliser(e);
+				e.inventaire.remove(i);
+			}
+
 			emplacementX += emplacementTaille;
 			
 			if (i == 4 || i == 9 || i == 14) {

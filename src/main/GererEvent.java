@@ -6,6 +6,7 @@ import Entites.Entite;
 import Entites.Maire;
 import donnees.Progression;
 import object.BottesHermes;
+import object.CarteMonde;
 import object.CleSpeciale;
 import object.PorteSpeciale;
 import terrain.ArbreCassable;
@@ -117,6 +118,10 @@ public class GererEvent {
 
 			else if (touche(0, 96, 76, "haut") == true) {
 				visiter(3, 12, 13, ecran.dehors);
+			}
+
+			else if (touche(0, 2, 1, "toutes")) {
+				ajouterObjet(new CarteMonde(ecran), 2, 1, ecran.jouer);
 			}
 			
 			//else if (touche(0, 10, 10, "haut") == true) {
@@ -292,6 +297,18 @@ public class GererEvent {
 		}
 	}
 
+	public void ajouterObjet (Entite e, int col, int lign, int etatJeu) {
+		for (int i = 0; i < ecran.obj[1].length; i++) {
+			if (ecran.obj[ecran.carteActuelle][i] == null) {
+				ecran.obj[ecran.carteActuelle][i] = new CarteMonde(ecran);
+				ecran.obj[ecran.carteActuelle][i].carteX = ecran.tailleFinale*2;
+				ecran.obj[ecran.carteActuelle][i].carteY = ecran.tailleFinale*1;
+				break;
+			}
+		}
+		rect[ecran.carteActuelle][col][lign].eventFini = true;
+	}
+
 	public boolean touche(int carte, int col, int lign, String direction) {
 		
 		boolean touche = false;
@@ -355,6 +372,7 @@ public class GererEvent {
 	
 	public void arbre (int col, int lign, int etatJeu) {
 		ecran.jouerSE(6);
+		ecran.etatJeu = etatJeu;
 		for (int i = 0; i < ecran.iTerrain[1].length; i++) {
 			if (ecran.iTerrain[ecran.carteActuelle][i] == null) {
 				ecran.iTerrain[ecran.carteActuelle][i] = new ArbreCassable(ecran, col, lign);

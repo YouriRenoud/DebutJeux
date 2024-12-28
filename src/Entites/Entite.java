@@ -112,6 +112,7 @@ public class Entite {
 	public boolean[] quetes;
 	public int queteEnCours = 0;
 	public String directionActuelle;
+	public boolean carteTrouvee = false;
 	
 	public BufferedImage image, image1, image2;
 	public String nom;
@@ -156,8 +157,34 @@ public class Entite {
 	public void verifierDrop() {}
 
 	public void interaction() {}
+
+	public void deposer(Entite e, int i) {}
 	
 	public void initialiserContenu(Entite contenu) {}
+
+	public void deposerItem(Entite e, int i) {
+		for (int j = 0; j < ecran.obj[1].length; j++) {
+			if (ecran.obj[ecran.carteActuelle][j] == null) {
+				ecran.obj[ecran.carteActuelle][j] = e.inventaire.get(i);
+				switch (e.direction) {
+					case "haut": 	ecran.obj[ecran.carteActuelle][j].carteY = e.carteY - ecran.tailleFinale;
+									ecran.obj[ecran.carteActuelle][j].carteX = e.carteX;
+									break;
+					case "bas": 	ecran.obj[ecran.carteActuelle][j].carteY = e.carteY + ecran.tailleFinale;
+									ecran.obj[ecran.carteActuelle][j].carteX = e.carteX;
+									break;
+					case "gauche": 	ecran.obj[ecran.carteActuelle][j].carteX = e.carteX - ecran.tailleFinale;
+									ecran.obj[ecran.carteActuelle][j].carteY = e.carteY;
+									break;
+					case "droite": 	ecran.obj[ecran.carteActuelle][j].carteX = e.carteX + ecran.tailleFinale;
+									ecran.obj[ecran.carteActuelle][j].carteY = e.carteY;
+									break;
+				}
+				e.inventaire.remove(i);
+				break;
+			}
+		}
+	}
 
 	public void miseAJourDescriptionArme() {
 		String[] texte = description.split("=");

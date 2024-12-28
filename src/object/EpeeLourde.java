@@ -22,5 +22,20 @@ public class EpeeLourde extends Entite {
 		reculForce = 12;
 		dureeAttFrame1 = 30;
 		dureeAttFrame2 = 70;
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.armeActuelle == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
 	}
 }

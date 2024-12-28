@@ -19,5 +19,20 @@ public class Chaussure extends Entite {
 		prix = 70;
 		vitesse = 1;
 		description = "[" + nom + "]\nChaussure de course.\nVitesse + 1";
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.chaussuresActuelles == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
 	}
 }

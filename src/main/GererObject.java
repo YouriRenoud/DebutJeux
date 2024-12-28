@@ -20,6 +20,7 @@ import monstres.SlimeBleue;
 import monstres.Squelette;
 import object.BouclierFer;
 import object.BouclierRenforce;
+import object.CarteMonde;
 import object.Chaussure;
 import object.Cle;
 import object.CleSpeciale;

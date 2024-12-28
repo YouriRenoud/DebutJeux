@@ -18,5 +18,20 @@ public class BouclierFer extends Entite {
 		prix = 75;
 		prixForge = 30;
 		nbForgeReussi = 0;
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.bouclierActuel == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
 	}
 }

@@ -53,4 +53,8 @@ public class CleSpeciale extends Entite {
 			commencerDialogue(this, 1);
 		}
 	}
+
+	public void deposer(Entite e, int i) {
+		deposerItem(e, i);
+	}
 }

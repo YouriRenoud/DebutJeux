@@ -59,4 +59,8 @@ public class PotionSoin extends Entite {
 		}
 		
 	}
+
+	public void deposer(Entite e, int i) {
+		deposerItem(e, i);
+	}
 }

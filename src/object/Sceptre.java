@@ -31,5 +31,16 @@ public class Sceptre extends Entite {
         dialogue[0][1] = "La meilleure arme pour un magicien !";
         dialogue[0][2] = "Votre puissance magique sera grandement augmentée !";
         dialogue[0][3] = "Fais en bon usage !";
+
+		dialogue[1][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
     }
+
+	public void deposer(Entite e, int i) {
+		if (e.armeActuelle == this) {
+			commencerDialogue(this, 1);
+		}
+		else {
+			deposerItem(e, i);
+		}
+	}
 }

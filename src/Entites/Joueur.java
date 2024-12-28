@@ -145,8 +145,8 @@ public class Joueur extends Entite {
 
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 1;
-		carteY = ecran.tailleFinale * 98;
+		carteX = ecran.tailleFinale * 3;
+		carteY = ecran.tailleFinale * 3;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;
@@ -353,6 +353,8 @@ public class Joueur extends Entite {
 		dialogue[0][0] = "Tu es passé niveau : " + niveau + " te sens tu plus fort";
 
 		dialogue[1][0] = "Le temps est écoulé, essai encore !";
+
+		dialogue[2][0] = "Tu n'as pas trouvé la carte du monde !";
 	}
 
 	public void miseAJour() {
@@ -750,6 +752,12 @@ public class Joueur extends Entite {
 			}
 		}
 		return obtainable;
+	}
+
+	public void deposer() {
+		int itemIndex = ecran.interfaceJoueur.getItemIndexSelectionne(ecran.interfaceJoueur.emplacementCol, ecran.interfaceJoueur.emplacementLign);
+		Entite item = inventaire.get(itemIndex);
+		item.deposer(this, itemIndex);
 	}
 
 	public void selectionnerItem() {

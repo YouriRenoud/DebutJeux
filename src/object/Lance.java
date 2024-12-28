@@ -22,5 +22,20 @@ public class Lance extends Entite {
 		reculForce = 3;
 		dureeAttFrame1 = 10;
 		dureeAttFrame2 = 30;
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.armeActuelle == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
 	}
 }

@@ -19,5 +19,20 @@ public class BottesHermes extends Entite {
 		prix = 700;
 		vitesse = 3;
 		description = "[" + nom + "]\nChaussure du dieu du voyage.\nVitesse + " + vitesse;
+
+		setDialogues();
+	}
+
+	public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.chaussuresActuelles == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
 	}
 }

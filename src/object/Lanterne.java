@@ -18,5 +18,20 @@ public class Lanterne extends Entite {
         description = "[Lanterne]\nUne lanterne qui éclaire les\nténèbres.";
         prix = 150;
         rayonLumiere = 250;
+
+        setDialogues();
     }
+
+    public void setDialogues() {
+		dialogue[0][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
+	}
+
+	public void deposer(Entite e, int i) {
+		if (e.lumiereActuelle == this) {
+			commencerDialogue(this, 0);
+		}
+		else {
+			deposerItem(e, i);
+		}
+	}
 }

@@ -6,6 +6,7 @@ import object.BouclierBasique;
 import object.BouclierDiamant;
 import object.BouclierFer;
 import object.BouclierRenforce;
+import object.CarteMonde;
 import object.Chaussure;
 import object.Cle;
 import object.CleSpeciale;
@@ -132,6 +133,9 @@ public class GenerateurEntite {
                 break;
             case Fer.objnom:
                 obj = new Fer(ecran);
+                break;
+            case CarteMonde.objnom:
+                obj = new CarteMonde(ecran);
                 break;
         }
         return obj;

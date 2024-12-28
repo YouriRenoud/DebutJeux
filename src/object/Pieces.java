@@ -38,4 +38,10 @@ public class Pieces extends Entite {
 		ecran.jouerSE(1);
 		ecran.obj[ecran.carteActuelle][i] = null;
 	}
+
+	public void utiliser(Entite entite) {
+		entite.argent += valeur;
+		ecran.interfaceJoueur.ajouterMessage("Vous gagner " + valeur + " pièces !");
+		ecran.jouerSE(1);
+	}
 }

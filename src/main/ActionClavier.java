@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class ActionClavier implements KeyListener {
 
 	Ecran ecran;
-	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger;
+	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger, deposer;
 	public boolean debug = false;
 	public boolean godMode = false;
 	
@@ -65,7 +65,7 @@ public class ActionClavier implements KeyListener {
 	
 	public void etatForgeron(int touche) {
 				
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = true;
 		}
 		
@@ -138,7 +138,7 @@ public class ActionClavier implements KeyListener {
 
 	public void etatMarchant(int touche) {
 		
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = true;
 		}
 		
@@ -191,7 +191,7 @@ public class ActionClavier implements KeyListener {
 			}
 			ecran.jouerSE(10);
 		}
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			if (ecran.interfaceJoueur.numCommande == 0) {
 				ecran.etatJeu = ecran.jouer;
 				ecran.resetJeu(false);
@@ -212,7 +212,7 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_ESCAPE) {
 			ecran.etatJeu = ecran.jouer;
 		}
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = true;
 		}
 		
@@ -273,7 +273,7 @@ public class ActionClavier implements KeyListener {
 				ecran.interfaceJoueur.numCommande++;
 			}
 			
-			if (touche == KeyEvent.VK_ENTER) {
+			if (touche == KeyEvent.VK_SPACE) {
 				
 				if (ecran.interfaceJoueur.numCommande == 0) {
 					ecran.interfaceJoueur.introNum = 1;
@@ -307,7 +307,7 @@ public class ActionClavier implements KeyListener {
 				ecran.interfaceJoueur.numCommande++;
 			}
 			
-			if (touche == KeyEvent.VK_ENTER) {
+			if (touche == KeyEvent.VK_SPACE) {
 				
 				if (ecran.interfaceJoueur.numCommande == 0) {
 					ecran.etatJeu = ecran.jouer;
@@ -379,8 +379,16 @@ public class ActionClavier implements KeyListener {
 		
 		if (touche == KeyEvent.VK_R) {
 			switch (ecran.carteActuelle) {
-			case 0: ecran.terrain.chargerCarte("/cartes/monde1.txt", 0); break;
+			case 0: ecran.terrain.chargerCarte("/cartes/mondeDepart.txt", 0); break;
 			case 1: ecran.terrain.chargerCarte("/cartes/interior01.txt", 1); break;
+			case 2: ecran.terrain.chargerCarte("/cartes/monde2.txt", 2); break;
+			case 3: ecran.terrain.chargerCarte("/cartes/grotte.txt", 3); break;
+			case 4: ecran.terrain.chargerCarte("/cartes/village.txt", 4); break;
+			case 5: ecran.terrain.chargerCarte("/cartes/entrainement.txt", 5); break;
+			case 6: ecran.terrain.chargerCarte("/cartes/mine.txt", 6); break;
+			case 7: ecran.terrain.chargerCarte("/cartes/riviere.txt", 7); break;
+			case 8: ecran.terrain.chargerCarte("/cartes/dongeonDebut.txt", 8); break;
+			case 9: ecran.terrain.chargerCarte("/cartes/dongeonBossFin.txt", 9); break;
 			}
 		}
 		
@@ -392,7 +400,7 @@ public class ActionClavier implements KeyListener {
 			ecran.etatJeu = ecran.pause;
 		}
 		
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = true;
 		}
 		
@@ -429,7 +437,7 @@ public class ActionClavier implements KeyListener {
 	}
 	
 	public void etatParler (int touche) {
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = true;
 		}
 	}
@@ -438,8 +446,11 @@ public class ActionClavier implements KeyListener {
 		if (touche == KeyEvent.VK_C) {
 			ecran.etatJeu = ecran.jouer;
 		}
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			ecran.joueur.selectionnerItem();
+		}
+		if (touche == KeyEvent.VK_ENTER) {
+			deposer = true;
 		}
 
 		joueurInventaire(touche);
@@ -514,8 +525,15 @@ public class ActionClavier implements KeyListener {
 			tirer = false;
 		}
 
-		if (touche == KeyEvent.VK_ENTER) {
+		if (touche == KeyEvent.VK_SPACE) {
 			entree = false;
+		}
+
+		if (touche == KeyEvent.VK_ENTER) {
+			if (deposer) {
+				ecran.joueur.deposer();
+			}
+			deposer = false;
 		}
 
 		if (touche == KeyEvent.VK_X) {

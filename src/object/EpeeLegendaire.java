@@ -22,6 +22,8 @@ public class EpeeLegendaire extends Entite {
 		reculForce = 20;
 		dureeAttFrame1 = 5;
 		dureeAttFrame2 = 20;
+
+		setDialogues();
 	}
 
     public void setDialogues() {
@@ -31,5 +33,16 @@ public class EpeeLegendaire extends Entite {
         dialogue[0][2] = "Il a été forgé par les dieux eux-mêmes !";
         dialogue[0][3] = "Et donné en cadeau au créateur de cette contrée !";
         dialogue[0][4] = "Fais en bon usage !";
+
+		dialogue[1][0] = "Vous ne pouvez pas déposer votre\néquipement actuel.";
     }
+
+	public void deposer(Entite e, int i) {
+		if (e.armeActuelle == this) {
+			commencerDialogue(this, 1);
+		}
+		else {
+			deposerItem(e, i);
+		}
+	}
 }

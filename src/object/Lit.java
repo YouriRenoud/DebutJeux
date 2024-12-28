@@ -27,4 +27,8 @@ public class Lit extends Entite {
         ecran.joueur.getDormirImage(arriere);
         ecran.joueur.inventaire.remove(i);
     }
+
+    public void deposer(Entite e, int i) {
+		deposerItem(e, i);
+	}
 }

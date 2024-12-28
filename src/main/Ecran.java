@@ -41,7 +41,7 @@ public class Ecran extends JPanel implements Runnable {
 	public final int mondeLongueur = tailleFinale * mondeColMax;
 	public final int mondeLargeur = tailleFinale * mondeLignMax;
 	public final int maxCartes = 10;
-	public int carteActuelle = 7;
+	public int carteActuelle = 0;
 	
 	// plein ecran
 	int ecranWidth = mondeLongueur;
@@ -361,7 +361,12 @@ public class Ecran extends JPanel implements Runnable {
 			interfaceJoueur.afficher(graph2);
 		}
 		else if (etatJeu == cartes) {
-			carte.dessinerCarteEntiereEcran(graph2);;
+			if (joueur.carteTrouvee) {
+				carte.dessinerCarteEntiereEcran(graph2);;
+			}
+			else {
+				joueur.commencerDialogue(joueur, 2);
+			}
 		}
 		else {
 			terrain.afficher(graph2);

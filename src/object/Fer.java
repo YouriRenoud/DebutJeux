@@ -30,6 +30,7 @@ public class Fer extends Entite {
         dialogue[0][0] = "Vous n'avez pas assez de matériaux.";
 	}
 
-	public void utiliser(Entite e, int i) {
-    }
+	public void deposer(Entite e, int i) {
+		deposerItem(e, i);
+	}
 }
