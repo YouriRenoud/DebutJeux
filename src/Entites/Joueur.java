@@ -29,6 +29,10 @@ public class Joueur extends Entite {
 	public final int ecranX;
 	public final int ecranY;
 
+	public boolean novice = false;
+	public boolean avance = false;
+	public boolean expert = false;
+
 	public final int paladin = 0;
 	public final int assassin = 1;
 	public final int mage = 2;
@@ -70,15 +74,11 @@ public class Joueur extends Entite {
 		inventaire.clear();
 		inventaire.add(armeActuelle);
 		inventaire.add(bouclierActuel);
-		inventaire.add(new EpeeLourde(ecran));
-		inventaire.add(new EpeeLourde(ecran));
 		inventaire.add(chaussuresActuelles);
-		inventaire.add(new Cle(ecran));
-		inventaire.add(new Cle(ecran));
-		inventaire.add(new Cle(ecran));
 		inventaire.add(new HacheEnPierre(ecran));
-		inventaire.add(new Pioche(ecran));
-		inventaire.add(new Lanterne(ecran));
+		Entite z = new Cle(ecran);
+		z.possedes = 2;
+		inventaire.add(z);
 	}
 	
 	public void initialiser(int classe) {
@@ -89,9 +89,7 @@ public class Joueur extends Entite {
 			argent = 10;
 			vieMax = 12;
 			vie = vieMax;
-			niveau = 1;
-			//force = 3;
-			force = 11;
+			force = 3;
 			agilite = 3;
 			maxMana = 0;
 			mana = maxMana;
@@ -104,7 +102,6 @@ public class Joueur extends Entite {
 			argent = 50;
 			vieMax = 7;
 			vie = vieMax;
-			niveau = 1;
 			force = 4;
 			agilite = 0;
 			maxMana = 3;
@@ -118,7 +115,6 @@ public class Joueur extends Entite {
 			argent = 20;
 			vieMax = 8;
 			vie = vieMax;
-			niveau = 1;
 			force = 2;
 			agilite = 1;
 			maxMana = 16;
@@ -133,7 +129,6 @@ public class Joueur extends Entite {
 			argent = 10;
 			vieMax = 8;
 			vie = vieMax;
-			niveau = 1;
 			force = 1;
 			agilite = 0;
 			maxMana = 20;
@@ -143,10 +138,11 @@ public class Joueur extends Entite {
 			nomClasse = "necromancien";
 		}
 
+		niveau = 9;
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 3;
-		carteY = ecran.tailleFinale * 3;
+		carteX = ecran.tailleFinale * 5;
+		carteY = ecran.tailleFinale * 83;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;
@@ -668,6 +664,10 @@ public class Joueur extends Entite {
 			}
 			if (ecran.monstre[ecran.carteActuelle][i].vie <= 0) {
 				ecran.monstre[ecran.carteActuelle][i].attaquer = 0;
+			}
+
+			if (ecran.joueur.armeActuelle.poison) {
+				ecran.monstre[ecran.carteActuelle][i].empoisonne = true;
 			}
 		}
 	}

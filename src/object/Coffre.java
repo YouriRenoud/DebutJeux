@@ -31,7 +31,7 @@ public class Coffre extends Entite {
 	}
 
 	public void initialiserContenu(Entite contenu) {
-		this.contenu = contenu;		
+		this.contenu = contenu;
 		setDialogues();
 	}
 

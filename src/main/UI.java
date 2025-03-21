@@ -1037,6 +1037,8 @@ public class UI {
 		textY += hauteurLigne;
 		graph.drawString("Mana", textX, textY);
 		textY += hauteurLigne;
+		graph.drawString("Magie", textX, textY);
+		textY += hauteurLigne;
 		graph.drawString("Force", textX, textY);
 		textY += hauteurLigne;
 		graph.drawString("Agilite", textX, textY);
@@ -1073,6 +1075,10 @@ public class UI {
 		graph.drawString(valeur, textX, textY);
 		textY += hauteurLigne;
 		valeur = String.valueOf(ecran.joueur.mana+"/"+ecran.joueur.maxMana);
+		textX = alignerDroite(valeur, valX);
+		graph.drawString(valeur, textX, textY);
+		textY += hauteurLigne;
+		valeur = String.valueOf(ecran.joueur.magie);
 		textX = alignerDroite(valeur, valX);
 		graph.drawString(valeur, textX, textY);
 		textY += hauteurLigne;

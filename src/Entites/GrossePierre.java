@@ -13,6 +13,10 @@ import terrain.Plaque;
 public class GrossePierre extends Entite {
 
     public static String objnom = "GrossePierre"; 
+    public int compter;
+
+    ArrayList<ElementInteractif> liste = new ArrayList<>();
+    ArrayList<Entite> entites = new ArrayList<>();
 
 	public GrossePierre(Ecran ecran) {
 		super(ecran);
@@ -23,7 +27,7 @@ public class GrossePierre extends Entite {
 
 		dialogueSet = -1;
 
-        aireCollision = new Rectangle(2, 8, 44, 40);
+        aireCollision = new Rectangle(2, 8, 44, 39);
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
@@ -77,8 +81,8 @@ public class GrossePierre extends Entite {
 
     public void detecterPlaque() {
 
-        ArrayList<ElementInteractif> liste = new ArrayList<>();
-        ArrayList<Entite> entites = new ArrayList<>();
+        liste = new ArrayList<>();
+        entites = new ArrayList<>();
 
         for (int i=0; i < ecran.iTerrain[1].length; i++) {
             if (ecran.iTerrain[ecran.carteActuelle][i] != null && ecran.iTerrain[ecran.carteActuelle][i].nom != null
@@ -88,12 +92,11 @@ public class GrossePierre extends Entite {
         }
         
         for (int i=0; i < ecran.mage[1].length; i++) {
-            if (ecran.mage[ecran.carteActuelle][i] != null && ecran.mage[ecran.carteActuelle][i].nom.equals(GrossePierre.objnom)) {
+            if (ecran.mage[ecran.carteActuelle][i] != null && ecran.mage[ecran.carteActuelle][i].nom != null
+            && ecran.mage[ecran.carteActuelle][i].nom.equals(GrossePierre.objnom)) {
                 entites.add(ecran.mage[ecran.carteActuelle][i]);
             }
         }
-
-        int compter = 0;
 
         for (int i=0; i < liste.size(); i++) {
 
@@ -102,7 +105,7 @@ public class GrossePierre extends Entite {
             int distance = Math.max(xDistance, yDistance);
 
             if (distance < 10) {
-                if (entiteReliee == null) {                    
+                if (entiteReliee == null) {
                     entiteReliee = liste.get(i);
                     ecran.jouerSE(3);
                 }
@@ -113,15 +116,15 @@ public class GrossePierre extends Entite {
                 }
             }
         }
-
+        compter = 0;
         for (int i=0; i < entites.size(); i++) {
             
             if (entites.get(i).entiteReliee != null) {
                 compter++;
             }
         }
-
-        if (compter == entites.size()) {
+        System.out.println(compter + " " + entites.size());
+        if (compter != 0 && compter == entites.size()) {
             for (int i=0; i < ecran.obj[1].length; i++) {
 
                 if (ecran.obj[ecran.carteActuelle][i] != null && ecran.obj[ecran.carteActuelle][i].nom.equals(PorteFer.objnom)) {

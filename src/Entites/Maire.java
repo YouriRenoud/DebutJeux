@@ -66,6 +66,12 @@ public class Maire extends Entite {
         dialogue[2][1] = "Le dongeon du roi démon est bien caché,\ntrouve le généraux appelé roi des ténèbres.";
         dialogue[2][2] = "Retourne voir le forgeron il a surement des informations !";
 
+        dialogue[4][0] = "Ces terres n'ont bientot plus de secret pour toi !";
+        dialogue[4][1] = "Tu peux te présenter au dongeon du roi démon !";
+        dialogue[4][2] = "Mais attention, prépare toi sérieuseument !";
+        dialogue[4][3] = "Retourne ou tu as battu le roi des squelettes.";
+        dialogue[4][4] = "Bonne chance !";
+
         dialogue[10][0] = "Occupe toi d'abord de ce que je\nt'ai demandé !";
 	}
 	

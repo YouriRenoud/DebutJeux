@@ -12,6 +12,7 @@ import object.Cle;
 import object.CleSpeciale;
 import object.Coeur;
 import object.Coffre;
+import object.EgideAthena;
 import object.Emeraude;
 import object.EpeeLegendaire;
 import object.EpeeLourde;
@@ -19,10 +20,12 @@ import object.EpeeNormale;
 import object.Fer;
 import object.Gourdin;
 import object.HacheEnPierre;
+import object.LameOmbre;
 import object.Lance;
 import object.Lanterne;
 import object.Lit;
 import object.Mana;
+import object.OrbeMagique;
 import object.Pieces;
 import object.PiedsNu;
 import object.Pioche;
@@ -136,6 +139,15 @@ public class GenerateurEntite {
                 break;
             case CarteMonde.objnom:
                 obj = new CarteMonde(ecran);
+                break;
+            case EgideAthena.objnom:
+                obj = new EgideAthena(ecran);
+                break;
+            case LameOmbre.objnom:
+                obj = new LameOmbre(ecran);
+                break;
+            case OrbeMagique.objnom:
+                obj = new OrbeMagique(ecran);
                 break;
         }
         return obj;

@@ -64,6 +64,10 @@ public class Entite {
 	public int minerais;
 	public int maxMana;
 	public int mana;
+	public boolean poison = false;
+	public boolean empoisonne = false;
+	public int tempsPoison = 0;
+	public int tempsFin = 0;
 	public Entite armeActuelle;
 	public Entite bouclierActuel;
 	public Entite lumiereActuelle;
@@ -551,7 +555,6 @@ public class Entite {
 				if (ecran.collisions.analyserJoueur(this)) {
 					if (enAttaque) {
 						degatJoueur(attVal);
-
 					}
 					else {
 						degatJoueur(attaquer);
@@ -699,6 +702,29 @@ public class Entite {
 					desequilibre = false;
 					desequilibreCompteur = 0;
 				}
+			}
+
+			if (empoisonne) {
+				tempsPoison++;
+				tempsFin++;
+				if (tempsFin > 500) {
+					tempsPoison = 0;
+					tempsFin = 0;
+					empoisonne = false;
+				}
+				else if (tempsPoison > 60) {
+					tempsPoison = 0;
+					vie -= 2*(ecran.carteActuelle+1);
+				}
+			}
+
+			if (typeEntite == monstreType && vie <= 0) {
+				mort = true;
+				ecran.interfaceJoueur.ajouterMessage(nom + " est mort !");
+				ecran.joueur.experience += experience;
+				ecran.interfaceJoueur.ajouterMessage(experience + " d'experience gagné !");
+				ecran.joueur.verifierNiveau();
+				attaquer = 0;
 			}
 		}
 		else {

@@ -66,7 +66,7 @@ public class Ecran extends JPanel implements Runnable {
 	public Joueur joueur = new Joueur(this, action);
 	public Entite obj[][] = new Entite[maxCartes][60];
 	public Entite mage[][] = new Entite[maxCartes][32];
-	public Entite monstre[][] = new Entite[maxCartes][30];
+	public Entite monstre[][] = new Entite[maxCartes][40];
 	ArrayList<Entite> listEntite = new ArrayList<>();
 	public Entite listProjectiles[][] = new Entite[maxCartes][50];
 	//public ArrayList<Entite> listProjectiles = new ArrayList<>();

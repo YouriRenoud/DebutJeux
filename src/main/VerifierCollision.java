@@ -31,39 +31,53 @@ public class VerifierCollision {
 			direction = entite.reculDirection;
 		}
 
-		switch(direction) {
-		case "haut":
-			lignHaut = (hautY-entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignHaut];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision0 = true;
-			}
-			break;
-		case "bas":
-			lignBas = (basY+entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignBas];
-			numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision0 = true;
-			}
-			break;
-		case "gauche":
-			colGauche = (gaucheX-entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision0 = true;
-			}
-			break;
-		case "droite":
-			colDroite = (droiteX+entite.vitesse)/ecran.tailleFinale;
-			numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignHaut];
-			numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignBas];
-			if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
-				entite.collision0 = true;
-			}
-			break;
+		if (colGauche < 0) {
+			direction = "droite";
+		}
+		else if (colDroite > ecran.terrain.parcoursCarte[1].length-1) {
+			direction = "gauche";
+		}
+		else if (lignHaut < 0) {
+			direction = "bas";
+		}
+		else if (lignBas > ecran.terrain.parcoursCarte[1].length-1) {
+			direction = "haut";
+		}
+		else {
+			switch(direction) {
+				case "haut":
+					lignHaut = (hautY-entite.vitesse)/ecran.tailleFinale;
+					numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignHaut];
+					if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+						entite.collision0 = true;
+					}
+					break;
+				case "bas":
+					lignBas = (basY+entite.vitesse)/ecran.tailleFinale;
+					numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignBas];
+					numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+						entite.collision0 = true;
+					}
+					break;
+				case "gauche":
+					colGauche = (gaucheX-entite.vitesse)/ecran.tailleFinale;
+					numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colGauche][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+						entite.collision0 = true;
+					}
+					break;
+				case "droite":
+					colDroite = (droiteX+entite.vitesse)/ecran.tailleFinale;
+					numTerrain1 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignHaut];
+					numTerrain2 = ecran.terrain.parcoursCarte[ecran.carteActuelle][colDroite][lignBas];
+					if (ecran.terrain.terrain[numTerrain1].interaction == true || ecran.terrain.terrain[numTerrain2].interaction == true) {
+						entite.collision0 = true;
+					}
+					break;
+				}
 		}
 	}
 	
