@@ -138,7 +138,7 @@ public class Joueur extends Entite {
 			nomClasse = "necromancien";
 		}
 
-		niveau = 9;
+		niveau = 51;
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
 		carteX = ecran.tailleFinale * 5;
@@ -491,6 +491,24 @@ public class Joueur extends Entite {
 			proteger = false;
 			parerCompteur = 0;
 		}
+
+		if (bouclierActuel.invisible) {
+			tempsInvisible++;
+			if (invisible) {
+				transparent = true;
+				if (tempsInvisible > bouclierActuel.dureeInvisible) {
+					invisible = false;
+					transparent = false;
+					tempsInvisible = 0;
+				}
+			}
+			else  {
+				if (tempsInvisible > bouclierActuel.resetInvisible) {
+					invisible = true;
+					tempsInvisible = 0;
+				}
+			}
+		}
 		
 		if (ecran.action.tirer == true && projectile.vivant == false
 				&& tirPossible == 60 && projectile.ressourcesSuffisantes(this)) {
@@ -644,6 +662,11 @@ public class Joueur extends Entite {
 
 				if (ecran.monstre[ecran.carteActuelle][i].desequilibre) {
 					attaquer *= 5;
+				}
+
+				if (attaquant.armeActuelle.etourdi) {
+					ecran.monstre[ecran.carteActuelle][i].etourdi = true;
+					ecran.monstre[ecran.carteActuelle][i].etourdirDuree = attaquant.armeActuelle.etourdirDuree;
 				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;

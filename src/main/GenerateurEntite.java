@@ -6,12 +6,14 @@ import object.BouclierBasique;
 import object.BouclierDiamant;
 import object.BouclierFer;
 import object.BouclierRenforce;
+import object.CapeInvisible;
 import object.CarteMonde;
 import object.Chaussure;
 import object.Cle;
 import object.CleSpeciale;
 import object.Coeur;
 import object.Coffre;
+import object.EclairZeus;
 import object.EgideAthena;
 import object.Emeraude;
 import object.EpeeLegendaire;
@@ -25,6 +27,7 @@ import object.Lance;
 import object.Lanterne;
 import object.Lit;
 import object.Mana;
+import object.MarteauThor;
 import object.OrbeMagique;
 import object.Pieces;
 import object.PiedsNu;
@@ -148,6 +151,15 @@ public class GenerateurEntite {
                 break;
             case OrbeMagique.objnom:
                 obj = new OrbeMagique(ecran);
+                break;
+            case MarteauThor.objnom:
+                obj = new MarteauThor(ecran);
+                break;
+            case EclairZeus.objnom:
+                obj = new EclairZeus(ecran);
+                break;
+            case CapeInvisible.objnom:
+                obj = new CapeInvisible(ecran);
                 break;
         }
         return obj;

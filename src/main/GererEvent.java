@@ -7,12 +7,15 @@ import Entites.Maire;
 import donnees.Progression;
 import object.BottesHermes;
 import object.BouclierFer;
+import object.CapeInvisible;
 import object.CarteMonde;
 import object.CleSpeciale;
 import object.EgideAthena;
 import object.LameOmbre;
+import object.MarteauThor;
 import object.OrbeMagique;
 import object.PorteSpeciale;
+import object.EclairZeus;
 import terrain.ArbreCassable;
 
 public class GererEvent {
@@ -109,6 +112,10 @@ public class GererEvent {
 		eventMaster.dialogue[7][0] = "Va chercher la quète.";
 		eventMaster.dialogue[8][0] = "Tu as atteint le niveau 10 !\nTes pairs te reconnaissent désormais\ncomme un novice de ta classe !";
 		eventMaster.dialogue[8][1] = "Les dieux te récompensent pour tes efforts.";
+		eventMaster.dialogue[9][0] = "Tu as atteint le niveau 25 !\nTes pairs te reconnaissent désormais\ncomme un expérimenté de ta classe !";
+		eventMaster.dialogue[9][1] = "Les dieux te récompensent pour tes efforts.";
+		eventMaster.dialogue[10][0] = "Tu as atteint le niveau 50 !\nTes pairs te reconnaissent désormais\ncomme l'expert de ta classe !";
+		eventMaster.dialogue[10][1] = "Les dieux te récompensent pour tes efforts.";
 	}
 	
 	public void analyserEvent() {
@@ -386,10 +393,10 @@ public class GererEvent {
 				obj = new EgideAthena(ecran);
 			}
 			else if (n == 2) {
-				obj = new EgideAthena(ecran);
+				obj = new MarteauThor(ecran);
 			}
 			else if (n == 3) {
-				obj = new EgideAthena(ecran);
+				obj = new EclairZeus(ecran);
 			}
 		}
 		else if (ecran.joueur.nomClasse.equals("assassin")) {
@@ -400,7 +407,7 @@ public class GererEvent {
 				obj = new EgideAthena(ecran);
 			}
 			else if (n == 3) {
-				obj = new EgideAthena(ecran);
+				obj = new CapeInvisible (ecran);
 			}		}
 		else if (ecran.joueur.nomClasse.equals("mage")) {
 			if (n == 1) {
@@ -444,7 +451,15 @@ public class GererEvent {
 				break;
 			}
 		}
-		eventMaster.commencerDialogue(eventMaster, 8);
+		if (n == 1) {
+			eventMaster.commencerDialogue(eventMaster, 8);
+		}
+		else if (n == 2) {
+			eventMaster.commencerDialogue(eventMaster, 9);
+		}
+		else if (n == 3) {
+			eventMaster.commencerDialogue(eventMaster, 10);
+		}
 	}
 
 	public void ajouterObjet (Entite e, int col, int lign, int etatJeu) {

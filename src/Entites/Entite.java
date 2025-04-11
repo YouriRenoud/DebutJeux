@@ -107,6 +107,13 @@ public class Entite {
 	public int parerCompteur = 0;
 	public int desequilibreCompteur = 0;
 	public boolean desequilibre = false;
+	public boolean etourdi = false;
+	public int etourdirDuree = 0;
+	public int tempsEtourdi = 0;
+	public boolean invisible = false;
+	public int tempsInvisible = 0;
+	public int dureeInvisible = 0;
+	public int resetInvisible = 0;
 	public Entite contenu;
 	public boolean ouvert = false;
 	public Entite entiteReliee;
@@ -473,6 +480,9 @@ public class Entite {
 				enChemin = false;
 			}
 		}
+		if (ecran.joueur.invisible) {
+			enChemin = false;
+		}
 	}
 
 	public void recul(Entite entite, int reculForce, Entite attaquant) {
@@ -553,7 +563,8 @@ public class Entite {
 			
 			if (typeEntite == monstreType) {
 				if (ecran.collisions.analyserJoueur(this)) {
-					if (enAttaque) {
+					if (ecran.joueur.invisible) {}
+					else if (enAttaque) {
 						degatJoueur(attVal);
 					}
 					else {
@@ -646,6 +657,14 @@ public class Entite {
 			}
 			else if (attaque) {
 				attaque();
+			}
+			else if (this.typeEntite == monstreType && this.etourdi) {
+				tempsEtourdi++;
+				System.out.println(tempsEtourdi);
+				if (tempsEtourdi > etourdirDuree) {
+					tempsEtourdi = 0;
+					etourdi = false;
+				}
 			}
 			else {
 				actions();
