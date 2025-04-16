@@ -144,6 +144,20 @@ public class Lumieres {
             case aube: moment = "Aube"; break;
         }
 
+        if (ecran.joueur.chaussuresActuelles.rayonLumiere != 0) {
+            int centreX = ecran.joueur.ecranX + ecran.tailleFinale / 2;
+            int centreY = ecran.joueur.ecranY + ecran.tailleFinale / 2;
+
+            int rayon = ecran.joueur.chaussuresActuelles.rayonLumiere*ecran.tailleFinale;
+            int diametre = rayon * 2;
+        
+            // Couleur blanche semi-transparente
+            g.setColor(new Color(255, 255, 255, 50));
+        
+            // Dessine un cercle centré sur (centreX, centreY)
+            g.fillOval(centreX - rayon, centreY - rayon, diametre, diametre);
+        }
+
         g.setColor(Color.WHITE);
         g.setFont(g.getFont().deriveFont(40f));
         g.drawString(moment, 720, 540);

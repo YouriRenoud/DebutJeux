@@ -16,8 +16,8 @@ public class EclairZeus extends Entite {
 		attArea.width = 25;
 		attArea.height = 48;
 		description = "[" + nom + "]\nLa colère du ciel\nAttaque = " + attVal + "\nMagie + 15";
-		prix = 2000;
-		prixForge = 500;
+		prix = 5000;
+		prixForge = 5000;
 		nbForgeReussi = 0;
 		reculForce = 20;
 		dureeAttFrame1 = 100;

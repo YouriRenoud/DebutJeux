@@ -31,7 +31,7 @@ public class Projectiles extends Entite{
 		if (joueur == ecran.joueur) {
 			int monstreIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
 			if (monstreIndex != 999) {
-				ecran.joueur.blesserMonstre(this, monstreIndex, attaquer, reculForce);
+				ecran.joueur.blesserMonstre(joueur, monstreIndex, attaquer, reculForce);
 				genererParticules(joueur.projectile, ecran.monstre[ecran.carteActuelle][monstreIndex]);
 				vivant = false;
 			}

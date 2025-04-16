@@ -1,6 +1,5 @@
 package monstres;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
 import Entites.Entite;
@@ -10,7 +9,6 @@ import object.Coeur;
 import object.Lance;
 import object.Mana;
 import object.Pieces;
-import object.Pierre;
 
 public class Orc extends Entite {
 

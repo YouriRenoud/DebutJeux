@@ -1,6 +1,7 @@
 package main;
 
 import Entites.Entite;
+import object.AuraDeFeu;
 import object.BottesHermes;
 import object.BouclierBasique;
 import object.BouclierDiamant;
@@ -9,6 +10,8 @@ import object.BouclierRenforce;
 import object.CapeInvisible;
 import object.CarteMonde;
 import object.Chaussure;
+import object.ChaussureDeForce;
+import object.ChaussuresAttaque;
 import object.Cle;
 import object.CleSpeciale;
 import object.Coeur;
@@ -22,6 +25,7 @@ import object.EpeeNormale;
 import object.Fer;
 import object.Gourdin;
 import object.HacheEnPierre;
+import object.Invocateur;
 import object.LameOmbre;
 import object.Lance;
 import object.Lanterne;
@@ -38,6 +42,7 @@ import object.PorteFer;
 import object.PorteSpeciale;
 import object.PotionSoin;
 import object.Sceptre;
+import object.TraineeDeFeu;
 
 public class GenerateurEntite {
     
@@ -160,6 +165,21 @@ public class GenerateurEntite {
                 break;
             case CapeInvisible.objnom:
                 obj = new CapeInvisible(ecran);
+                break;
+            case ChaussuresAttaque.objnom:
+                obj = new ChaussuresAttaque(ecran);
+                break;
+            case AuraDeFeu.objnom:
+                obj = new AuraDeFeu(ecran);
+                break;
+            case TraineeDeFeu.objnom:
+                obj = new TraineeDeFeu(ecran);
+                break;
+            case ChaussureDeForce.objnom:
+                obj = new ChaussureDeForce(ecran);
+                break;
+            case Invocateur.objnom:
+                obj = new Invocateur(ecran);
                 break;
         }
         return obj;

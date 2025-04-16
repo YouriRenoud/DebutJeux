@@ -15,8 +15,8 @@ public class CapeInvisible extends Entite {
 		arriere = initialiser("/items/capeinvisible.png", ecran.tailleFinale, ecran.tailleFinale);
 		attVal = 10;
 		description = "[" + nom + "]\nDeviens introuvable.\nAttaque = " + attVal;
-		prix = 35;
-		prixForge = 20;
+		prix = 5000;
+		prixForge = 5000;
 		nbForgeReussi = 0;
         invisible = true;
         dureeInvisible = 120;

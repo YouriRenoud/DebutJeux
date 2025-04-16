@@ -5,12 +5,16 @@ import java.awt.Rectangle;
 import Entites.Entite;
 import Entites.Maire;
 import donnees.Progression;
+import object.AuraDeFeu;
 import object.BottesHermes;
 import object.BouclierFer;
 import object.CapeInvisible;
 import object.CarteMonde;
+import object.ChaussureDeForce;
+import object.ChaussuresAttaque;
 import object.CleSpeciale;
 import object.EgideAthena;
+import object.Invocateur;
 import object.LameOmbre;
 import object.MarteauThor;
 import object.OrbeMagique;
@@ -404,7 +408,7 @@ public class GererEvent {
 				obj = new LameOmbre(ecran);
 			}
 			else if (n == 2) {
-				obj = new EgideAthena(ecran);
+				obj = new ChaussuresAttaque(ecran);
 			}
 			else if (n == 3) {
 				obj = new CapeInvisible (ecran);
@@ -414,10 +418,10 @@ public class GererEvent {
 				obj = new OrbeMagique(ecran);
 			}
 			else if (n == 2) {
-				obj = new EgideAthena(ecran);
+				obj = new ChaussureDeForce(ecran);
 			}
 			else if (n == 3) {
-				obj = new EgideAthena(ecran);
+				obj = new AuraDeFeu(ecran);
 			}		}
 		else if (ecran.joueur.nomClasse.equals("necromancien")) {
 			if (n == 1) {
@@ -427,7 +431,7 @@ public class GererEvent {
 				obj = new EgideAthena(ecran);
 			}
 			else if (n == 3) {
-				obj = new EgideAthena(ecran);
+				obj = new Invocateur(ecran);
 			}		}
 		for (int i=0; i < ecran.obj[1].length; i++) {
 			if (ecran.obj[ecran.carteActuelle][i] == null) {

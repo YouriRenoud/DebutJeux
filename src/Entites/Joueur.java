@@ -21,6 +21,7 @@ import object.Lanterne;
 import object.PiedsNu;
 import object.Pioche;
 import object.Poings;
+import object.TraineeDeFeu;
 
 public class Joueur extends Entite {
 	
@@ -32,6 +33,8 @@ public class Joueur extends Entite {
 	public boolean novice = false;
 	public boolean avance = false;
 	public boolean expert = false;
+
+	public boolean invoque = false;
 
 	public final int paladin = 0;
 	public final int assassin = 1;
@@ -492,6 +495,11 @@ public class Joueur extends Entite {
 			parerCompteur = 0;
 		}
 
+		if (!invoque && armeActuelle.invocation != null) {
+			armeActuelle.actions();
+			invoque = true;
+		}
+
 		if (bouclierActuel.invisible) {
 			tempsInvisible++;
 			if (invisible) {
@@ -525,6 +533,21 @@ public class Joueur extends Entite {
 			tirPossible = 0;
 			
 			ecran.jouerSE(11);
+		}
+
+		if (bouclierActuel.nom.equals("Aura de feu")) {
+			if (aura > bouclierActuel.auraDuree) {
+				TraineeDeFeu p = new TraineeDeFeu(ecran);
+				p.initialiser(carteX, carteY, direction, true, this);
+				for (int i=0; i < ecran.listProjectiles[1].length; i++) {
+					if (ecran.listProjectiles[ecran.carteActuelle][i] == null) {
+						ecran.listProjectiles[ecran.carteActuelle][i] = p;
+						break;
+					}
+				}
+				aura = 0;
+			}
+			aura++;
 		}
 		
 		if (invincible == true) {

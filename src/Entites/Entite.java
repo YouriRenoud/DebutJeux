@@ -90,7 +90,7 @@ public class Entite {
 	public int reculForce;
 	public int valeur;
 	public int type;
-	public int rayonLumiere;
+	public int rayonLumiere = 0;
 	public String description = "";
 	public int prix;
 	public int prixForge;
@@ -114,6 +114,10 @@ public class Entite {
 	public int tempsInvisible = 0;
 	public int dureeInvisible = 0;
 	public int resetInvisible = 0;
+	public int aura = 0;
+	public int auraDuree = 0;
+	public boolean ralentissement = false;
+	public Entite invocation;
 	public Entite contenu;
 	public boolean ouvert = false;
 	public Entite entiteReliee;
@@ -485,6 +489,34 @@ public class Entite {
 		}
 	}
 
+	public Entite chercherMonstre() {
+		Entite cible = null;
+		int distance = 9;
+		for (int i=0; i < ecran.monstre[1].length; i++) {
+			if (ecran.monstre[ecran.carteActuelle][i] != null) {
+				int d = getTerrainDistance(ecran.monstre[ecran.carteActuelle][i]);
+				if (d < distance) {
+					distance = d;
+					cible = ecran.monstre[ecran.carteActuelle][i];
+				}
+			}
+		}
+		if (cible == null) {
+			return ecran.joueur;
+		}
+		return cible;
+	}
+
+	public boolean verifierRalentissement(Entite e, int distance) {
+		if (getTerrainDistance(e) < distance) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
 	public void recul(Entite entite, int reculForce, Entite attaquant) {
 
 		this.attaquant = attaquant;
@@ -571,6 +603,10 @@ public class Entite {
 						degatJoueur(attaquer);
 					}
 				}
+			}
+			else if (typeEntite == joueurType) {
+				int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
+				ecran.joueur.blesserMonstre(this, ennemiIndex, attaquer, armeActuelle.reculForce);
 			}
 			else {
 				int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
@@ -660,7 +696,6 @@ public class Entite {
 			}
 			else if (this.typeEntite == monstreType && this.etourdi) {
 				tempsEtourdi++;
-				System.out.println(tempsEtourdi);
 				if (tempsEtourdi > etourdirDuree) {
 					tempsEtourdi = 0;
 					etourdi = false;
@@ -696,6 +731,18 @@ public class Entite {
 						marcher = 1;
 					}
 					compteur = 0;
+				}
+
+				if (ecran.joueur.ralentissement) {
+					if (verifierRalentissement(ecran.joueur, ecran.joueur.chaussuresActuelles.rayonLumiere)) {
+						vitesse = vitesseDefaut - 2;
+					}
+					else {
+						vitesse = vitesseDefaut;
+					}
+				}
+				else {
+					vitesse = vitesseDefaut;
 				}
 			}
 			

@@ -6,17 +6,19 @@ import main.Ecran;
 public class OrbeMagique extends Entite {
 
 	public static final String objnom = "L'Orbe de puissance'";
+	public Ecran ecran;
 
 	public OrbeMagique(Ecran ecran) {
 		super(ecran);
+		this.ecran = ecran;
 		nom = objnom;
 		typeEntite = epeeType;
 		arriere = initialiser("/items/orbe.png", ecran.tailleFinale, ecran.tailleFinale);
 		attVal = 3;
-        ecran.joueur.magie += 15;
+        ecran.joueur.magie += 8;
 		attArea.width = 30;
 		attArea.height = 38;
-		description = "[" + nom + "]\nDevenir plus puissant ?\nAttaque = " + attVal + "\nMagie + 15";
+		description = "[" + nom + "]\nDevenir plus puissant ?\nAttaque = " + attVal + "\nMagie + 16";
 		prix = 2000;
 		prixForge = 500;
 		nbForgeReussi = 0;
@@ -41,6 +43,7 @@ public class OrbeMagique extends Entite {
 		}
 		else {
 			deposerItem(e, i);
+			ecran.joueur.magie -= 16;
 		}
 	}
 }
