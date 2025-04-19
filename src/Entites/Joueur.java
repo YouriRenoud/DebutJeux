@@ -691,6 +691,12 @@ public class Joueur extends Entite {
 					ecran.monstre[ecran.carteActuelle][i].etourdi = true;
 					ecran.monstre[ecran.carteActuelle][i].etourdirDuree = attaquant.armeActuelle.etourdirDuree;
 				}
+
+				if (attaquant.armeActuelle.malediction) {
+					ecran.monstre[ecran.carteActuelle][i].attaquer -= 4*(ecran.carteActuelle + 1);
+					ecran.monstre[ecran.carteActuelle][i].defendre = 1;
+					ecran.monstre[ecran.carteActuelle][i].vitesse = 1;
+				}
 				
 				int degats = attaquer - ecran.monstre[ecran.carteActuelle][i].defendre;
 				if (degats <= 0) {degats = 1;}
@@ -753,6 +759,10 @@ public class Joueur extends Entite {
 			attaquer = getAttaque();
 			defendre = getDefense();
 			
+			if (bouclierActuel.nom.equals("Le gant qui impose")) {
+				bouclierActuel.actions();
+			}
+
 			ecran.jouerSE(9);
 			ecran.etatJeu = ecran.parler;
 			commencerDialogue(this, 0);

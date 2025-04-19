@@ -116,6 +116,7 @@ public class Entite {
 	public int resetInvisible = 0;
 	public int aura = 0;
 	public int auraDuree = 0;
+	public boolean malediction = false;
 	public boolean ralentissement = false;
 	public Entite invocation;
 	public Entite contenu;
@@ -743,6 +744,19 @@ public class Entite {
 				}
 				else {
 					vitesse = vitesseDefaut;
+				}
+
+				if (ecran.joueur.bouclierActuel.ralentissement) {
+					if (verifierRalentissement(ecran.joueur, ecran.joueur.bouclierActuel.rayonLumiere)) {
+						int j = 999;
+						for (int i=0; i < ecran.monstre[1].length; i++) {
+							if (ecran.monstre[ecran.carteActuelle][i] == this) {
+								j = i;
+								break;
+							}
+						}
+						ecran.joueur.blesserMonstre(ecran.joueur, j, ecran.joueur.bouclierActuel.attVal-this.defendre, 0);
+					}
 				}
 			}
 			

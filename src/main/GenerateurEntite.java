@@ -23,6 +23,7 @@ import object.EpeeLegendaire;
 import object.EpeeLourde;
 import object.EpeeNormale;
 import object.Fer;
+import object.GantsDeForce;
 import object.Gourdin;
 import object.HacheEnPierre;
 import object.Invocateur;
@@ -30,6 +31,7 @@ import object.LameOmbre;
 import object.Lance;
 import object.Lanterne;
 import object.Lit;
+import object.Malediction;
 import object.Mana;
 import object.MarteauThor;
 import object.OrbeMagique;
@@ -180,6 +182,12 @@ public class GenerateurEntite {
                 break;
             case Invocateur.objnom:
                 obj = new Invocateur(ecran);
+                break;
+            case Malediction.objnom:
+                obj = new Malediction(ecran);
+                break;
+            case GantsDeForce.objnom:
+                obj = new GantsDeForce(ecran);
                 break;
         }
         return obj;

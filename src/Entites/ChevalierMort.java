@@ -43,8 +43,8 @@ public class ChevalierMort extends Entite {
 	}
 	
 	public void actions() {
-		attaquer = 6*(ecran.carteActuelle+1);
-		defendre = 6*(ecran.carteActuelle+1);
+		attaquer = ecran.joueur.attaquer;
+		defendre = ecran.joueur.defendre;
 
 		Entite e = chercherMonstre();
 		chercherChemin(getColArrivee(e), getLignArrivee(e));

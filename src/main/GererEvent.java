@@ -14,8 +14,10 @@ import object.ChaussureDeForce;
 import object.ChaussuresAttaque;
 import object.CleSpeciale;
 import object.EgideAthena;
+import object.GantsDeForce;
 import object.Invocateur;
 import object.LameOmbre;
+import object.Malediction;
 import object.MarteauThor;
 import object.OrbeMagique;
 import object.PorteSpeciale;
@@ -202,7 +204,7 @@ public class GererEvent {
 				visiter(0, 49, 94, ecran.dehors);
 			}
 
-			else if (touche(0, 1, 99, "bas") == true) {
+			else if (touche(0, 1, 98, "bas") == true) {
 				if (ecran.joueur.monstresElimines(2)) {
 					visiter(2, 27, 79, ecran.dehors);
 				}
@@ -425,10 +427,10 @@ public class GererEvent {
 			}		}
 		else if (ecran.joueur.nomClasse.equals("necromancien")) {
 			if (n == 1) {
-				obj = new EgideAthena(ecran);
+				obj = new GantsDeForce(ecran);
 			}
 			else if (n == 2) {
-				obj = new EgideAthena(ecran);
+				obj = new Malediction(ecran);
 			}
 			else if (n == 3) {
 				obj = new Invocateur(ecran);

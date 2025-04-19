@@ -157,6 +157,19 @@ public class Lumieres {
             // Dessine un cercle centré sur (centreX, centreY)
             g.fillOval(centreX - rayon, centreY - rayon, diametre, diametre);
         }
+        if (ecran.joueur.bouclierActuel.rayonLumiere != 0) {
+            int centreX = ecran.joueur.ecranX + ecran.tailleFinale / 2;
+            int centreY = ecran.joueur.ecranY + ecran.tailleFinale / 2;
+
+            int rayon = ecran.joueur.bouclierActuel.rayonLumiere*ecran.tailleFinale;
+            int diametre = rayon * 2 - 1;
+        
+            // Couleur blanche semi-transparente
+            g.setColor(new Color(255, 255, 255, 50));
+        
+            // Dessine un cercle centré sur (centreX, centreY)
+            g.fillOval(centreX - rayon, centreY - rayon, diametre, diametre);
+        }
 
         g.setColor(Color.WHITE);
         g.setFont(g.getFont().deriveFont(40f));
