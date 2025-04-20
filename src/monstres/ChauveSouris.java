@@ -11,12 +11,15 @@ import object.Mana;
 import object.Pieces;
 
 public class ChauveSouris extends Entite {
+	
 	public Ecran ecran;
+	public static final String monstreNom = "Chauve Souris";
+	
 	public ChauveSouris (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Chauve Souris";
+		nom = monstreNom;
 		typeEntite = monstreType;
 		vitesseDefaut = 5;
 		vitesse = vitesseDefaut;

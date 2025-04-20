@@ -15,7 +15,7 @@ import object.PorteFer;
 public class Demon extends Entite {
 
 	public Ecran ecran;
-    public static final String objnom = "Roi des démons";
+    public static final String objnom = "Roi des demons";
 
 	public Demon (Ecran ecran, int carte) {
 		super(ecran);

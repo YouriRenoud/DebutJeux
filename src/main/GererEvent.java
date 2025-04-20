@@ -158,13 +158,13 @@ public class GererEvent {
 				eventPossible = false;
 			}
 
-			else if (touche(0, 1, 0, "haut")) {
+			else if (touche(0, 1, 1, "haut")) {
 				visiter(0, 81, 78, ecran.dehors);
 				eventPossible = false;
 			}
 
 			else if (touche(0, 81, 78, "haut")) {
-				visiter(0, 1, 0, ecran.dehors);
+				visiter(0, 1, 1, ecran.dehors);
 				eventPossible = false;
 			}
 
@@ -184,7 +184,7 @@ public class GererEvent {
 				rect[0][81][84].eventFini = true;
 			}
 
-			else if (touche(0, 96, 76, "haut") == true) {
+			else if (touche(0, 96, 76, "droite") == true) {
 				visiter(3, 12, 13, ecran.dehors);
 			}
 
@@ -214,7 +214,7 @@ public class GererEvent {
 			}
 
 			else if (touche(2, 27, 79, "toutes") == true) {
-				visiter(0, 1, 99, ecran.dehors);
+				visiter(0, 1, 98, ecran.dehors);
 			}
 
 			else if (touche(2, 73, 98, "bas") == true) {
@@ -225,7 +225,12 @@ public class GererEvent {
 				visiter(2, 73, 98, ecran.dehors);
 			}
 
-			else if (touche(2, 49, 0, "haut")) {
+			else if (touche(2, 25, 54, "toutes") == true) {
+				soin(25,54,ecran.parler);
+				eventPossible = false;
+			}
+
+			else if (touche(2, 49, 1, "haut")) {
 				if (ecran.joueur.monstresElimines(2)) {
 					visiter(3, 54, 63, ecran.dongeon);
 				}
@@ -234,7 +239,7 @@ public class GererEvent {
 				}
 			}
 
-			else if (touche(2, 38, 0, "haut")) {
+			else if (touche(2, 38, 1, "haut")) {
 				if (ecran.joueur.queteEnCours >= 6) {
 					visiter(8, 49, 50, ecran.dongeon);
 				}
@@ -244,7 +249,7 @@ public class GererEvent {
 			}
 
 			else if (touche(3, 54, 63, "bas")) {
-				visiter(2, 49, 0, ecran.dehors);
+				visiter(2, 49, 1, ecran.dehors);
 			}
 
 			else if (touche(3, 11, 17, "toutes")) {
@@ -573,10 +578,8 @@ public class GererEvent {
 			if (ecran.joueur.mana < ecran.joueur.maxMana) {
 				ecran.joueur.mana = ecran.joueur.maxMana;
 			}
-			ecran.gerer.setMonstre();
-			rect[ecran.carteActuelle][col][lign].eventFini = true;
+			//ecran.gerer.setMonstre();
 			ecran.sauverConfiguration.sauver();
-
 	}
 
 	public void roiDemon() {

@@ -605,7 +605,7 @@ public class Entite {
 					}
 				}
 			}
-			else if (typeEntite == joueurType) {
+			else if (typeEntite == joueurType && this != ecran.joueur) {
 				int ennemiIndex = ecran.collisions.analyserEntite(this, ecran.monstre);
 				ecran.joueur.blesserMonstre(this, ennemiIndex, attaquer, armeActuelle.reculForce);
 			}
@@ -705,7 +705,7 @@ public class Entite {
 			else {
 				actions();
 				verifierCollision();
-				
+
 				if (collision0 == false) {
 					switch(direction) {
 					case "haut":

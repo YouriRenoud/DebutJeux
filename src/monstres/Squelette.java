@@ -15,12 +15,13 @@ import object.Pierre;
 public class Squelette extends Entite {
 
 	public Ecran ecran;
+	public static final String monstreNom = "Squelette";
 
 	public Squelette (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Squelette";
+		nom = monstreNom;
 		typeEntite = monstreType;
 		vitesseDefaut = 1;
 		vitesse = vitesseDefaut;

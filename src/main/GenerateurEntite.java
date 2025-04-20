@@ -1,6 +1,13 @@
 package main;
 
 import Entites.Entite;
+import monstres.ChauveSouris;
+import monstres.Geant;
+import monstres.Golem;
+import monstres.Orc;
+import monstres.Slime;
+import monstres.SlimeBleue;
+import monstres.Squelette;
 import object.AuraDeFeu;
 import object.BottesHermes;
 import object.BouclierBasique;
@@ -191,5 +198,34 @@ public class GenerateurEntite {
                 break;
         }
         return obj;
+    }
+
+    public Entite getMonstre(String nom, int carte) {
+        carte++;
+        Entite monstre = null;
+        switch(nom){
+            case Slime.monstreNom:
+                monstre = new Slime(ecran, carte);
+                break;
+            case SlimeBleue.monstreNom:
+                monstre = new SlimeBleue(ecran, carte);
+                break;
+            case Geant.monstreNom:
+                monstre = new Geant(ecran, carte);
+                break;
+            case Squelette.monstreNom:
+                monstre = new Squelette(ecran, carte);
+                break;
+            case Orc.monstreNom:
+                monstre = new Orc(ecran, carte);
+                break;
+            case Golem.monstreNom:
+                monstre = new Golem(ecran, carte);
+                break;
+            case ChauveSouris.monstreNom:
+                monstre = new ChauveSouris(ecran, carte);
+                break;
+        }
+        return monstre;
     }
 }

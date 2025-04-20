@@ -700,6 +700,22 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*12;
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*97;
 		i++;
+		ecran.monstre[mapNum][i] = new Geant(ecran, 1);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*3;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*4;
+		i++;
+		ecran.monstre[mapNum][i] = new Slime(ecran, 1);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*12;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*2;
+		i++;
+		ecran.monstre[mapNum][i] = new Slime(ecran, 1);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*11;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*7;
+		i++;
+		ecran.monstre[mapNum][i] = new Geant(ecran, 1);
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*4;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*7;
+		i++;
 
 		mapNum = 2;
 		i = 0;

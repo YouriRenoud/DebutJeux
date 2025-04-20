@@ -12,13 +12,15 @@ import object.Pieces;
 import object.Pierre;
 
 public class Geant extends Entite {
+	
 	public Ecran ecran;
+	public static final String monstreNom = "Geant";
 
 	public Geant (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Geant";
+		nom = monstreNom;
 		typeEntite = monstreType;
 		vitesseDefaut = 1;
 		vitesse = vitesseDefaut;

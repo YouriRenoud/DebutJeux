@@ -141,11 +141,11 @@ public class Joueur extends Entite {
 			nomClasse = "necromancien";
 		}
 
-		niveau = 51;
+		niveau = 0;
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		carteX = ecran.tailleFinale * 5;
-		carteY = ecran.tailleFinale * 83;
+		//carteX = ecran.tailleFinale * 5;
+		//carteY = ecran.tailleFinale * 83;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;
@@ -325,8 +325,8 @@ public class Joueur extends Entite {
 	public void getProtegerImage() {
 		gardeBas = initialiser("/joueur/" + nomClasse + "/protegerAvant.png", ecran.tailleFinale, ecran.tailleFinale);
 		gardeHaut = initialiser("/joueur/" + nomClasse + "/protegerArriere.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeGauche = initialiser("/joueur/" + nomClasse + "/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeDroite = initialiser("/joueur/" + nomClasse + "/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeGauche = initialiser("/joueur/" + nomClasse + "/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeDroite = initialiser("/joueur/" + nomClasse + "/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
 
 	}
 
@@ -658,8 +658,9 @@ public class Joueur extends Entite {
 	}
 	
 	public void attaquerTerrain(int i) {
+		System.out.println("Attaquer terrain " + i);
 		if (i != 999 && ecran.iTerrain[ecran.carteActuelle][i].destructible
-				&& ecran.iTerrain[ecran.carteActuelle][i].armeCorrecte(this) == true
+				&& ecran.iTerrain[ecran.carteActuelle][i].armeCorrecte(this)
 				&& !ecran.iTerrain[ecran.carteActuelle][i].invincible) {
 			ecran.iTerrain[ecran.carteActuelle][i].jouerSE();
 			ecran.iTerrain[ecran.carteActuelle][i].vie--;
@@ -667,12 +668,12 @@ public class Joueur extends Entite {
 			
 			genererParticules(ecran.iTerrain[ecran.carteActuelle][i], ecran.iTerrain[ecran.carteActuelle][i]);
 			
-			if (ecran.iTerrain[ecran.carteActuelle][i].vie <= 0) {				
+			if (ecran.iTerrain[ecran.carteActuelle][i].vie <= 0) {
 				ecran.iTerrain[ecran.carteActuelle][i].verifierDrop();
 				ecran.iTerrain[ecran.carteActuelle][i] = ecran.iTerrain[ecran.carteActuelle][i].getFormeDetruite();
 			}
 		}
-	}	
+	}
 	
 	public void blesserMonstre(Entite attaquant, int i, int attaquer, int reculForce) {
 		if (i != 999) {

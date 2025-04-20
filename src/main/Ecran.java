@@ -475,9 +475,9 @@ public class Ecran extends JPanel implements Runnable {
 				jouerMusique(21);
 				gerer.setMage();
 			}
-			gerer.setMonstre();
+			//gerer.setMonstre();
 
-		}		
+		}
 		lieuActuel = lieuSuivant;
 	}
 

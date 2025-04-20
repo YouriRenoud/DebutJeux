@@ -11,7 +11,8 @@ public class Mage extends Entite {
 		super(ecran);
 		
 		direction = "bas";
-		vitesse = 1;
+		vitesseDefaut = 1;
+		vitesse = vitesseDefaut;
 
 		dialogueSet = -1;
 		
@@ -58,25 +59,7 @@ public class Mage extends Entite {
 				}
 			}
 			else {
-				attente++;
-				if (attente == 100) {
-					Random alea = new Random();
-					int i = alea.nextInt(100) + 1;
-					
-					if (i <= 25) {
-						direction = "haut";
-					}
-					if (i > 25 && i <= 50) {
-						direction = "bas";
-					}
-					if (i > 50 && i <= 75) {
-						direction = "gauche";
-					}
-					if (i > 75) {
-						direction = "droite";
-					}
-					attente = 0;
-				}
+				getRandomDirection(100);
 			}
 		}
 	}
@@ -119,7 +102,7 @@ public class Mage extends Entite {
 			enChemin = true;
 	
 			dialogueSet++;
-			if (dialogue[dialogueSet][0] == null) {
+			if (dialogueSet == 3) {
 				dialogueSet = 0;
 			}
 		}

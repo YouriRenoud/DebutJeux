@@ -45,6 +45,12 @@ public class SauverChargement {
             sd.agilite = ecran.joueur.agilite;
             sd.experience = ecran.joueur.experience;
             sd.niveauSuivant = ecran.joueur.niveauSuivant;
+            sd.vitesse = ecran.joueur.vitesse;
+            sd.vitesseDefaut = ecran.joueur.vitesseDefaut;
+            sd.carteX = ecran.joueur.carteX;
+            sd.carteY = ecran.joueur.carteY;
+            
+            sd.carteActuelle = ecran.carteActuelle;
 
             for (int i = 0; i < ecran.joueur.inventaire.size(); i++) {
                 sd.nomItems.add(ecran.joueur.inventaire.get(i).nom);
@@ -60,6 +66,12 @@ public class SauverChargement {
             sd.typeObj = new int[ecran.maxCartes][ecran.obj[1].length];
             sd.mondeObjContenu = new String[ecran.maxCartes][ecran.obj[1].length];
             sd.mondeObjOuverts = new boolean[ecran.maxCartes][ecran.obj[1].length];
+
+            sd.monstreNoms = new String[ecran.maxCartes][ecran.monstre[1].length];
+            sd.monstreX = new int[ecran.maxCartes][ecran.monstre[1].length];
+            sd.monstreY = new int[ecran.maxCartes][ecran.monstre[1].length];
+            sd.monstreVie = new int[ecran.maxCartes][ecran.monstre[1].length];
+            sd.monstreCarteNum = new int[ecran.maxCartes][ecran.monstre[1].length];
 
             for (int i = 0; i < ecran.maxCartes; i++) {
                 for (int j = 0; j < ecran.obj[1].length; j++) {
@@ -78,6 +90,23 @@ public class SauverChargement {
                     }
                     else {
                         sd.mondeObjNoms[i][j] = "NN";
+                    }
+                }
+            }
+
+            for (int i = 0; i < ecran.maxCartes; i++) {
+                for (int j = 0; j < ecran.monstre[1].length; j++) {
+                    if (ecran.monstre[i][j] != null 
+                    && ecran.monstre[i][j].nom != "Roi des squelettes"
+                    && ecran.monstre[i][j].nom != "Roi des demons") {
+                        sd.monstreNoms[i][j] = ecran.monstre[i][j].nom;
+                        sd.monstreX[i][j] = ecran.monstre[i][j].carteX;
+                        sd.monstreY[i][j] = ecran.monstre[i][j].carteY;
+                        sd.monstreVie[i][j] = ecran.monstre[i][j].vie;
+                        sd.monstreCarteNum[i][j] = i;
+                    }
+                    else {
+                        sd.monstreNoms[i][j] = "NN";
                     }
                 }
             }
@@ -106,6 +135,12 @@ public class SauverChargement {
             ecran.joueur.agilite = sd.agilite;
             ecran.joueur.experience = sd.experience;
             ecran.joueur.niveauSuivant = sd.niveauSuivant;
+            ecran.joueur.vitesse = sd.vitesse;
+            ecran.joueur.vitesseDefaut = sd.vitesseDefaut;
+            ecran.joueur.carteX = sd.carteX;
+            ecran.joueur.carteY = sd.carteY;
+
+            ecran.carteActuelle = sd.carteActuelle;
 
             ecran.joueur.inventaire.clear();
             for (int i = 0; i < sd.nomItems.size(); i++) {
@@ -137,6 +172,23 @@ public class SauverChargement {
                             }
                             
                         }
+                    }
+                }
+            }
+
+            for (int i = 0; i < ecran.maxCartes; i++) {
+                for (int j = 0; j < ecran.monstre[1].length; j++) {
+                    if (sd.monstreNoms[i][j].equals("NN")) {
+                        ecran.monstre[i][j] = null;
+                    }
+                    else {
+                        ecran.monstre[i][j] = ecran.generateur.getMonstre(sd.monstreNoms[i][j], sd.monstreCarteNum[i][j]);
+                        if (ecran.monstre[i][j] == null) {
+                            System.out.println("Monstre null : " + sd.monstreNoms[i][j]);
+                        }
+                        ecran.monstre[i][j].carteX = sd.monstreX[i][j];
+                        ecran.monstre[i][j].carteY = sd.monstreY[i][j];
+                        ecran.monstre[i][j].vie = sd.monstreVie[i][j];
                     }
                 }
             }

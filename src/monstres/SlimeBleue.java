@@ -12,12 +12,15 @@ import object.Pierre;
 import object.TeteChercheuse;
 
 public class SlimeBleue extends Entite {
+	
 	public Ecran ecran;
+	public static final String monstreNom = "Slime marin";
+	
 	public SlimeBleue (Ecran ecran, int carte) {
 		super(ecran);
 		this.ecran = ecran;
 		
-		nom = "Slime marin";
+		nom = monstreNom;
 		typeEntite = monstreType;
 		vitesseDefaut = 1;
 		vitesse = vitesseDefaut;
