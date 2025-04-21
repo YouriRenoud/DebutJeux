@@ -201,7 +201,9 @@ public class GenerateurEntite {
     }
 
     public Entite getMonstre(String nom, int carte) {
-        carte++;
+        if (carte == 0) {
+            carte = 1;
+        }
         Entite monstre = null;
         switch(nom){
             case Slime.monstreNom:

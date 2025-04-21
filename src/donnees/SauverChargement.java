@@ -40,6 +40,7 @@ public class SauverChargement {
             sd.vieMax = ecran.joueur.vieMax;
             sd.mana = ecran.joueur.mana;
             sd.maxMana = ecran.joueur.maxMana;
+            sd.magie = ecran.joueur.magie;
             sd.pieces = ecran.joueur.argent;
             sd.force = ecran.joueur.force;
             sd.agilite = ecran.joueur.agilite;
@@ -49,6 +50,8 @@ public class SauverChargement {
             sd.vitesseDefaut = ecran.joueur.vitesseDefaut;
             sd.carteX = ecran.joueur.carteX;
             sd.carteY = ecran.joueur.carteY;
+            sd.classe = ecran.joueur.classe;
+            sd.nomClasse = ecran.joueur.nomClasse;
             
             sd.carteActuelle = ecran.carteActuelle;
 
@@ -59,6 +62,7 @@ public class SauverChargement {
             sd.armeActuelleSlot = ecran.joueur.getArmeSlot();
             sd.armureActuelleSlot = ecran.joueur.getBouclierSlot();
             sd.lumiereActuelleSlot = ecran.joueur.getLumiereSlot();
+            sd.chaussuresActuellesSlot = ecran.joueur.getChaussuresSlot();
 
             sd.mondeObjNoms = new String[ecran.maxCartes][ecran.obj[1].length];
             sd.mondeObjX = new int[ecran.maxCartes][ecran.obj[1].length];
@@ -70,6 +74,7 @@ public class SauverChargement {
             sd.monstreNoms = new String[ecran.maxCartes][ecran.monstre[1].length];
             sd.monstreX = new int[ecran.maxCartes][ecran.monstre[1].length];
             sd.monstreY = new int[ecran.maxCartes][ecran.monstre[1].length];
+            sd.monstreMaxVie = new int[ecran.maxCartes][ecran.monstre[1].length];
             sd.monstreVie = new int[ecran.maxCartes][ecran.monstre[1].length];
             sd.monstreCarteNum = new int[ecran.maxCartes][ecran.monstre[1].length];
 
@@ -102,6 +107,7 @@ public class SauverChargement {
                         sd.monstreNoms[i][j] = ecran.monstre[i][j].nom;
                         sd.monstreX[i][j] = ecran.monstre[i][j].carteX;
                         sd.monstreY[i][j] = ecran.monstre[i][j].carteY;
+                        sd.monstreMaxVie[i][j] = ecran.monstre[i][j].vieMax;
                         sd.monstreVie[i][j] = ecran.monstre[i][j].vie;
                         sd.monstreCarteNum[i][j] = i;
                     }
@@ -130,6 +136,7 @@ public class SauverChargement {
             ecran.joueur.vieMax = sd.vieMax;
             ecran.joueur.mana = sd.mana;
             ecran.joueur.maxMana = sd.maxMana;
+            ecran.joueur.magie = sd.magie;
             ecran.joueur.argent = sd.pieces;
             ecran.joueur.force = sd.force;
             ecran.joueur.agilite = sd.agilite;
@@ -139,6 +146,8 @@ public class SauverChargement {
             ecran.joueur.vitesseDefaut = sd.vitesseDefaut;
             ecran.joueur.carteX = sd.carteX;
             ecran.joueur.carteY = sd.carteY;
+            ecran.joueur.classe = sd.classe;
+            ecran.joueur.nomClasse = sd.nomClasse;
 
             ecran.carteActuelle = sd.carteActuelle;
 
@@ -151,9 +160,12 @@ public class SauverChargement {
             ecran.joueur.armeActuelle = ecran.joueur.inventaire.get(sd.armeActuelleSlot);
             ecran.joueur.bouclierActuel = ecran.joueur.inventaire.get(sd.armureActuelleSlot);
             ecran.joueur.lumiereActuelle = ecran.joueur.inventaire.get(sd.lumiereActuelleSlot);
-            ecran.joueur.getAttaque();
-            ecran.joueur.getDefense();
-            ecran.joueur.getAttImage();
+            ecran.joueur.chaussuresActuelles = ecran.joueur.inventaire.get(sd.chaussuresActuellesSlot);
+            System.out.println(ecran.joueur.armeActuelle.attVal);
+            System.out.println(ecran.joueur.force);
+            ecran.joueur.attaquer = ecran.joueur.getAttaque();
+            System.out.println(ecran.joueur.attaquer);
+            ecran.joueur.defendre = ecran.joueur.getDefense();
 
             for (int i = 0; i < ecran.maxCartes; i++) {
                 for (int j = 0; j < ecran.obj[1].length; j++) {
@@ -183,11 +195,9 @@ public class SauverChargement {
                     }
                     else {
                         ecran.monstre[i][j] = ecran.generateur.getMonstre(sd.monstreNoms[i][j], sd.monstreCarteNum[i][j]);
-                        if (ecran.monstre[i][j] == null) {
-                            System.out.println("Monstre null : " + sd.monstreNoms[i][j]);
-                        }
                         ecran.monstre[i][j].carteX = sd.monstreX[i][j];
                         ecran.monstre[i][j].carteY = sd.monstreY[i][j];
+                        ecran.monstre[i][j].vieMax = sd.monstreMaxVie[i][j];
                         ecran.monstre[i][j].vie = sd.monstreVie[i][j];
                     }
                 }

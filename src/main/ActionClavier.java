@@ -285,6 +285,9 @@ public class ActionClavier implements KeyListener {
 				
 				if (ecran.interfaceJoueur.numCommande == 1) {
 					ecran.sauverConfiguration.charger();
+					ecran.joueur.getImage();
+					ecran.joueur.getAttImage();
+					ecran.joueur.getProtegerImage();
 					ecran.etatJeu = ecran.jouer;
 					if (ecran.musique.clip != null) {
 						ecran.stopperMusique();

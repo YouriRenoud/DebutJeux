@@ -10,6 +10,7 @@ public class StockageDonnees implements Serializable {
     int vieMax;
     int mana;
     int maxMana;
+    int magie;
     int pieces;
     int force;
     int agilite;
@@ -19,6 +20,8 @@ public class StockageDonnees implements Serializable {
     int vitesseDefaut;
     int carteX;
     int carteY;
+    int classe;
+    String nomClasse;
 
     int carteActuelle;
 
@@ -28,6 +31,7 @@ public class StockageDonnees implements Serializable {
     int armeActuelleSlot;
     int armureActuelleSlot;
     int lumiereActuelleSlot;
+    int chaussuresActuellesSlot;
 
     String mondeObjNoms[][];
     int mondeObjX[][];
@@ -40,5 +44,6 @@ public class StockageDonnees implements Serializable {
     int monstreX[][];
     int monstreY[][];
     int monstreVie[][];
+    int monstreMaxVie[][];
     int monstreCarteNum[][];
 }

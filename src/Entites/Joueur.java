@@ -325,8 +325,8 @@ public class Joueur extends Entite {
 	public void getProtegerImage() {
 		gardeBas = initialiser("/joueur/" + nomClasse + "/protegerAvant.png", ecran.tailleFinale, ecran.tailleFinale);
 		gardeHaut = initialiser("/joueur/" + nomClasse + "/protegerArriere.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeGauche = initialiser("/joueur/" + nomClasse + "/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
-		gardeDroite = initialiser("/joueur/" + nomClasse + "/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeGauche = initialiser("/joueur/" + nomClasse + "/protegerGauche.png", ecran.tailleFinale, ecran.tailleFinale);
+		gardeDroite = initialiser("/joueur/" + nomClasse + "/protegerDroite.png", ecran.tailleFinale, ecran.tailleFinale);
 
 	}
 
