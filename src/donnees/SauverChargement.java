@@ -101,9 +101,7 @@ public class SauverChargement {
 
             for (int i = 0; i < ecran.maxCartes; i++) {
                 for (int j = 0; j < ecran.monstre[1].length; j++) {
-                    if (ecran.monstre[i][j] != null 
-                    && ecran.monstre[i][j].nom != "Roi des squelettes"
-                    && ecran.monstre[i][j].nom != "Roi des demons") {
+                    if (ecran.monstre[i][j] != null) {
                         sd.monstreNoms[i][j] = ecran.monstre[i][j].nom;
                         sd.monstreX[i][j] = ecran.monstre[i][j].carteX;
                         sd.monstreY[i][j] = ecran.monstre[i][j].carteY;

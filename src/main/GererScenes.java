@@ -87,7 +87,7 @@ public class GererScenes {
 
             ecran.joueur.carteY -= 2;
 
-            if (ecran.joueur.carteY < ecran.tailleFinale*30) {
+            if (ecran.joueur.carteY < ecran.tailleFinale*8) {
                 scenePhase++;
             }
         }

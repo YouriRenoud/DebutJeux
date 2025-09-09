@@ -184,7 +184,7 @@ public class GererEvent {
 				rect[0][81][84].eventFini = true;
 			}
 
-			else if (touche(0, 96, 76, "droite") == true) {
+			else if (touche(0, 96, 76, "droite")) {
 				visiter(3, 12, 13, ecran.dehors);
 			}
 

@@ -67,8 +67,8 @@ public class Joueur extends Entite {
 		
 		aireSolideDefautX = aireCollision.x;
 		aireSolideDefautY = aireCollision.y;
-		queteEnCours = 5;
-		minerais = 30;
+		queteEnCours = 0;
+		minerais = 0;
 		initialiser(0);
 		
 	}
@@ -79,6 +79,7 @@ public class Joueur extends Entite {
 		inventaire.add(bouclierActuel);
 		inventaire.add(chaussuresActuelles);
 		inventaire.add(new HacheEnPierre(ecran));
+		inventaire.add(new Pioche(ecran));
 		Entite z = new Cle(ecran);
 		z.possedes = 2;
 		inventaire.add(z);
@@ -92,7 +93,7 @@ public class Joueur extends Entite {
 			argent = 10;
 			vieMax = 12;
 			vie = vieMax;
-			force = 3;
+			force = 300;
 			agilite = 3;
 			maxMana = 0;
 			mana = maxMana;
@@ -144,8 +145,8 @@ public class Joueur extends Entite {
 		niveau = 0;
 		carteX = ecran.tailleFinale * 49;
 		carteY = ecran.tailleFinale * 49;
-		//carteX = ecran.tailleFinale * 5;
-		//carteY = ecran.tailleFinale * 83;
+		// carteX = ecran.tailleFinale * 14;
+		// carteY = ecran.tailleFinale * 20;
 		vitesse = vitesseDefaut;
 		direction = "bas";
 		experience = 0;
@@ -153,7 +154,7 @@ public class Joueur extends Entite {
 		armeActuelle = new Poings(ecran);
 		bouclierActuel = new BouclierBasique(ecran);
 		projectile = new BouleDeFeu(ecran);
-		//lumiereActuelle = null;
+		lumiereActuelle = null;
 		chaussuresActuelles = new PiedsNu(ecran);
 
 		attaquer = getAttaque();

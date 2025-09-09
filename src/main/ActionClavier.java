@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class ActionClavier implements KeyListener {
 
 	Ecran ecran;
-	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger, deposer;
+	public boolean haut, bas, gauche, droite, entree, attaquer, tirer, proteger, deposer, sauver;
 	public boolean debug = false;
 	public boolean godMode = false;
 	
@@ -430,6 +430,10 @@ public class ActionClavier implements KeyListener {
 			else {
 				ecran.carte.miniCarteOn = true;
 			}
+		}
+
+		if (touche == KeyEvent.VK_ENTER) {
+			ecran.sauverConfiguration.sauver();
 		}
 	}
 	

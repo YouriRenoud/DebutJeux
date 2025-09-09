@@ -927,8 +927,8 @@ public class GererObject {
 		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*88;
 		i++;
 		ecran.monstre[mapNum][i] = new RoiSquelette(ecran, 3);
-		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*10;
-		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*7;
+		ecran.monstre[mapNum][i].carteX = ecran.tailleFinale*8;
+		ecran.monstre[mapNum][i].carteY = ecran.tailleFinale*5;
 		i++;
 
 		mapNum = 4;
